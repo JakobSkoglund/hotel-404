@@ -7,6 +7,9 @@ import reportWebVitals from './reportWebVitals';
 import Signup from './Components/SignIn/signup';
 import NavAppBar from './Components/homeScreen/navBar';
 import SearchBar from './Components/homeScreen/searchBar';
+import Bookings from './Components/userBookingPage/userBookings';
+import HotelTemplate from './Components/HotelDisplay/hoteltemplate';
+import DisplayHotel from './Components/HotelDisplay/displayHotelCard';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

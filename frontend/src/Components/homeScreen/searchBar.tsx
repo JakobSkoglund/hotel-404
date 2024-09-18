@@ -3,78 +3,83 @@ import {
   Box,
   TextField,
   Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
+  Grid,
 } from "@mui/material";
-import { DatePicker } from "@mui/x-date-pickers";
+import { DatePicker} from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 import SearchIcon from "@mui/icons-material/Search";
 
 const SearchBar = () => {
   const [city, setCity] = useState<string>("");
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [datePickerOpen, setDatePickerOpen] = useState<boolean>(false);
-
-  const handleDatePickerOpen = () => setDatePickerOpen(true);
-  const handleDatePickerClose = () => setDatePickerOpen(false);
-
+  const [dateCheckIn, setDateCheckIn] = useState<Date |null> (null);
+  const [dateCheckOut, setDateCheckOut] = useState<Date |null> (null);
+  
   const handleSearch = () => {
-    if (city && selectedDate) {
+    if (city && dateCheckIn && dateCheckOut) {
+
     } else {
       alert("Please select a city and date");
     }
   };
 
   return (
-    <>
-      <Box
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        mt={2}
-        px={2}
-      >
-        <TextField
-          label="Search for cities"
-          variant="outlined"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-          sx={{ mr: 2, width: "300px" }}
-        />
-        <Button
-          variant="outlined"
-          onClick={handleDatePickerOpen}
-          sx={{ mr: 2 }}
-        >
-          Select Date
-        </Button>
-        <Button variant="contained" color="primary" onClick={handleSearch}>
-          <SearchIcon />
-        </Button>
-      </Box>
 
-      <Dialog open={datePickerOpen} onClose={handleDatePickerClose}>
-        <DialogTitle>Select Date</DialogTitle>
-        <DialogContent>
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DatePicker
-              label="Date"
-              value={selectedDate}
-              onChange={(newValue) => setSelectedDate(newValue)}
-              slotProps={{ textField: { variant: "outlined" } }}
+    <Grid>
+      <Box
+        sx={{
+          border: '2px solid #1976d2',
+          padding: '10px',
+          borderRadius: '8px',
+          maxWidth: '700px',
+          margin: 'auto',
+          mt: 10
+        }}
+      >
+        <Grid container spacing={2} alignItems="center">
+          <Grid item xs={1}>
+            <SearchIcon color="primary" fontSize="large"/>
+          </Grid>
+          <Grid item xs={3}>
+            <TextField
+              label="Search for cities"
+              variant="outlined"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
             />
-          </LocalizationProvider>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleDatePickerClose}>Cancel</Button>
-          <Button onClick={handleDatePickerClose}>Done</Button>
-        </DialogActions>
-      </Dialog>
-    </>
+          </Grid>
+
+          <Grid item xs={3}>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DatePicker 
+                label='Check-in' 
+                value={dateCheckIn}
+                onChange={(value) => setDateCheckIn(value)}/>
+            </LocalizationProvider>
+          </Grid>
+
+          <Grid item xs={3}>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DatePicker
+                label='Check-out' 
+                value={dateCheckOut}
+                onChange={(value) => setDateCheckOut(value)}/>
+            </LocalizationProvider>
+          </Grid>
+
+          <Grid item xs={1}>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={handleSearch}>
+              Search
+            </Button>
+          </Grid>
+        </Grid>
+      </Box>
+    </Grid>
   );
 };
 
 export default SearchBar;
+
