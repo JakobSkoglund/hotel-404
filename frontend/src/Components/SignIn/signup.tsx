@@ -13,7 +13,7 @@ const Signup = () => {
   //styles
   const paperStyle = {
     padding: 20,
-    height: "65vh",
+    //height: "65vh",
     width: 380,
     margin: "20px auto",
   };
