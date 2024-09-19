@@ -2,7 +2,6 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import Link from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import * as React from "react";
 import ApartmentIcon from "@mui/icons-material/Apartment";
@@ -11,8 +10,10 @@ import { profiles, IProfile } from "../../MocData/login";
 import { profile } from "console";
 import { LoggedinContext } from "../../index";
 import { useContext } from "react";
+import {useNavigate, Link} from 'react-router-dom'; 
 
 const Login = () => {
+  const navigate = useNavigate();  
   //lite style
   const paperStyle = {
     padding: 20,
@@ -137,7 +138,7 @@ const Login = () => {
         </Button>
         <Typography sx={{ textAlign: "center" }}>
           Do you want to create an account?&nbsp;
-          <Link href="#">Sign Up</Link>
+          <Link to={"signup"}>Sign Up</Link>
         </Typography>
       </Paper>
     </Grid>

@@ -7,8 +7,9 @@ import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import Button from '@mui/material/Button';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Html } from '@mui/icons-material';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { LoggedinContext } from '../../index';
 
 const NavAppBar = () => {
     
@@ -16,6 +17,9 @@ const NavAppBar = () => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [userAnchorEl, setUserAnchorEl] = useState<null | HTMLElement>(null);
     const [selectedLanguage, setSelectedLanguage] = useState<string>('English');
+
+
+    const {loggedin, setLoggedin} = useContext(LoggedinContext); 
     {/*const navigate = useNavigate();*/}
 
     const handleLanguageClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -46,6 +50,11 @@ const NavAppBar = () => {
     const handleMyPageBookingClick = () => {
         setUserAnchorEl(null);
         navigate('/myBookings');
+    }
+
+    const handleSignOutButtonClick = () => {
+      setLoggedin(false); 
+      navigate('/'); 
     }
  
     return (
@@ -92,6 +101,7 @@ const NavAppBar = () => {
                             keepMounted
                         >
                             <MenuItem onClick={handleMyPageBookingClick}>My Bookings</MenuItem>
+                            <MenuItem onClick={handleSignOutButtonClick}>Sign out</MenuItem>
                         </Menu>
                     </Box>
                 </Box>
