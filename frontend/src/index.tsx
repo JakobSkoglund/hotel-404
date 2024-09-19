@@ -12,7 +12,7 @@ import HotelTemplate from './Components/hotelPage/hoteltemplate';
 import DisplayHotel from './Components/HotelDisplay/displayHotelCard';
 import HotelDate from './Components/hotelPage/hotelDate';
 import { pics } from './MocData/hotelPics';
-
+import HotelDescription from './Components/hotelPage/hotelDescription';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

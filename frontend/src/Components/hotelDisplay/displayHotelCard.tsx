@@ -1,7 +1,7 @@
 import * as React from "react";
 import Grid from "@mui/material/Grid";
 import HotelCard from "./hotelCard"; 
-import {IHotel, hotels} from "../../MocData/hotelCards";
+import { hotels} from "../../MocData/hotelCards";
 
 const DisplayHotel: React.FC = () => {
   return (
