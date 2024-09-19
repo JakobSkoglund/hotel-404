@@ -65,7 +65,7 @@ const HotelTemplate = () => {
           {itemData.map((item) => (
             <ImageListItem
               key={item.img}
-              cols={item.cols || 1}
+              cols={item.cols || 1} 
               rows={item.rows || 1}
             >
               <img
