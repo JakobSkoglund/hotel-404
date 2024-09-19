@@ -11,7 +11,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const NavAppBar = () => {
-
+    
+    const navigate = useNavigate(); 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [userAnchorEl, setUserAnchorEl] = useState<null | HTMLElement>(null);
     const [selectedLanguage, setSelectedLanguage] = useState<string>('English');
@@ -44,7 +45,7 @@ const NavAppBar = () => {
 
     const handleMyPageBookingClick = () => {
         setUserAnchorEl(null);
-        {/*navigate('./userBookings');*/}
+        navigate('/myBookings');
     }
  
     return (

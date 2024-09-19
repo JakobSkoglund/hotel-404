@@ -9,6 +9,8 @@ import ApartmentIcon from "@mui/icons-material/Apartment";
 import { useState } from "react";
 import { profiles, IProfile } from "../../MocData/login";
 import { profile } from "console";
+import { LoggedinContext } from "../../index";
+import { useContext } from "react";
 
 const Login = () => {
   //lite style
@@ -28,6 +30,9 @@ const Login = () => {
   //för att hantera password
   const [password, SetPassword] = useState("");
   const [error, SetError] = useState("");
+  
+  //Globalt tillstånd för huruvida användare är inloggad
+  const {loggedin, setLoggedin} = useContext(LoggedinContext); 
 
   //Ifall användaren trycker på knappen "Enter " efter att ha fyllt i password
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -35,6 +40,7 @@ const Login = () => {
       handleLogin();
     }
   };
+  
 
   //Funktion för att hantera Login och kollar på att errors som kan uppstå
   const handleLogin = () => {
@@ -51,6 +57,7 @@ const Login = () => {
     );
     if (match) {
       alert("Login successful!");
+      setLoggedin(true); 
     } else if (wrongPassword) {
       SetError("Wrong password!");
       SetPassword("");
