@@ -9,10 +9,11 @@ import NavAppBar from './Components/homeScreen/navBar';
 import SearchBar from './Components/homeScreen/searchBar';
 import Bookings from './Components/userBookingPage/userBookings';
 import HotelTemplate from './Components/hotelPage/hoteltemplate';
-import DisplayHotel from './Components/HotelDisplay/displayHotelCard';
+import DisplayHotel from './Components/hotelDisplay/displayHotelCard';
 import HotelDate from './Components/hotelPage/hotelDate';
 import { pics } from './MocData/hotelPics';
 import HotelDescription from './Components/hotelPage/hotelDescription';
+import HotelPage from './Components/hotelPage/hotelPage';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -20,7 +21,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     {/*Ändra på elementet nedan för att rendera din komponent efter att ha importerat den  */}
-    <HotelTemplate hotels={pics}/>
+    <HotelPage/>
   </React.StrictMode>
 );
 

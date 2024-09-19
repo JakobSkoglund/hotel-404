@@ -1,9 +1,7 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import Box from '@mui/material/Box';
 import "./HotelTemplate.css";
 import { IPics } from "../../MocData/hotelPics";
 
@@ -11,7 +9,6 @@ interface IHotelPics {
   hotels: IPics[]
 }
 
-type PicsProps = IPics;
 
 function srcset(image: string, size: number, rows = 1, cols = 1) {
   return {
