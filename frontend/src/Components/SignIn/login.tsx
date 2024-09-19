@@ -16,7 +16,7 @@ const Login = () => {
   //lite style
   const paperStyle = {
     padding: 20,
-    height: "50vh",
+    //height: "50vh",
     width: 380,
     margin: "20px auto",
   };

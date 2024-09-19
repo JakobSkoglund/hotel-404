@@ -8,6 +8,8 @@ import reportWebVitals from './reportWebVitals';
 import Signup from './Components/SignIn/signup';
 import NavAppBar from './Components/homeScreen/navBar';
 import SearchBar from './Components/homeScreen/searchBar';
+
+import DisplayHotel from './Components/hotelDisplay/displayHotelCard';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'; 
 import Bookings from './Components/userBookingPage/userBookings'; 
 

@@ -5,10 +5,8 @@ import hall1 from "../../Images/hall1.png";
 import hall2 from "../../Images/hall2.png";
 import bath1 from "../../Images/bath1.png";
 import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import Box from '@mui/material/Box';
 import "./HotelTemplate.css";
 
 const itemData = [
