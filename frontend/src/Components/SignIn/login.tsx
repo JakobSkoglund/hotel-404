@@ -2,19 +2,22 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import Link from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import * as React from "react";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import { useState } from "react";
 import { profiles, IProfile } from "../../MocData/login";
 import { profile } from "console";
+import { LoggedinContext } from "../../index";
+import { useContext } from "react";
+import {useNavigate, Link} from 'react-router-dom'; 
 
 const Login = () => {
+  const navigate = useNavigate();  
   //lite style
   const paperStyle = {
     padding: 20,
-    height: "50vh",
+    //height: "50vh",
     width: 380,
     margin: "20px auto",
   };
@@ -28,6 +31,9 @@ const Login = () => {
   //för att hantera password
   const [password, SetPassword] = useState("");
   const [error, SetError] = useState("");
+  
+  //Globalt tillstånd för huruvida användare är inloggad
+  const {loggedin, setLoggedin} = useContext(LoggedinContext); 
 
   //Ifall användaren trycker på knappen "Enter " efter att ha fyllt i password
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -35,6 +41,7 @@ const Login = () => {
       handleLogin();
     }
   };
+  
 
   //Funktion för att hantera Login och kollar på att errors som kan uppstå
   const handleLogin = () => {
@@ -51,6 +58,7 @@ const Login = () => {
     );
     if (match) {
       alert("Login successful!");
+      setLoggedin(true); 
     } else if (wrongPassword) {
       SetError("Wrong password!");
       SetPassword("");
@@ -130,7 +138,7 @@ const Login = () => {
         </Button>
         <Typography sx={{ textAlign: "center" }}>
           Do you want to create an account?&nbsp;
-          <Link href="#">Sign Up</Link>
+          <Link to={"signup"}>Sign Up</Link>
         </Typography>
       </Paper>
     </Grid>

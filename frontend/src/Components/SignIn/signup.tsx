@@ -2,18 +2,19 @@ import * as React from "react";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import ApartmentIcon from "@mui/icons-material/Apartment";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { profiles, IProfile } from "../../MocData/login";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
+import { LoggedinContext } from "../../index";
 
 const Signup = () => {
   //styles
   const paperStyle = {
     padding: 20,
-    height: "65vh",
+    //height: "65vh",
     width: 380,
     margin: "20px auto",
   };
@@ -33,6 +34,8 @@ const Signup = () => {
   const [age, SetAge] = useState("");
   //hanterar error
   const [error, SetErrorMsg] = useState("");
+
+  const {loggedin, setLoggedin} = useContext(LoggedinContext); 
 
   //Ifall användaren tycker "Enter" i den efter att ha fyllt i password
   const handKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -70,6 +73,7 @@ const Signup = () => {
       };
       profiles.push(newProfile);
       alert("Sign up successful!");
+      setLoggedin(true); 
     } else {
       alert("User already have an account, try to Sign in!");
     }

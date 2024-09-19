@@ -5,7 +5,7 @@ import { hotels} from "../../MocData/hotelCards";
 
 const DisplayHotel: React.FC = () => {
   return (
-    <Grid container spacing={4} style={{marginTop:2}}> 
+    <Grid container spacing={3} style={{marginTop:2}}> 
       {hotels.map((item) => (
         <Grid item xs={12} sm={6} md={4} lg={4} key={item.key}>
           <HotelCard image={item.image} title={item.title} description={item.description} price={item.price} key={""}/>
