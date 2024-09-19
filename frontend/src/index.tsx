@@ -42,23 +42,38 @@ const Application: React.FC = () => {
   if(!loggedin) {
     return (
       <div>
-        <LoggedinContext.Provider value={{loggedin: loggedin, setLoggedin: setLoggedin}}>
-        <Login/>
-        </LoggedinContext.Provider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={
+            <LoggedinContext.Provider value={{loggedin: loggedin, setLoggedin: setLoggedin}}>
+            <Login/>
+            </LoggedinContext.Provider>}/>
+            <Route path="/signup" element={
+            <LoggedinContext.Provider value={{loggedin: loggedin, setLoggedin: setLoggedin}}>
+            <Signup/>
+            </LoggedinContext.Provider>}/> 
+          </Routes>
+        </BrowserRouter>
       </div>
     )
   }
   else {
     return (
       <div>
-      <BrowserRouter>
-      <NavAppBar/>
-       <Routes>
-          <Route path="/" element={<SearchBar/>}/>
-          <Route path="/mybookings" element={<Bookings/>}/>
-          <Route path="navapp" element={<NavAppBar/>}/>
-        </Routes>
-      </BrowserRouter>
+      <LoggedinContext.Provider value={{loggedin: loggedin, setLoggedin: setLoggedin}}>
+        <BrowserRouter>
+        <NavAppBar/>
+        <Routes>
+            <Route path="/" element={
+              <div>
+                <SearchBar/>
+                <DisplayHotel/>
+              </div>}/>
+            <Route path="/mybookings" element={<Bookings/>}/>
+           <Route path="navapp" element={<NavAppBar/>}/>
+          </Routes>
+        </BrowserRouter>
+        </LoggedinContext.Provider>
       </div>
     )
   }
