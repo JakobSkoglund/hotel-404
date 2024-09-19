@@ -9,8 +9,11 @@ import Signup from './Components/SignIn/signup';
 import NavAppBar from './Components/homeScreen/navBar';
 import SearchBar from './Components/homeScreen/searchBar';
 //import HotelTemplate from './Components/hotelDisplay/hoteltemplate';
+import HotelTemplate from './Components/hotelPage/hoteltemplate';
 import HotelDate from './Components/hotelPage/hotelDate';
+import { pics } from './MocData/hotelPics';
 import HotelDescription from './Components/hotelPage/hotelDescription';
+import HotelPage from './Components/hotelPage/hotelPage';
 
 import DisplayHotel from './Components/hotelDisplay/displayHotelCard';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'; 
@@ -89,6 +92,7 @@ root.render(
   <React.StrictMode>
     {/*Ändra på elementet nedan för att rendera din komponent efter att ha importerat den  */}
     {<Application/>}
+    <HotelPage/>
   </React.StrictMode>
 );
 // If you want to start measuring performance in your app, pass a function
