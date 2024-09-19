@@ -25,19 +25,20 @@ const SearchBar = () => {
 
   return (
 
+    <Grid>
       <Box
         sx={{
           border: '2px solid #1976d2',
           padding: '10px',
           borderRadius: '8px',
-          maxWidth: '900px',
+          maxWidth: '700px',
           margin: 'auto',
           mt: 10
         }}
       >
-        <Grid container spacing={1} alignItems="center">
+        <Grid container spacing={2} alignItems="center">
           <Grid item xs={1}>
-            <SearchIcon color="primary"/>
+            <SearchIcon color="primary" fontSize="large"/>
           </Grid>
           <Grid item xs={3}>
             <TextField
@@ -66,7 +67,7 @@ const SearchBar = () => {
             </LocalizationProvider>
           </Grid>
 
-          <Grid item xs={2}>
+          <Grid item xs={1}>
             <Button
               variant="outlined"
               color="primary"
@@ -75,46 +76,10 @@ const SearchBar = () => {
             </Button>
           </Grid>
         </Grid>
-        
-          
-             {/* <DateRangePicker
-                value={dateRange}
-                onChange={(newValue: React.SetStateAction<DateRange<Date>>) => setDateRange(newValue)}
-                slots={{ textField: TextField}}
-                slotProps={{
-                  textField: {
-                    fullWidth: true,
-                    variant: 'outlined'
-                  }
-                }}
-              />*/}
-            
-
-
       </Box>
-
-      
-   
+    </Grid>
   );
 };
 
 export default SearchBar;
 
-{/*<Button
-              variant="outlined"
-              onClick={handleDatePickerOpen}>
-              <Dialog open={datePickerOpen} onClose={handleDatePickerClose}>
-                <DialogTitle>Select Date Range</DialogTitle>
-                <DialogContent>
-                  <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <Grid item xs={4}>
-                      <DateRangePicker localeText={{ start: 'Check-in', end: 'Check-out' }}/>
-                    </Grid>
-                  </LocalizationProvider>
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={handleDatePickerClose}>Cancel</Button>
-                  <Button onClick={handleDatePickerClose}>Done</Button>
-                </DialogActions>
-              </Dialog>
-            </Button>*/}
