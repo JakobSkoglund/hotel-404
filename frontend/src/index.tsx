@@ -77,6 +77,7 @@ const Application: React.FC = () => {
               </div>}/>
             <Route path="/mybookings" element={<Bookings/>}/>
            <Route path="navapp" element={<NavAppBar/>}/>
+           <Route path="/hotelPage" element={<HotelPage/>}/>
           </Routes>
         </BrowserRouter>
         </LoggedinContext.Provider>
@@ -92,7 +93,6 @@ root.render(
   <React.StrictMode>
     {/*Ändra på elementet nedan för att rendera din komponent efter att ha importerat den  */}
     {<Application/>}
-    <HotelPage/>
   </React.StrictMode>
 );
 // If you want to start measuring performance in your app, pass a function
