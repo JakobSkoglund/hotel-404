@@ -11,7 +11,7 @@ function verifyUser(username: String, password: String): boolean{
     })  
     return false; 
 }
-
+//
 function createUser(name: string, username: string, age: string, password: string, 
     lastname:string, key: string, isAdmin:boolean): IUser{   
         const user: IUser = {
@@ -24,4 +24,5 @@ function createUser(name: string, username: string, age: string, password: strin
             isAdmin: isAdmin
         }; 
         return user; 
-    }
+}
+
