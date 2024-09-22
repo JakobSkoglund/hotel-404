@@ -3,14 +3,7 @@ import room1 from "../Images/room1.png";
 import hall1 from "../Images/hall1.png";
 import hall2 from "../Images/hall2.png";
 import bath1 from "../Images/bath1.png";
-
-export interface IPics {
-    img: string;
-    title: string;
-    rows: number;
-    cols: number;
-    key: string;
-}
+import {IPics} from "../Model/HotelPics"; 
 
 export const pics: IPics[] = [
     {img: hotel1, title: 'The Array Stay', rows: 2, cols: 1, key: '1'},

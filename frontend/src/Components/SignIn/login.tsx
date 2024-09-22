@@ -6,7 +6,7 @@ import TextField from "@mui/material/TextField";
 import * as React from "react";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import { useState } from "react";
-import { profiles, IProfile } from "../../MocData/login";
+import { profiles} from "../../MocData/login";
 import { profile } from "console";
 import { LoggedinContext } from "../../index";
 import { useContext } from "react";

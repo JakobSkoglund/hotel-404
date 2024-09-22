@@ -1,12 +1,4 @@
-export interface IHotel {
-    price: string;
-    image: string;
-    description: string;
-    title:string;
-    key:string;
-
-    //lägg til mer om du vill
-}
+import {IHotel} from "../Model/Hotel";
 // Den här listan kommer att användas som en MOCK för att testa Login funktionalliteten 
 export const hotels: IHotel[] = [
     {title:'The Stack Overflow Hotel', image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmVBBG2nPwGQPO3qiCbizRb7Bu8MbjdHHCdg&s', price:'50', description:'Rooms are endless, but finding one is a bug! Enjoy infinite floors, recursive hallways, and answers like “It depends.” Stuck? Just restart your stay!', key:'1'},
