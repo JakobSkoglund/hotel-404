@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import "./HotelTemplate.css";
-import { IPics } from "../../MocData/hotelPics";
+import { IPics } from "../../Model/HotelPics";
 
 interface IHotelPics {
   hotels: IPics[]

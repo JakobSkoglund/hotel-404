@@ -3,12 +3,14 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import { useState, useContext } from "react";
-import { profiles, IProfile } from "../../MocData/login";
+//import { profiles, IProfile } from "../../MocData/login";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import { LoggedinContext } from "../../index";
+import { CreateUser } from "../../Controller/UserController";
+import { IUser } from "../../Model/User";
 
 const Signup = () => {
   //styles
@@ -37,14 +39,35 @@ const Signup = () => {
 
   const {loggedin, setLoggedin} = useContext(LoggedinContext); 
 
+  const handleSignup = () => {
+    var userCreate: IUser | string = CreateUser(firstname, username, age, password, lastname, "1", false) 
+      if(typeof userCreate === "string"){
+        SetErrorMsg(userCreate); 
+      }
+      else {
+        alert("Sign up successful!");
+        setLoggedin(true); 
+      }
+
+
+  }
   //Ifall användaren tycker "Enter" i den efter att ha fyllt i password
   const handKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Enter") {
-      handleSignUp();
+      handleSignup();
+   /*   var userCreate: IUser | string = CreateUser(firstname, username, age, password, lastname, "1", false) 
+      if(typeof userCreate === "string"){
+        SetErrorMsg(userCreate); 
+      }
+      else {
+        alert("Sign up successful!");
+        setLoggedin(true); 
+      }*/
+
     }
-  };
+  
   //Den här funktionen hanterar nya användare
-  const handleSignUp = () => {
+  /*const handleSignUp = () => {
     //kolla ifall den redan finns med i listan
     const match = profiles.find(
       (profile) => profile.name === firstname && profile.lastname === lastname
@@ -76,7 +99,7 @@ const Signup = () => {
       setLoggedin(true); 
     } else {
       alert("User already have an account, try to Sign in!");
-    }
+    }*/
     //lägger den nya profilen i MOCK listan
 
     //Sätter alla textFields tomma igen
@@ -87,7 +110,6 @@ const Signup = () => {
     SetPassword("");
     SetErrorMsg("");
 
-    console.log(profiles);
   };
 
   return (
@@ -176,7 +198,7 @@ const Signup = () => {
           variant="contained"
           style={btnstyle}
           fullWidth
-          onClick={handleSignUp}
+          onClick={handleSignup}
         >
           <Typography sx={{ mt: 1 }}>
             <b>Sign in</b>

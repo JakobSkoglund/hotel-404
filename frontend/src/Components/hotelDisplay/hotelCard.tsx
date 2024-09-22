@@ -4,7 +4,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import CardActionArea from "@mui/material/CardActionArea";
-import { IHotel } from "../../MocData/hotelCards";
+import { IHotel } from "../../Model/Hotel";
 import { createStyles } from "@mui/material";
 
 type HotelProps = IHotel

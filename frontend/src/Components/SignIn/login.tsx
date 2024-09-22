@@ -6,6 +6,7 @@ import TextField from "@mui/material/TextField";
 import * as React from "react";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import { useState } from "react";
+import { VerifyUser } from "../../Controller/UserController";
 import { profiles} from "../../MocData/login";
 import { profile } from "console";
 import { LoggedinContext } from "../../index";
@@ -46,8 +47,16 @@ const Login = () => {
   //Funktion för att hantera Login och kollar på att errors som kan uppstå
   const handleLogin = () => {
     SetError("");
+    const validUser: boolean = VerifyUser(username, password); 
+    if(validUser){
+      alert("Login successful"); 
+      setLoggedin(true); 
+    } 
+    else {
+      SetError("Invalid username/password combination"); 
+    }
     //Kolla Genom Mock listan för att se ifall username och password hittar en match
-    const match = profiles.find(
+    /*const match = profiles.find(
       (profile) =>
         profile.username === username && profile.password === password
     );
@@ -66,7 +75,7 @@ const Login = () => {
     } else {
       SetError("No such a user!");
       return;
-    }
+    }*/
 
     SetPassword("");
     SetUsername("");

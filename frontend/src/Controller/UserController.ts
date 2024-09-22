@@ -1,19 +1,17 @@
 import { profiles } from "../MocData/login";
 import { IUser } from "../Model/User";
 
-function verifyUser(username: String, password: String): boolean{
+export function VerifyUser(username: String, password: String): boolean{
     //Will make an API request in the future. 
     //Not very secure at the moment, will need to be fixed
-    profiles.forEach(user => {
-        if (user.username === username && user.password === password){
-            return true; 
-        }
-    })  
+    if(profiles.some(user => user.username === username && user.password === password)){
+      return true; 
+    }
     return false; 
 }
 //
-function createUser(name: string, username: string, age: string, password: string, 
-    lastname:string, key: string, isAdmin:boolean): IUser{   
+export function CreateUser(name: string, username: string, age: string, password: string, 
+    lastname:string, key: string, isAdmin:boolean): IUser | string{   
         const user: IUser = {
             name:name, 
             username: username, 
@@ -23,6 +21,14 @@ function createUser(name: string, username: string, age: string, password: strin
             key: key, 
             isAdmin: isAdmin
         }; 
+        if(!name || !username || !age || !password || !lastname){
+          return "invalid fields"; 
+        } 
+        profiles.forEach(user => {
+          if(user.username === username){
+            return "username already in use"; 
+          }
+        })
         return user; 
 }
 

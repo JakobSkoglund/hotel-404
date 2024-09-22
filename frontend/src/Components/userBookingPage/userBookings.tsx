@@ -1,5 +1,5 @@
 import React from 'react';
-import {bookings} from '../../MocData/bookings'; 
+import { GetBookings } from "../../Controller/BookingController"; 
 
 import Grid from '@mui/material/Grid2'; 
 import List from '@mui/material/List'
@@ -12,11 +12,6 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TableContainer from '@mui/material/TableContainer';
 import TableBody from '@mui/material/TableBody';
-
-
-console.log(bookings); 
-
-
 
 const Bookings: React.FC = () => {
 
@@ -42,7 +37,7 @@ const Bookings: React.FC = () => {
              </TableRow>
             </TableHead>
             <TableBody>
-            {bookings.map((booking) => (
+            {GetBookings().map((booking) => (
               <TableRow
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
