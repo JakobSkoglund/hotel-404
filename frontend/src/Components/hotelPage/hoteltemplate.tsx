@@ -18,13 +18,11 @@ function srcset(image: string, size: number, rows = 1, cols = 1) {
 }
 
 const HotelTemplate: React.FC<IHotelPics> = ({ hotels }) => {
-  return (
-    
-    <Grid container spacing={1}>
+  return ( 
       <Grid item xs={12} sm={8}>
         <ImageList
           className="custom-image-list"
-          sx={{ width: 500, height: 450 }}
+          sx={{ width: 700, height: 450 }}
           variant="quilted"
           cols={2}
           rowHeight={150}
@@ -32,9 +30,6 @@ const HotelTemplate: React.FC<IHotelPics> = ({ hotels }) => {
           {hotels.map((item) => (
             <ImageListItem
               key={item.img}
-
-              
-
               cols={item.cols}
               rows={item.rows}
             >
@@ -47,7 +42,6 @@ const HotelTemplate: React.FC<IHotelPics> = ({ hotels }) => {
           ))}
         </ImageList>
       </Grid>
-    </Grid>
   );
 };
 export default HotelTemplate;
