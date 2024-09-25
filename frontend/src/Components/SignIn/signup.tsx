@@ -7,12 +7,13 @@ import { useState, useContext } from "react";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import Link from "@mui/material/Link";
 import { LoggedinContext } from "../../index";
 import { CreateUser } from "../../Controller/UserController";
 import { IUser } from "../../Model/User";
+import {useNavigate, Link} from 'react-router-dom'; 
 
 const Signup = () => {
+  const navigate = useNavigate(); 
   //styles
   const paperStyle = {
     padding: 20,
@@ -46,7 +47,8 @@ const Signup = () => {
       }
       else {
         alert("Sign up successful!");
-        setLoggedin(true); 
+        setLoggedin(true);
+        navigate("/"); 
       }
 
 
@@ -63,8 +65,6 @@ const Signup = () => {
         alert("Sign up successful!");
         setLoggedin(true); 
       }*/
-
-    }
   
   //Den här funktionen hanterar nya användare
   /*const handleSignUp = () => {
@@ -103,13 +103,13 @@ const Signup = () => {
     //lägger den nya profilen i MOCK listan
 
     //Sätter alla textFields tomma igen
-    SetFirstName("");
-    SetLastName("");
-    SetAge("");
-    SetUsername("");
-    SetPassword("");
-    SetErrorMsg("");
-
+      SetFirstName("");
+      SetLastName("");
+      SetAge("");
+      SetUsername("");
+      SetPassword("");
+      SetErrorMsg("");
+    }
   };
 
   return (
@@ -206,7 +206,7 @@ const Signup = () => {
         </Button>
         <Typography sx={{ textAlign: "center" }}>
           Already have an account?&nbsp;
-          <Link href="#">Sign in</Link>
+          <Link to="/">Sign in</Link>
         </Typography>
       </Paper>
     </Grid>

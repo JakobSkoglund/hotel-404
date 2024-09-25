@@ -77,7 +77,7 @@ const Application: React.FC = () => {
               </div>}/>
             <Route path="/mybookings" element={<Bookings/>}/>
            <Route path="navapp" element={<NavAppBar/>}/>
-           <Route path="/hotelPage" element={<HotelPage/>}/>
+           <Route path="/hotelDetail" element={<HotelPage/>}/>
           </Routes>
         </BrowserRouter>
         </LoggedinContext.Provider>

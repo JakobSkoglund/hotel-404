@@ -6,10 +6,11 @@ import Typography from "@mui/material/Typography";
 import CardActionArea from "@mui/material/CardActionArea";
 import { IHotel } from "../../Model/Hotel";
 import { createStyles } from "@mui/material";
-
+import { useNavigate } from "react-router-dom"; 
 type HotelProps = IHotel
 
 const HotelCard: React.FC<HotelProps> = ({image, title, description, price}) => {
+  const navigate = useNavigate(); 
   return (
     <Card
       sx={{
@@ -22,7 +23,7 @@ const HotelCard: React.FC<HotelProps> = ({image, title, description, price}) => 
       
     >
       
-      <CardActionArea>
+      <CardActionArea onClick={() => navigate("/hotelDetail")}>
         <CardMedia
           component="img"
           sx={{
