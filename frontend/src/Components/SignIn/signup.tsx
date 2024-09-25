@@ -131,7 +131,6 @@ const Signup = () => {
           <Grid item xs={6}>
             <TextField
               label="First name"
-              placeholder="First name"
               fullWidth
               required
               style={userlblstyle}
@@ -142,7 +141,6 @@ const Signup = () => {
           <Grid item xs={6}>
             <TextField
               label="Last name"
-              placeholder="Last name"
               fullWidth
               required
               style={userlblstyle}
@@ -153,7 +151,6 @@ const Signup = () => {
         </Grid>
         <TextField
           label="Age"
-          placeholder="18+"
           type="number"
           fullWidth
           required
@@ -163,7 +160,6 @@ const Signup = () => {
         />
         <TextField
           label="Username"
-          placeholder="User123"
           type="text"
           fullWidth
           required
@@ -174,7 +170,6 @@ const Signup = () => {
 
         <TextField
           label="Password"
-          placeholder="Password"
           type="password"
           fullWidth
           required

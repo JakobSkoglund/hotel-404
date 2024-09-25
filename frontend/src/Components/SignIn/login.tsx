@@ -104,7 +104,6 @@ const Login = () => {
 
         <TextField
           label="Username"
-          placeholder="User123"
           fullWidth
           required
           style={userlblstyle}
@@ -113,7 +112,6 @@ const Login = () => {
         />
         <TextField
           label="Password"
-          placeholder="Password"
           type="password"
           fullWidth
           required
