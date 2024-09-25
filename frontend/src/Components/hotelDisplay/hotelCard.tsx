@@ -9,7 +9,7 @@ import { createStyles } from "@mui/material";
 import { useNavigate } from "react-router-dom"; 
 type HotelProps = IHotel
 
-const HotelCard: React.FC<HotelProps> = ({image, title, description, price}) => {
+const HotelCard: React.FC<HotelProps> = ({image, title, description, price, city}) => {
   const navigate = useNavigate(); 
   return (
     <Card
@@ -39,7 +39,10 @@ const HotelCard: React.FC<HotelProps> = ({image, title, description, price}) => 
           <Typography gutterBottom variant="h5" component="div">
             {title}
           </Typography>
-          <Typography variant="body2" sx={{ color: "text.secondary" }}>
+          <Typography gutterBottom variant="h6" component="div" >
+            {city}
+          </Typography>
+          <Typography variant="body1" sx={{ color: "text.secondary" }}>
             {description}
           </Typography>
           <Typography

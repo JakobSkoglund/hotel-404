@@ -13,7 +13,7 @@ const DisplayHotel: React.FC = () => {
     <Grid container spacing={3} style={{marginTop:2}}> 
       {hotels.map((item) => (
         <Grid item xs={12} sm={6} md={4} lg={4} key={item.key}>
-          <HotelCard image={item.image} title={item.title} description={item.description} price={item.price} key={""}/>
+          <HotelCard image={item.image} title={item.title} description={item.description} price={item.price} city={item.city} key={""}/>
         </Grid>
       ))}
     </Grid>
