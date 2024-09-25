@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { GetBookings } from "../../Controller/BookingController"; 
 
 import Grid from '@mui/material/Grid2'; 
@@ -12,9 +12,18 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TableContainer from '@mui/material/TableContainer';
 import TableBody from '@mui/material/TableBody';
+import { Button } from '@mui/material';
+import { IBooking } from '../../Model/Booking';
 
 const Bookings: React.FC = () => {
+  //Stores all the bookings
+  const [bookingList, SetBookingList] = useState<IBooking[]> (GetBookings());
 
+  //Function that handles cancellation
+  const handleCancelation = (id:number) => {
+    const afterCancelation = bookingList.filter((booking) => booking.id !== id);
+    SetBookingList(afterCancelation);
+  }
   return (
     <Grid container
     spacing={0}>
@@ -22,29 +31,40 @@ const Bookings: React.FC = () => {
       display="flex"
       alignItems="center"
       justifyContent="center">
-      <h1>Your Bookings</h1></Grid>
+      <h1>My Bookings</h1></Grid>
       <Grid size={12}
       marginLeft={"100px"}
       marginRight={"100px"}>
         <TableContainer component={Paper}>
-          <Table sx={{minWidth: 650}} aria-label="hotel bookings">
+          <Table sx={{minWidth: 700}} aria-label="hotel bookings">
             <TableHead>
               <TableRow>
-                <TableCell align="center">Hotel</TableCell>
-                <TableCell align="center">From</TableCell>
-                <TableCell align="center">To</TableCell>
-                <TableCell align="center">Price</TableCell>
+                <TableCell align="left">Hotel</TableCell>
+                <TableCell align="left">From</TableCell>
+                <TableCell align="left">To</TableCell>
+                <TableCell align="left">Price ($)</TableCell>
+                <TableCell></TableCell>
              </TableRow>
             </TableHead>
             <TableBody>
-            {GetBookings().map((booking) => (
+            {bookingList.map((booking) => (
               <TableRow
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell align="center">{booking.hotel}</TableCell>
-              <TableCell align="center">{booking.from_date}</TableCell>
-              <TableCell align="center">{booking.to_date}</TableCell>
-              <TableCell align="center">{booking.cost.toString()}</TableCell>
+              <TableCell align="left">{booking.hotel}</TableCell>
+              <TableCell align="left">{booking.from_date}</TableCell>
+              <TableCell align="left">{booking.to_date}</TableCell>
+              <TableCell align="left">{booking.cost.toString()} </TableCell>
+              <TableCell align="left">
+                <Button
+                  type='submit'
+                  color='primary'
+                  size='large'
+                  variant='contained'
+                  fullWidth
+                  onClick={() => handleCancelation(booking.id)}
+                >Cancel</Button>
+              </TableCell>
             </TableRow>
             ))}
             </TableBody>

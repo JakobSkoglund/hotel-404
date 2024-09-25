@@ -24,6 +24,10 @@ export function CreateUser(name: string, username: string, age: string, password
         if(!name || !username || !age || !password || !lastname){
           return "invalid fields"; 
         } 
+        else if(parseInt(age) <=17)
+        {
+          return "You need to be at least 18 years old"
+        }
         profiles.forEach(user => {
           if(user.username === username){
             return "username already in use"; 
