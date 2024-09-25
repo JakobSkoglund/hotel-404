@@ -40,7 +40,7 @@ const Signup = () => {
   const {loggedin, setLoggedin} = useContext(LoggedinContext); 
 
   const handleSignup = () => {
-    var userCreate: IUser | string = CreateUser(firstname, username, age, password, lastname, "1", false) 
+    const userCreate: IUser | string = CreateUser(firstname, username, age, password, lastname, "1", false);
       if(typeof userCreate === "string"){
         SetErrorMsg(userCreate); 
       }
@@ -131,7 +131,7 @@ const Signup = () => {
           <Grid item xs={6}>
             <TextField
               label="First name"
-              placeholder="Amanda"
+              placeholder="First name"
               fullWidth
               required
               style={userlblstyle}
@@ -142,7 +142,7 @@ const Signup = () => {
           <Grid item xs={6}>
             <TextField
               label="Last name"
-              placeholder="Nyander"
+              placeholder="Last name"
               fullWidth
               required
               style={userlblstyle}
@@ -163,7 +163,7 @@ const Signup = () => {
         />
         <TextField
           label="Username"
-          placeholder="George1233"
+          placeholder="User123"
           type="text"
           fullWidth
           required

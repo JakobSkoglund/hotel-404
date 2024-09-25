@@ -19,6 +19,7 @@ const HotelCard: React.FC<HotelProps> = ({image, title, description, price}) => 
         display: 'flex',
         flexDirection: 'column'
       }}
+      
     >
       
       <CardActionArea>

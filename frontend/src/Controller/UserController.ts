@@ -1,7 +1,7 @@
 import { profiles } from "../MocData/login";
 import { IUser } from "../Model/User";
 
-export function VerifyUser(username: String, password: String): boolean{
+export function VerifyUser(username: string, password: string): boolean{
     //Will make an API request in the future. 
     //Not very secure at the moment, will need to be fixed
     if(profiles.some(user => user.username === username && user.password === password)){

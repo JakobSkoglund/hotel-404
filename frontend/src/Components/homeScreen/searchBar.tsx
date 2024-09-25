@@ -33,7 +33,7 @@ const SearchBar = () => {
           borderRadius: '8px',
           maxWidth: '700px',
           margin: 'auto',
-          mt: 10
+          mt: 5
         }}
       >
         <Grid container spacing={2} alignItems="center">

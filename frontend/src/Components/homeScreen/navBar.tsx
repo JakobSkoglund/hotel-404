@@ -56,6 +56,10 @@ const NavAppBar = () => {
       setLoggedin(false); 
       navigate('/'); 
     }
+
+    const handleBackToIndexClick = () => {
+        navigate('/');
+    }
  
     return (
         <AppBar position='static'>
@@ -63,7 +67,7 @@ const NavAppBar = () => {
                 {/* Left side, logo and name*/}
                 <Box display={"flex"} alignItems={"center"} flexGrow={1}>
                     <ApartmentIcon style={{height: '40px', marginRight: '10px' }} sx={{fontSize: 30}}/>
-                    <Typography variant='h6' component={"div"} fontSize={30} fontWeight={"bold"}>
+                    <Typography variant='h6' component={"div"} fontSize={30} fontWeight={"bold"} onClick={handleBackToIndexClick}>
                         HOTEL-404
                     </Typography>
                 </Box>

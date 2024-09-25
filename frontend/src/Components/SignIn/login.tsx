@@ -7,14 +7,12 @@ import * as React from "react";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import { useState } from "react";
 import { VerifyUser } from "../../Controller/UserController";
-import { profiles} from "../../MocData/login";
-import { profile } from "console";
 import { LoggedinContext } from "../../index";
 import { useContext } from "react";
-import {useNavigate, Link} from 'react-router-dom'; 
+import { Link} from 'react-router-dom'; 
 
 const Login = () => {
-  const navigate = useNavigate();  
+  
   //lite style
   const paperStyle = {
     padding: 20,
