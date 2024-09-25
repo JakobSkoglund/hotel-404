@@ -3,6 +3,7 @@ import Grid from "@mui/material/Grid";
 import HotelDescription from "./hotelDescription";
 import HotelTemplate from "./hoteltemplate";
 import HotelDate from "./hotelDate";
+import HotelBookbtn from "./hotelBookbtn";
 import { pics } from "../../MocData/hotelPics";
 
 const HotelPage = () => {
@@ -23,7 +24,15 @@ const HotelPage = () => {
       <Grid item xs={12}>
         <HotelDate />
       </Grid>
+      <Grid item xs={12}>
+      <div style={{ marginTop: 25 }}> 
+          <HotelBookbtn />
+        </div>
+      </Grid>
+
     </Grid>
+
+
   );
 };
 
