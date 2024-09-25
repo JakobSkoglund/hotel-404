@@ -2,7 +2,7 @@ import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import ApartmentIcon from "@mui/icons-material/Apartment";
-import { Grid, IconButton, Menu, MenuItem, Toolbar, Typography} from '@mui/material';
+import { DialogTitle, Grid, IconButton, Menu, MenuItem, Toolbar, Typography} from '@mui/material';
 import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import Button from '@mui/material/Button';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -10,6 +10,9 @@ import { Html } from '@mui/icons-material';
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LoggedinContext } from '../../index';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
 
 const NavAppBar = () => {
     
@@ -17,7 +20,7 @@ const NavAppBar = () => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [userAnchorEl, setUserAnchorEl] = useState<null | HTMLElement>(null);
     const [selectedLanguage, setSelectedLanguage] = useState<string>('English');
-    
+    const [openAboutDialog, setOpenAboutDialog] = useState(false);
 
 
     const {loggedin, setLoggedin} = useContext(LoggedinContext); 
@@ -37,8 +40,12 @@ const NavAppBar = () => {
     }
  
     const handleAboutClick = () => {
-        {/*navigate('./aboutPage');*/}
+        setOpenAboutDialog(true); // Open the dialog
     }
+
+    const handleAboutDialogClose = () => {
+        setOpenAboutDialog(false); // Close the dialog
+    };
 
     const handleMyPageClick = (event: React.MouseEvent<HTMLElement>) => {
         setUserAnchorEl(event.currentTarget);
@@ -90,6 +97,7 @@ const NavAppBar = () => {
                             <MenuItem onClick={() => handleLanguageSelect('English')}>English</MenuItem>
                         </Menu>
                     </Box>
+
                     <Box sx={{ml: 3}}>
                         <Button color='inherit' variant='outlined' onClick={handleAboutClick}>
                             About
@@ -111,6 +119,25 @@ const NavAppBar = () => {
                     </Box>
                 </Box>
             </Toolbar>
+            <Dialog open={openAboutDialog} onClose={handleAboutDialogClose}>
+                <DialogTitle>
+                    About HOTEL-404
+                </DialogTitle>
+                <DialogContent>
+                <Typography variant="body1">
+                Welcome to HOTEL-404, created in 2024 by 4 datascience students.
+                </Typography>
+                <Typography variant="body1" sx={{ mt: 2 }}>
+                        Enjoy your stay!
+                    </Typography>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleAboutDialogClose} color="primary">
+                        Close
+                    </Button>
+                </DialogActions>
+
+            </Dialog>
         </AppBar>
     )
 }
