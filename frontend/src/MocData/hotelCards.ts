@@ -1,7 +1,7 @@
 import {IHotel} from "../Model/Hotel";
 // Den här listan kommer att användas som en MOCK för att testa Login funktionalliteten 
 export const hotels: IHotel[] = [
-    {title:'The Stack Overflow Hotel', image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmVBBG2nPwGQPO3qiCbizRb7Bu8MbjdHHCdg&s', price:'50', description:'Rooms are endless, but finding one is a bug! Enjoy infinite floors and halls, with answers like “It depends.” Stuck? Restart your stay!', key:'1', city:'New York'},
+    {title:'The Stack Overflow Hotel', image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmVBBG2nPwGQPO3qiCbizRb7Bu8MbjdHHCdg&s', price:'50', description:'Endless rooms, but finding one is a bug! Stuck? Just restart!', key:'1', city:'New York'},
     {title:'The Infinite Loop Lodge', image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmVBBG2nPwGQPO3qiCbizRb7Bu8MbjdHHCdg&s', price:'40', description:'Check-in once, and you’ll never check out! Guests enjoy endless repeats of the same experience... forever.', key:'2', city:'New York'},
     {title:'The Debuggers Dan', image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmVBBG2nPwGQPO3qiCbizRb7Bu8MbjdHHCdg&s', price:'30', description:'Where every problem is your problem! Relax as you hunt for bugs in our glitchy but charming rooms.', key:'3', city:'Lund'},
     {title:'Syntax Error Suites', image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmVBBG2nPwGQPO3qiCbizRb7Bu8MbjdHHCdg&s', price:'150', description:'Nothing works here, but no worries—you’ll just keep getting errors until you give up and enjoy the chaos!', key:'4', city:'Lund'},

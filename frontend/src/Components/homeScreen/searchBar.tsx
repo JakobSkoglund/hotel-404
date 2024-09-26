@@ -16,10 +16,10 @@ const SearchBar = () => {
   const [dateCheckOut, setDateCheckOut] = useState<Date |null> (null);
   
   const handleSearch = () => {
-    if (city) {
+    if (city && dateCheckIn && dateCheckOut) {
       //Här ska vi fixa funktionalitet till söka 
     } else {
-      alert("Please select a city");
+      alert("Please select a city and dates");
     }
   };
 
