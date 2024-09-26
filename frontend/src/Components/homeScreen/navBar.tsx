@@ -125,7 +125,7 @@ const NavAppBar = () => {
                 </DialogTitle>
                 <DialogContent>
                 <Typography variant="body1">
-                Welcome to HOTEL-404, created in 2024 by 4 datascience students.
+                Welcome to HOTEL-404, created in 2024 by 4 datascience students. Adjust your expectations accordingly. 
                 </Typography>
                 <Typography variant="body1" sx={{ mt: 2 }}>
                         Enjoy your stay!

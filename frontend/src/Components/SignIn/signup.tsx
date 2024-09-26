@@ -43,6 +43,7 @@ const Signup = () => {
   const handleSignup = () => {
     const userCreate: IUser | string = CreateUser(firstname, username, age, password, lastname, "1", false);
       if(typeof userCreate === "string"){
+        console.log(userCreate); 
         SetErrorMsg(userCreate); 
       }
       else {
@@ -108,7 +109,7 @@ const Signup = () => {
       SetAge("");
       SetUsername("");
       SetPassword("");
-      SetErrorMsg("");
+      //SetErrorMsg("");
     }
   };
 
