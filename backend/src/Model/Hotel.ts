@@ -1,9 +1,30 @@
-export interface IHotel {
-    price: string;
-    image: string;
-    description: string;
-    title:string;
-    key:string;
+import mongoose from "mongoose"; 
 
-    //lägg til mer om du vill
-}
+const hotelSchema = new mongoose.Schema({
+  city: {
+    type: String, 
+    required: true
+  }, 
+  price: {
+    type: Number,  
+    required: true
+  }, 
+  image: {
+    type: [String], 
+    required: true
+  }, 
+  description: {
+    type: String, 
+    required: true
+  }, 
+  title: {
+    type: String, 
+    required: true
+  }, 
+  key: {
+    type: String, 
+    required: true
+  }, 
+})
+
+export default hotelSchema; 
