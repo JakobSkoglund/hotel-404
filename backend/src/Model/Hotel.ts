@@ -1,6 +1,6 @@
 import mongoose from "mongoose"; 
 
-const hotelSchema = new mongoose.Schema({
+export const hotelSchema = new mongoose.Schema({
   city: {
     type: String, 
     required: true
@@ -11,7 +11,6 @@ const hotelSchema = new mongoose.Schema({
   }, 
   image: {
     type: [String], 
-    required: true
   }, 
   description: {
     type: String, 
@@ -19,12 +18,8 @@ const hotelSchema = new mongoose.Schema({
   }, 
   title: {
     type: String, 
-    required: true
+    required: true, 
+    index: true
   }, 
-  key: {
-    type: String, 
-    required: true
-  }, 
-})
+}); 
 
-export default hotelSchema; 
