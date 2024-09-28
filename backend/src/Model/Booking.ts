@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const bookingSchema = new mongoose.Schema({
+export const bookingSchema = new mongoose.Schema({
   id: {
     type: Number, 
     required: true
@@ -23,4 +23,3 @@ const bookingSchema = new mongoose.Schema({
   }
 }); 
 
-export default bookingSchema; 
