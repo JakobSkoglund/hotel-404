@@ -16,7 +16,7 @@ const HotelDescription = () => {
             Welcome to Syntax Error Suites — where luxury meets imagination! Nestled in the heart of nowhere yet somehow everywhere, our five-star hotel offers the perfect blend of non-existent view
             ✨ Why choose us?
             Rooms fit for royalty: Handcrafted by invisible artisans, each suite features air that’s 100% fresher than anywhere else in the world. Enjoy custom-designed beds that may or may not exist!
-Gourmet dining: Our award-winning chef serves up meals that taste like they were cooked by the gods themselves — or maybe it’s just your imagination. Either way, you'll love every bite!
+G           ourmet dining: Our award-winning chef serves up meals that taste like they were cooked by the gods themselves — or maybe it’s just your imagination. Either way, you'll love every bite!
                 
             </Typography>
         </Card>
