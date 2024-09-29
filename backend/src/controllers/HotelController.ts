@@ -41,10 +41,11 @@ export async function name(hotelName: string, details: HotelDetails) {
                 contentType: "image/png",
             };
         } catch (error: unknown) {
-            
+
         }
 
     }
+
 
 
 

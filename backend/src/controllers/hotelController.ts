@@ -1,8 +1,7 @@
 import mongoose from "mongoose"; 
 
-import { Hotel } from "../Model/HotelModel"; 
 import { Booking } from "../Model/Booking"; 
-
+import { bookingSchema } from "../Model/Booking"; 
 mongoose.connect("mongodb://127.0.0.1:27017/webdev"); 
 
 Booking.create({
