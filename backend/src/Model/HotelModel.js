@@ -1,20 +1,21 @@
-import mongoose from "mongoose";
-
-const hotelSchema = new mongoose.Schema({
-
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const mongoose_1 = __importDefault(require("mongoose"));
+const hotelSchema = new mongoose_1.default.Schema({
     /* Hotel Display */
-    display: { 
+    display: {
         title: { type: String, required: true },
         city: { type: String, required: true },
         description: { type: String, required: true },
         price: { type: String, required: true },
     },
-
     /* Hotel Page */
-    page: { 
+    page: {
         title_hp: { type: String, required: true },
         description_hp: { type: String, required: true },
-        key_hp: { type: String, required: true, unique: true },
     },
     /* Hotel Pictures */
     hotel_img: {
@@ -41,8 +42,6 @@ const hotelSchema = new mongoose.Schema({
         data: Buffer,
         contentType: String,
     },
-
-
 });
-
-export const Hotel = mongoose.model('Hotel', hotelSchema);
+const Hotel = mongoose_1.default.model('Hotel', hotelSchema);
+exports.default = Hotel; // Change this line
