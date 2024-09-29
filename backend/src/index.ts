@@ -38,11 +38,11 @@ async function testGetHotelById(hotelId: string)
   }
 }
 
-async function testGetHotelByName(hotelId: string) 
+async function testGetHotelByName(hotelName: string) 
 {
   try 
   {
-    const hotel = await getHotelDocumentById(hotelId);
+    const hotel = await getHotelDocumentByName(hotelName);
     console.log('Hotel retrieved by ID:', hotel);
   } 
   catch (error) 
@@ -50,6 +50,8 @@ async function testGetHotelByName(hotelId: string)
     
   }
 }
+
+
 
 const hotelIdToTest = '66f7fb34c6cb069d99d6998e'; // Change to test
 const hotelNameToTest = 'Hotel Try'; // Change to test
