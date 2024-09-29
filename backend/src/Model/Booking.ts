@@ -1,9 +1,12 @@
 import mongoose from "mongoose";
 
-export const bookingSchema = new mongoose.Schema({
+const bookingSchema = new mongoose.Schema({
   id: {
     type: Number, 
     required: true
+  },
+  hotel: {
+    type:mongoose.Schema.Types.ObjectId, ref: 'Hotel'
   }, 
   user: {
     type: String, 
@@ -21,5 +24,6 @@ export const bookingSchema = new mongoose.Schema({
     type: Number, 
     required: true
   }
-}); 
+});
 
+export const Booking = mongoose.model('Bookings', bookingSchema); 

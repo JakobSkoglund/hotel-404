@@ -43,5 +43,5 @@ const hotelSchema = new mongoose.Schema({
         contentType: String,
     },
 });
-export const Hotel = mongoose.model('Hotel', hotelSchema);
+export const Hotel = mongoose.Model('Hotel', hotelSchema);
 //exports.default = Hotel; // Change this line
