@@ -3,6 +3,7 @@
 import express from "express"; 
 import mongoose from "mongoose";
 import { Hotel } from "./Model/HotelModel";
+import { getHotelDocumentById, getHotelDocumentByName } from './Controllers/HotelController'
 
 const app = express(); 
 
@@ -20,6 +21,47 @@ mongoose.connect(mongoURI)
   .catch(err => {
     console.error('MongoDB connection error:', err);
   });
+
+
+//TEST getDocumentByID/Name
+
+async function testGetHotelById(hotelId: string) 
+{
+  try 
+  {
+    const hotel = await getHotelDocumentById(hotelId);
+    console.log('Hotel retrieved by ID:', hotel);
+  } 
+  catch (error) 
+  {
+  
+  }
+}
+
+async function testGetHotelByName(hotelId: string) 
+{
+  try 
+  {
+    const hotel = await getHotelDocumentById(hotelId);
+    console.log('Hotel retrieved by ID:', hotel);
+  } 
+  catch (error) 
+  {
+    
+  }
+}
+
+const hotelIdToTest = '66f7fb34c6cb069d99d6998e'; // Change to test
+const hotelNameToTest = 'Hotel Try'; // Change to test
+
+testGetHotelById(hotelIdToTest);
+testGetHotelByName(hotelNameToTest);
+
+//END OF TEST getDocumentByID/Name
+
+
+
+
 
 // TEST BLOCK
 const jsonTest = {

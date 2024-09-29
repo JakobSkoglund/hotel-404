@@ -13,8 +13,8 @@ const hotelSchema = new mongoose.Schema({
 
     /* Hotel Page */
     page: { 
-        title_hp: { type: String, required: true },
-        description_hp: { type: String, required: true },
+        title: { type: String, required: true },
+        description: { type: String, required: true },
     },
     /* Hotel Pictures */
     hotel_img: {
