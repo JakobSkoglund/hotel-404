@@ -2,8 +2,8 @@
 
 import express from "express"; 
 import mongoose from "mongoose";
+import Hotel from "./Model/HotelModel";
 
-const Hotel = require('./models/HotelModel');
 const app = express(); 
 
 // Parse incoming JSON request.
