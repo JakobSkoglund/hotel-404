@@ -1,18 +1,20 @@
 "use strict";
 // src/index.js
-var __importDefault = (this && this.__importDefault) || function (mod) {
+/*var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const mongoose_1 = __importDefault(require("mongoose"));
-const Hotel = require('./models/HotelModel');
-const app = (0, express_1.default)();
+*/
+import express from "express";
+import mongoose from "mongoose"; 
+const app = express(); 
+
+import {Hotel } from './Model/HotelModel.js';
 // Parse incoming JSON request.
-app.use(express_1.default.json());
-const router = express_1.default.Router();
+app.use(express.json());
+const router =express.Router();
 const mongoURI = 'mongodb+srv://Cluster46730:VE9vWGN0YkFm@cluster46730.bv6pq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster46730';
-mongoose_1.default.connect(mongoURI)
+mongoose.connect(mongoURI)
     .then(() => {
     console.log('Connected to MongoDB Atlas');
 })

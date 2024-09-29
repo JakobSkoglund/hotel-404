@@ -1,10 +1,10 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
+/*var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = __importDefault(require("mongoose"));
-const hotelSchema = new mongoose_1.default.Schema({
+Object.defineProperty(exports, "__esModule", { value: true });*/
+import mongoose from "mongoose"; 
+const hotelSchema = new mongoose.Schema({
     /* Hotel Display */
     display: {
         title: { type: String, required: true },
@@ -43,5 +43,5 @@ const hotelSchema = new mongoose_1.default.Schema({
         contentType: String,
     },
 });
-const Hotel = mongoose_1.default.model('Hotel', hotelSchema);
-exports.default = Hotel; // Change this line
+export const Hotel = mongoose.model('Hotel', hotelSchema);
+//exports.default = Hotel; // Change this line
