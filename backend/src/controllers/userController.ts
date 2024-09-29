@@ -38,9 +38,63 @@ async function AuthLogin (username: string, password:string)
         throw error;
     }
 
-    
+}
 
-    
+//Funktion som kolla ifall det finns en annan användare med samma username
+//Om det inte finns en match return true annars false
+async function usernameCheck(username: string)
+{
+    try {
+        const check = await User.findOne({username:username})
+
+        if(check)
+        {
+            //En match hittades
+            return false;
+        }
+        //En match hittades inte
+        return true;
+    }
+    catch (error)
+    {
+        console.error(error)
+    }
+}
+//En funktion för att kolla ålder
+//Om åldern är ok returnar den true 
+function checkAge (age:number) 
+{
+    return age >=18;
+}
+
+//Function för att hantera en ny användare
+async function newUser(name:string, lastname:string, username:string, age: number, password: string, isAdmin: boolean) {
+    try {
+        const firstCheck = await usernameCheck(username);
+        const secondCheck = await checkAge(age);
+        if(!firstCheck)
+        {   
+           
+            throw new Error('This username is taken');
+        }
+        else if(!secondCheck)
+        {
+            throw new Error('You are too young to make an account');
+        }
+        User.create({
+            name: name,
+            lastname: lastname,
+            username:username,
+            password:password,
+            isAdmin: isAdmin,
+            age: age
+
+        })
+    }
+    catch(error)
+    {
+        console.error(error);
+    }
 
 }
 
