@@ -2,7 +2,7 @@
 
 import express from "express"; 
 import mongoose from "mongoose";
-import Hotel from "./Model/HotelModel";
+import { Hotel } from "./Model/HotelModel";
 
 const app = express(); 
 
