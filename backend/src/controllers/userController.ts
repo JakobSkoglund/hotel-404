@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { User } from "../Model/User";
 import { error } from "console";
+import { Booking } from "../Model/Booking";
 
 
 /*User.create({
@@ -97,5 +98,47 @@ export async function newUser(name:string, lastname:string, username:string, age
 
 }
 
+export async function deleteBooking(bookingId: string) {
+    
+    try {
+        const booking = await Booking.findByIdAndDelete(bookingId);
+        
+        if (!booking) {
+            throw new Error('Error 001: Booking not found');
+        }
 
+        return true;
+        
+    } catch (error) {
+        
+        if (error instanceof Error) {
+            console.error('Error retrieving booking by ID:', error.message);
+        } else {
+            console.error('An unexpected error occurred:', error);
+        }
+        throw error;
+    }
+}
 
+export async function deleteUser(username:string, bookingId: string) {
+    try {
+        const check = await User.findByIdAndDelete(username);
+        const bookingDelete = await deleteBooking(bookingId);
+
+        if (!check) {
+            throw new Error('Error 001: User not found');
+        } 
+
+        if (bookingDelete) {
+            console.log("Booking removed");
+        }
+
+    } catch (error) {
+        if (error instanceof Error) {
+            console.error('Error retrieving user by ID:', error.message);
+        } else {
+            console.error('An unexpected error occurred:', error);
+        }
+        throw error;
+    }
+}

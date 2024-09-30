@@ -14,7 +14,7 @@ export async function deleteBooking(bookingId: string) {
     } catch (error) {
         
         if (error instanceof Error) {
-            console.error('Error retrieving hotel by ID:', error.message);
+            console.error('Error retrieving booking by ID:', error.message);
         } else {
             console.error('An unexpected error occurred:', error);
         }
