@@ -2,20 +2,19 @@ import mongoose from "mongoose";
 import { User } from "../Model/User";
 import { error } from "console";
 
-mongoose.connect("mongodb://127.0.0.1:27017/webdev");
 
-User.create({
+/*User.create({
     name: "Adam",
     lastname:"abc",
     username:"Adam123",
     age:21,
     password:"0000",
     isAdmin:false
-});
+});*/
 console.log("Found connection");
-
+    
 //function som hanterar login
-async function AuthLogin (username: string, password:string)
+export async function AuthLogin (username: string, password:string)
 {
     try {
         const found = await User.findOne({username:username, password:password})
@@ -68,10 +67,10 @@ function checkAge (age:number)
 }
 
 //Function för att hantera en ny användare
-async function newUser(name:string, lastname:string, username:string, age: number, password: string, isAdmin: boolean) {
+export async function newUser(name:string, lastname:string, username:string, age: number, password: string, isAdmin: boolean) {
     try {
         const firstCheck = await usernameCheck(username);
-        const secondCheck = await checkAge(age);
+        const secondCheck = checkAge(age);
         if(!firstCheck)
         {   
            

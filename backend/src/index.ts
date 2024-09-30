@@ -4,6 +4,8 @@ import express from "express";
 import mongoose from "mongoose";
 import { Hotel } from "./Model/HotelModel";
 import router from "./Routers/hotelRouter"; 
+import userRouter from "./Routers/hotelRouter"; 
+
 import { getHotelDocumentById, getHotelDocumentByName } from './controllers/hotelController'
 
 const app = express(); 
@@ -22,8 +24,8 @@ mongoose.connect(mongoURI)
     console.error('MongoDB connection error:', err);
   });
 
-app.use(router); 
-
+app.use("/api/hotels", router); 
+app.use("/api/user", userRouter); 
 //TEST getDocumentByID/Name
 
 async function testGetHotelById(hotelId: string) 
@@ -54,12 +56,12 @@ async function testGetHotelByName(hotelName: string)
 
 
 
-const hotelIdToTest = '66f7fb34c6cb069d99d6998e'; // Change to test
-const hotelNameToTest = 'Hotel Try'; // Change to test
+/*const hotelIdToTest = '66faca1dd75bb9e8fedb17fa'; // Change to test
+const hotelNameToTest = "Hilbert's Hotel"; // Change to test
 
 testGetHotelById(hotelIdToTest);
 testGetHotelByName(hotelNameToTest);
-
+*/
 //END OF TEST getDocumentByID/Name
 
 
@@ -74,9 +76,10 @@ const jsonTest = {
 }; 
 
 
-app.get('/', (req, res) => {
+/*app.get('/', (req, res, next) => {
   res.send(jsonTest); 
-})
+  next(); 
+})*/
 // END OF TEST BLOCK
 
 // Start server

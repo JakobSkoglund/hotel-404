@@ -4,7 +4,6 @@ import { Booking } from "../Model/Booking";
 //mongoose.connect("mongodb://127.0.0.1:27017/webdev"); 
 import { Hotel } from "../Model/HotelModel"; 
 
-mongoose.connect("mongodb://127.0.0.1:27017/webdev"); 
 
 /*Booking.create({
   id: 1, 
@@ -50,7 +49,9 @@ export async function hotelFreeBetweenDates(hotel:any, fromDate: string, toDate:
   for(let booking in bookings){
     const fromDateAsDate = new Date(fromDate); 
     const toDateAsDate = new Date(toDate);
-    const bookingFromDate = new Date(booking.fromDate); 
+
+    //Ger error men vet inte varför. Funkar när den kör i alla fall
+    const bookingFromDate = new Date(booking.fromDate);  
     const bookingToDate = new Date(booking.toDate);
 
     if(fromDateAsDate <= bookingToDate && toDateAsDate <= bookingFromDate){

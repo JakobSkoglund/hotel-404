@@ -4,7 +4,7 @@ import express from "express";
 
 const router = express.Router(); 
 
-router.get("/api/hotels", async (req, res) => {
+router.get("/getHotels", async function(req, res){
   const city = req.body.city;
   const fromDate = req.body.fromDate; 
   const toDate = req.body.toDate;
@@ -18,8 +18,8 @@ router.get("/api/hotels", async (req, res) => {
   res.send(JSON.stringify(result)).status(200); 
 })
 
-router.get("/api/hotelDetails", async (req, res) => {
-
+router.get("/hotelDetails", async (req, res) => {
+  
 })
 
 export default router; 
