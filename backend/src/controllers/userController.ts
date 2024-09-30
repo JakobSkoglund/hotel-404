@@ -1,0 +1,102 @@
+import mongoose from "mongoose";
+import { User } from "../Model/User";
+import { error } from "console";
+
+mongoose.connect("mongodb://127.0.0.1:27017/webdev");
+
+User.create({
+    name: "Adam",
+    lastname:"abc",
+    username:"Adam123",
+    age:21,
+    password:"0000",
+    isAdmin:false
+});
+console.log("Found connection");
+
+//function som hanterar login
+async function AuthLogin (username: string, password:string)
+{
+    try {
+        const found = await User.findOne({username:username, password:password})
+        if (!found)
+        {
+            return {error: 'User not found'};
+        }
+        //Om den hittar ett doc där username och password stämmer så fås _id
+        return found._id;
+    }
+    catch (error)
+    {
+        if(error instanceof Error) {
+            console.error('Nånting', error.message)
+        }
+        else 
+        {
+            console.error('annat', error)
+        }
+        throw error;
+    }
+
+}
+
+//Funktion som kolla ifall det finns en annan användare med samma username
+//Om det inte finns en match return true annars false
+async function usernameCheck(username: string)
+{
+    try {
+        const check = await User.findOne({username:username})
+
+        if(check)
+        {
+            //En match hittades
+            return false;
+        }
+        //En match hittades inte
+        return true;
+    }
+    catch (error)
+    {
+        console.error(error)
+    }
+}
+//En funktion för att kolla ålder
+//Om åldern är ok returnar den true 
+function checkAge (age:number) 
+{
+    return age >=18;
+}
+
+//Function för att hantera en ny användare
+async function newUser(name:string, lastname:string, username:string, age: number, password: string, isAdmin: boolean) {
+    try {
+        const firstCheck = await usernameCheck(username);
+        const secondCheck = await checkAge(age);
+        if(!firstCheck)
+        {   
+           
+            throw new Error('This username is taken');
+        }
+        else if(!secondCheck)
+        {
+            throw new Error('You are too young to make an account');
+        }
+        User.create({
+            name: name,
+            lastname: lastname,
+            username:username,
+            password:password,
+            isAdmin: isAdmin,
+            age: age
+
+        })
+    }
+    catch(error)
+    {
+        console.error(error);
+    }
+
+}
+
+
+

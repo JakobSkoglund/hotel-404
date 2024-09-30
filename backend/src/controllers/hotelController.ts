@@ -1,8 +1,10 @@
 import mongoose from "mongoose"; 
 
 import { Booking } from "../Model/Booking"; 
-import { Hotel } from "../Model/HotelModel";
 //mongoose.connect("mongodb://127.0.0.1:27017/webdev"); 
+import { Hotel } from "../Model/HotelModel"; 
+
+mongoose.connect("mongodb://127.0.0.1:27017/webdev"); 
 
 /*Booking.create({
   id: 1, 
@@ -11,9 +13,11 @@ import { Hotel } from "../Model/HotelModel";
   to_date: "2024-10-04", 
   cost: 200, 
   hotel: '66f6c89bdee2544cac6937b9'
+<<<<<<< HEAD
 });
+=======
+});*/ 
 
-*/
 
 export async function getHotels(city: string | null, fromDate: string,  toDate: string){
   var hotels;
@@ -54,6 +58,48 @@ export async function hotelFreeBetweenDates(hotel:any, fromDate: string, toDate:
     }
   } 
   return true; 
+}
+
+export async function getHotelDocumentById(hotelId: string)
+{   
+    try {
+        const hotel = await Hotel.findById(hotelId);
+        if(!hotel)
+        {
+            throw new Error('Error 001: Hotel not found');
+        }
+        return hotel;
+    }
+    catch (error) 
+    {
+        if (error instanceof Error) {
+            console.error('Error retrieving hotel by ID:', error.message);
+        } else {
+            console.error('An unexpected error occurred:', error);
+        }
+        throw error; // re-throw the error if needed
+    }
+}
+
+export async function getHotelDocumentByName(hotelName: string)
+{   
+    try {
+        const hotel = await Hotel.findOne({ 'display.title': hotelName});
+        if(!hotel)
+        {
+            throw new Error('Error 002: Hotel not found');
+        }
+        return hotel;
+    }
+    catch (error) 
+    {
+        if (error instanceof Error) {
+            console.error('Error retrieving hotel by Name:', error.message);
+        } else {
+            console.error('An unexpected error occurred:', error);
+        }
+        throw error; // re-throw the error if needed
+    }
 }
 
 

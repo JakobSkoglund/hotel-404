@@ -1,9 +1,10 @@
 // src/index.js
-
+// för att köra: PS C:\Users\David\Desktop\Skola\WA\hotel-404\backend\src> npx tsx index.ts
 import express from "express"; 
 import mongoose from "mongoose";
 import { Hotel } from "./Model/HotelModel";
 import router from "./Routers/hotelRouter"; 
+import { getHotelDocumentById, getHotelDocumentByName } from './controllers/hotelController'
 
 const app = express(); 
 
@@ -22,6 +23,48 @@ mongoose.connect(mongoURI)
   });
 
 app.use(router); 
+
+//TEST getDocumentByID/Name
+
+async function testGetHotelById(hotelId: string) 
+{
+  try 
+  {
+    const hotel = await getHotelDocumentById(hotelId);
+    console.log('Hotel retrieved by ID:', hotel);
+  } 
+  catch (error) 
+  {
+  
+  }
+}
+
+async function testGetHotelByName(hotelName: string) 
+{
+  try 
+  {
+    const hotel = await getHotelDocumentByName(hotelName);
+    console.log('Hotel retrieved by ID:', hotel);
+  } 
+  catch (error) 
+  {
+    
+  }
+}
+
+
+
+const hotelIdToTest = '66f7fb34c6cb069d99d6998e'; // Change to test
+const hotelNameToTest = 'Hotel Try'; // Change to test
+
+testGetHotelById(hotelIdToTest);
+testGetHotelByName(hotelNameToTest);
+
+//END OF TEST getDocumentByID/Name
+
+
+
+
 
 // TEST BLOCK
 const jsonTest = {
