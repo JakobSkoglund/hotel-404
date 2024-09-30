@@ -3,16 +3,16 @@
 import express from "express"; 
 import mongoose from "mongoose";
 import { Hotel } from "./Model/HotelModel";
-import { getHotelDocumentById, getHotelDocumentByName } from './Controllers/HotelController'
+import router from "./Routers/hotelRouter"; 
+import { getHotelDocumentById, getHotelDocumentByName } from './controllers/hotelController'
 
 const app = express(); 
 
 // Parse incoming JSON request.
 app.use(express.json()); 
 
-const router = express.Router(); 
 
-const mongoURI = 'mongodb+srv://Cluster46730:VE9vWGN0YkFm@cluster46730.bv6pq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster46730'
+const mongoURI = 'mongodb+srv://Cluster46730:VE9vWGN0YkFm@cluster46730.bv6pq.mongodb.net/Hotel-404?retryWrites=true&w=majority&appName=Cluster46730'
 
 mongoose.connect(mongoURI)
   .then(() => {
@@ -22,6 +22,7 @@ mongoose.connect(mongoURI)
     console.error('MongoDB connection error:', err);
   });
 
+app.use(router); 
 
 //TEST getDocumentByID/Name
 
@@ -72,7 +73,6 @@ const jsonTest = {
   app: "Hotel 404"
 }; 
 
-app.use(router); 
 
 app.get('/', (req, res) => {
   res.send(jsonTest); 

@@ -1,6 +1,7 @@
 import mongoose from "mongoose"; 
 
 import { Booking } from "../Model/Booking"; 
+//mongoose.connect("mongodb://127.0.0.1:27017/webdev"); 
 import { Hotel } from "../Model/HotelModel"; 
 
 mongoose.connect("mongodb://127.0.0.1:27017/webdev"); 
@@ -12,35 +13,35 @@ mongoose.connect("mongodb://127.0.0.1:27017/webdev");
   to_date: "2024-10-04", 
   cost: 200, 
   hotel: '66f6c89bdee2544cac6937b9'
+<<<<<<< HEAD
+});
+=======
 });*/ 
 
-console.log("found connection"); 
 
-async function getHotels(city: string | null, fromDate: string,  toDate: string){
-  var hotels; 
-  if(city !== null){
-    hotels = await Hotel.find({city: city}); 
+export async function getHotels(city: string | null, fromDate: string,  toDate: string){
+  var hotels;
+  console.log(city);
+  console.log(!city); 
+  if(city){
+    hotels = await Hotel.find({display: {city: city}}); 
   }
   else{
     hotels = await Hotel.find(); 
   }
-  const hotelIds = hotels.map((hotel) => {
-    return hotel._id; 
-  }); 
-  console.log(hotelIds);
-
+  console.log(hotels); 
   //Filter hotels that are unavailable
-  var freeHotels = []
-  for(let hotel in hotels){
+  var freeHotels = hotels; 
+/*  for(let hotel in hotels){
     const isFree = await hotelFreeBetweenDates(hotel, fromDate, toDate); 
     if(isFree){
       freeHotels.push(hotel); 
     }
-  }
+  }*/
   return freeHotels; 
 }
 
-async function hotelFreeBetweenDates(hotel:any, fromDate: string, toDate: string){
+export async function hotelFreeBetweenDates(hotel:any, fromDate: string, toDate: string){
   console.log
   const hotelId = hotel._id; 
   const bookings = await Booking.find({hotel: hotelId});
@@ -101,10 +102,4 @@ export async function getHotelDocumentByName(hotelName: string)
     }
 }
 
-main(); 
 
-async function main() {
-  const hotels = await getHotels("Jönköping", "2024-10-02", "2024-10-14"); 
-  console.log(hotels);
-  const val = await hotelFreeBetweenDates(hotels[0], "2024-09-27", "2024-09-31");
-}
