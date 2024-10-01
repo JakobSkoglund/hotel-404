@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import { Hotel } from "./Model/HotelModel";
 import hotelRouter from "./Routers/hotelRouter"; 
 import userRouter from "./Routers/userRouter"; 
+import bookingRouter from "./Routers/bookingRouter";
 
 import { getHotelDocumentById, getHotelDocumentByName } from './controllers/hotelController'
 
@@ -25,6 +26,8 @@ mongoose.connect(mongoURI)
 
 app.use("/api/hotels", hotelRouter); 
 app.use("/api/user", userRouter);
+app.use("/api/booking", bookingRouter); 
+
 app.use((req, res, next) => {
   console.log(req.path, req.method); 
   next(); 

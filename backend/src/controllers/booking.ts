@@ -6,6 +6,7 @@ export async function deleteBooking(bookingId: string) {
     
     try {
         const booking = await Booking.findByIdAndDelete(bookingId);
+        console.log(booking); 
         
         if (!booking) {
             throw new Error('Error 001: Booking not found');
@@ -23,9 +24,11 @@ export async function deleteBooking(bookingId: string) {
 }
 
 export async function createBooking(hotelID: string, user: string, from_date: string, to_date: string, cost: number){
+  
   let date1 = new Date(from_date); 
   let date2 = new Date(to_date); 
-  let days = Math.round(date2.getTime()-date1.getTime() /(1000*3600*24)); 
+  let days = Math.round((date2.getTime()-date1.getTime()) /(1000*3600*24));
+  console.log(days); 
   const calculatedCost = cost * days; 
   await Booking.create({
     hotel: hotelID, 
