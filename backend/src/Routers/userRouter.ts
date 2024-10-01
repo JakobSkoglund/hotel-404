@@ -1,4 +1,4 @@
-import { AuthLogin, newUser } from "../controllers/userController"; 
+import { AuthLogin, newUser, deleteUser } from "../controllers/userController"; 
 
 import express from "express"; 
 const userRouter = express.Router(); 
@@ -29,8 +29,19 @@ userRouter.post("/signup", async function(req, res){
   catch{
     res.status(400); 
   }
-
 })
+
+userRouter.delete("/deleteme", async function(req, res){
+  const userID = req.body.userID;
+
+  try {
+    const userDelete = await deleteUser(userID);
+    res.status(201);
+  }
+  catch {
+    res.status(400);
+  }
+});
 
 userRouter.get("/", (req, res) => {
   res.send({"msg":"hello world"}); 
