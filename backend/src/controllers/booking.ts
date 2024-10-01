@@ -21,3 +21,17 @@ export async function deleteBooking(bookingId: string) {
         throw error;
     }
 }
+
+export async function createBooking(hotelID: string, user: string, from_date: string, to_date: string, cost: number){
+  let date1 = new Date(from_date); 
+  let date2 = new Date(to_date); 
+  let days = Math.round(date2.getTime()-date1.getTime() /(1000*3600*24)); 
+  const calculatedCost = cost * days; 
+  await Booking.create({
+    hotel: hotelID, 
+    user: user, 
+    from_date: from_date, 
+    to_date: to_date,
+    cost: calculatedCost
+  }); 
+}
