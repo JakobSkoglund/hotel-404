@@ -69,6 +69,13 @@ testGetHotelByName(hotelNameToTest);
 //END OF TEST getDocumentByID/Name
 
 
+//TEST Delete deleteUser(username:string, bookingId: string)
+
+
+
+
+//End of test deleteUser
+
 
 
 

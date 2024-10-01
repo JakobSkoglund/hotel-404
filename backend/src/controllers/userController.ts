@@ -120,25 +120,18 @@ export async function deleteBooking(bookingId: string) {
     }
 }
 
-export async function deleteUser(username:string, bookingId: string) {
+export async function deleteUser(userId:string) {
+
+    
+
     try {
-        const check = await User.findByIdAndDelete(username);
-        const bookingDelete = await deleteBooking(bookingId);
+        const user = await User.deleteOne({_id: userId});
 
-        if (!check) {
-            throw new Error('Error 001: User not found');
-        } 
-
-        if (bookingDelete) {
-            console.log("Booking removed");
-        }
-
-    } catch (error) {
-        if (error instanceof Error) {
-            console.error('Error retrieving user by ID:', error.message);
-        } else {
-            console.error('An unexpected error occurred:', error);
-        }
-        throw error;
     }
+    catch
+    {
+        
+    }
+
+
 }
