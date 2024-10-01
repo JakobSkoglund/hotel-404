@@ -13,9 +13,9 @@ bookingRouter.post("/", async function(req, res){
 
     try {
         const bookingDone = await createBooking(hotelID, user, from_date, to_date, cost);
-        res.status(201);
-    } catch {
-        res.status(400);
+        res.status(201).send("booking successful!");
+    } catch (error){
+        res.status(400).send(error);
     }
 });
 
@@ -25,9 +25,9 @@ bookingRouter.delete("/", async function(req, res) {
 
     try {
         const bookingDeleted = await deleteBooking(bookingId);
-        res.status(200);
+        res.status(200).send();
     } catch {
-        res.status(400);
+        res.status(400).send();
     }
 });
 

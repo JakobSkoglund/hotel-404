@@ -36,6 +36,8 @@ userRouter.post("/signup", async function(req, res){
 
 })
 
+
+
 userRouter.get("/", (req, res) => {
   res.send({"msg":"hello world"}); 
 })
