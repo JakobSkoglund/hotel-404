@@ -13,17 +13,21 @@ import { Booking } from "../Model/Booking";
     isAdmin:false
 });*/
 console.log("Found connection");
+
     
 //function som hanterar login
 export async function AuthLogin (username: string, password:string)
 {
     try {
         const found = await User.findOne({username:username, password:password})
+        console.log(found);
         if (!found)
         {
-            return {error: 'User not found'};
+            //If there is no sush a username
+            throw new Error('User not found');
         }
         //Om den hittar ett doc där username och password stämmer så fås _id
+        console.log(found._id)
         return found._id;
     }
     catch (error)
@@ -69,12 +73,12 @@ function checkAge (age:number)
 
 //Function för att hantera en ny användare
 export async function newUser(name:string, lastname:string, username:string, age: number, password: string, isAdmin: boolean) {
-    try {
+    
         const firstCheck = await usernameCheck(username);
         const secondCheck = checkAge(age);
         if(!firstCheck)
         {   
-           
+            
             throw new Error('This username is taken');
         }
         else if(!secondCheck)
@@ -90,11 +94,10 @@ export async function newUser(name:string, lastname:string, username:string, age
             age: age
 
         })
-    }
-    catch(error)
-    {
-        console.error(error);
-    }
+
+        console.log("User Successfully created!");
+    
+    
 
 }
 
@@ -142,3 +145,4 @@ export async function deleteUser(username:string, bookingId: string) {
         throw error;
     }
 }
+
