@@ -125,17 +125,24 @@ export async function deleteBooking(bookingId: string) {
 
 export async function deleteUser(userId:string) {
 
-    
-
-    try {
-        const user = await User.deleteOne({_id: userId});
-
-    }
-    catch
+    try 
     {
-        
+        const user  = await User.deleteOne({_id: userId});
+        const user2 = await Booking.deleteMany({user:userId});
     }
+    catch (error)
+    {
+        if (error instanceof Error) 
+        {
+            console.error('Error deleting user by ID:', error.message);
+        } 
+        else 
+        {
+            console.error('An unexpected error occurred:', error);
+        }
 
+        throw error;
+    }
 
 }
 
