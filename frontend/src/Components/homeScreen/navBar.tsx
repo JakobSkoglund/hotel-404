@@ -60,6 +60,10 @@ const NavAppBar = () => {
         navigate('/myBookings');
     }
 
+    const handleDeleteUserOnClick = () => {
+        
+    }
+
     const handleSignOutButtonClick = () => {
       setLoggedin(false); 
       navigate('/'); 
@@ -113,7 +117,9 @@ const NavAppBar = () => {
                             onClose={handleMyPageClose}
                             keepMounted
                         >
+                            
                             <MenuItem onClick={handleMyPageBookingClick}>My Bookings</MenuItem>
+                            <MenuItem onClick={handleDeleteUserOnClick}> Delete Account</MenuItem>
                             <MenuItem onClick={handleSignOutButtonClick}>Sign out</MenuItem>
                         </Menu>
                     </Box>
