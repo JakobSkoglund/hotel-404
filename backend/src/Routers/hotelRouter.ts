@@ -2,9 +2,9 @@ import { getHotels } from "../controllers/hotelController";
 
 import express from "express"; 
 
-const router = express.Router(); 
+const hotelRouter = express.Router(); 
 
-router.get("/getHotels", async function(req, res){
+hotelRouter.get("/getHotels", async function(req, res){
   const city = req.body.city;
   const fromDate = req.body.fromDate; 
   const toDate = req.body.toDate;
@@ -18,8 +18,8 @@ router.get("/getHotels", async function(req, res){
   res.send(JSON.stringify(result)).status(200); 
 })
 
-router.get("/hotelDetails", async (req, res) => {
-  
+hotelRouter.get("/hotelDetails", async (req, res) => {
+  res.send("hello from hotels :)");  
 })
 
-export default router; 
+export default hotelRouter; 

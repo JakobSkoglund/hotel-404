@@ -3,8 +3,8 @@
 import express from "express"; 
 import mongoose from "mongoose";
 import { Hotel } from "./Model/HotelModel";
-import router from "./Routers/hotelRouter"; 
-import userRouter from "./Routers/hotelRouter"; 
+import hotelRouter from "./Routers/hotelRouter"; 
+import userRouter from "./Routers/userRouter"; 
 
 import { getHotelDocumentById, getHotelDocumentByName } from './controllers/hotelController'
 
@@ -12,7 +12,6 @@ const app = express();
 
 // Parse incoming JSON request.
 app.use(express.json()); 
-
 
 const mongoURI = 'mongodb+srv://Cluster46730:VE9vWGN0YkFm@cluster46730.bv6pq.mongodb.net/Hotel-404?retryWrites=true&w=majority&appName=Cluster46730'
 
@@ -24,8 +23,13 @@ mongoose.connect(mongoURI)
     console.error('MongoDB connection error:', err);
   });
 
-app.use("/api/hotels", router); 
-app.use("/api/user", userRouter); 
+app.use("/api/hotels", hotelRouter); 
+app.use("/api/user", userRouter);
+app.use((req, res, next) => {
+  console.log(req.path, req.method); 
+  next(); 
+})
+
 //TEST getDocumentByID/Name
 
 async function testGetHotelById(hotelId: string) 
@@ -74,7 +78,6 @@ const jsonTest = {
   state: 500, 
   app: "Hotel 404"
 }; 
-
 
 /*app.get('/', (req, res, next) => {
   res.send(jsonTest); 
