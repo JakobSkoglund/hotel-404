@@ -127,8 +127,9 @@ export async function deleteUser(userId:string) {
 
     try 
     {
-        const user  = await User.deleteOne({_id: userId});
-        const user2 = await Booking.deleteMany({user:userId});
+        console.log("try_delete");
+        const userdelete  = await User.deleteOne({_id: userId});
+        const userbookingdelete = await Booking.deleteMany({user:userId});
     }
     catch (error)
     {
@@ -146,3 +147,13 @@ export async function deleteUser(userId:string) {
 
 }
 
+/* 
+main();
+
+function main() 
+{
+    const uid = "66fbb54dca5e52a91c5b8237"
+    const test = deleteUser(uid)
+    console.log(test)
+}
+*/

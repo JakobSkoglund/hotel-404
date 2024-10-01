@@ -73,10 +73,24 @@ testGetHotelByName(hotelNameToTest);
 
 
 //TEST Delete deleteUser(username:string, bookingId: string)
+/*
+export async function testdeleteuser(userId: string)
+{
+  try
+  {
+    const userID = '1234';
+    const test = await deleteUser(userID);
+  }
+  catch
+  {
+
+  }
 
 
 
+}
 
+*/
 //End of test deleteUser
 
 
