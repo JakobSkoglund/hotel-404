@@ -7,11 +7,15 @@ userRouter.post("/login", async function(req, res){
   console.log("hello world"); 
   const username = req.body.username; 
   const password = req.body.password; 
-  const validUser = await AuthLogin(username, password); 
-  if(validUser){
-    console.log(req.session); 
-    res.sendStatus(200); 
+  try {
+    const validUser = await AuthLogin(username, password); 
+    res.sendStatus(200);
   }
+  catch (error) {
+    res.status(400).send(error)
+    console.log("Jag är här");
+  }
+  
 });   
 
 
