@@ -45,7 +45,7 @@ const Login = () => {
   //Funktion för att hantera Login och kollar på att errors som kan uppstå
   const handleLogin = () => {
     SetError("");
-    const validUser: boolean = VerifyUser(username, password); 
+    const validUser: string = VerifyUser(username, password); 
     if(validUser){
       alert("Login successful"); 
       setLoggedin(true); 
@@ -53,27 +53,6 @@ const Login = () => {
     else {
       SetError("Invalid username/password combination"); 
     }
-    //Kolla Genom Mock listan för att se ifall username och password hittar en match
-    /*const match = profiles.find(
-      (profile) =>
-        profile.username === username && profile.password === password
-    );
-    //Kollar ifall det finns en matchande användarnamn men att lösenordet är fel
-    const wrongPassword = profiles.find(
-      (profile) =>
-        profile.username === username && profile.password !== password
-    );
-    if (match) {
-      alert("Login successful!");
-      setLoggedin(true); 
-    } else if (wrongPassword) {
-      SetError("Wrong password!");
-      SetPassword("");
-      return;
-    } else {
-      SetError("No such a user!");
-      return;
-    }*/
 
     SetPassword("");
     SetUsername("");

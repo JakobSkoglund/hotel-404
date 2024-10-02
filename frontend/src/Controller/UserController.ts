@@ -1,13 +1,28 @@
 import { profiles } from "../MocData/login";
 import { IUser } from "../Model/User";
+import axios from 'axios';
 
-export function VerifyUser(username: string, password: string): boolean{
+/*export function VerifyUser(username: string, password: string): boolean{
     //Will make an API request in the future. 
     //Not very secure at the moment, will need to be fixed
     if(profiles.some(user => user.username === username && user.password === password)){
       return true; 
     }
     return false; 
+}*/
+
+export async function VerifyUser (username: string, password:string)
+{
+  try 
+  {
+    const respone = await axios.post('http://localhost:7700/login', {
+      username,
+      password
+    });
+    console.log('Login seccessful: ', respone.data);
+  } catch (error) {
+    console.error('Login failed',error);
+  }
 }
 //
 export function CreateUser(name: string, username: string, age: string, password: string, 
