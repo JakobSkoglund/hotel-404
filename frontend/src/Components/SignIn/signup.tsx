@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { LoggedinContext } from "../../index";
 import { CreateUser } from "../../Controller/UserController";
-import { IUser } from "../../Model/User";
+
 import {useNavigate, Link} from 'react-router-dom'; 
 
 const Signup = () => {
@@ -30,17 +30,17 @@ const Signup = () => {
   //för att hantera password
   const [password, SetPassword] = useState("");
   //hanterar firstname
-  const [firstname, SetFirstName] = useState("");
+  const [name, SetFirstName] = useState("");
   //hanterar lastname
   const [lastname, SetLastName] = useState("");
   //hanterar age
-  const [age, SetAge] = useState("");
+  const [age, SetAge] = useState<number>(0);
   //hanterar error
   const [error, SetErrorMsg] = useState("");
 
   const {loggedin, setLoggedin} = useContext(LoggedinContext); 
 
-  const handleSignup = () => {
+ /* const handleSignup = () => {
     const userCreate: IUser | string = CreateUser(firstname, username, age, password, lastname, "1", false);
       if(typeof userCreate === "string"){
         console.log(userCreate); 
@@ -53,7 +53,24 @@ const Signup = () => {
       }
 
 
+  }*/
+ const handleSignup = async () => {
+  SetErrorMsg("");
+  const newUser = await CreateUser(name,lastname, username, age, password, false);
+  console.log('Sign Up handler');
+  if(newUser) {
+    alert("Sign Up successful");
+    setLoggedin(true);
+
   }
+  else
+  {
+    alert("Something Wrong")
+    SetErrorMsg("All the fields needs to be filled!");
+  }
+
+
+ }
   //Ifall användaren tycker "Enter" i den efter att ha fyllt i password
   const handKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Enter") {
@@ -106,7 +123,7 @@ const Signup = () => {
     //Sätter alla textFields tomma igen
       SetFirstName("");
       SetLastName("");
-      SetAge("");
+      SetAge(0);
       SetUsername("");
       SetPassword("");
       //SetErrorMsg("");
@@ -136,7 +153,7 @@ const Signup = () => {
               required
               style={userlblstyle}
               onChange={(e) => SetFirstName(e.target.value)}
-              value={firstname}
+              value={name}
             />
           </Grid>
           <Grid item xs={6}>
@@ -157,7 +174,7 @@ const Signup = () => {
           required
           style={userlblstyle}
           value={age}
-          onChange={(e) => SetAge(e.target.value)}
+          onChange={(e) => SetAge(parseInt(e.target.value))}
         />
         <TextField
           label="Username"
