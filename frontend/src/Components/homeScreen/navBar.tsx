@@ -9,7 +9,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Html } from '@mui/icons-material';
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LoggedinContext } from '../../index';
+import { LoggedinContext , UsernameContext} from '../../index';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
@@ -23,7 +23,8 @@ const NavAppBar = () => {
     const [openAboutDialog, setOpenAboutDialog] = useState(false);
 
 
-    const {loggedin, setLoggedin} = useContext(LoggedinContext); 
+    const {loggedin, setLoggedin} = useContext(LoggedinContext);
+    const {username, setUsername} = useContext(UsernameContext); 
     {/*const navigate = useNavigate();*/}
 
     const handleLanguageClick = (event: React.MouseEvent<HTMLElement>) => {

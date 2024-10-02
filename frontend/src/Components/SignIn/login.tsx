@@ -7,7 +7,7 @@ import * as React from "react";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import { useState } from "react";
 import { VerifyUser } from "../../Controller/UserController";
-import { LoggedinContext } from "../../index";
+import { LoggedinContext , UsernameContext} from "../../index";
 import { useContext } from "react";
 import { Link} from 'react-router-dom'; 
 
@@ -33,6 +33,7 @@ const Login = () => {
   
   //Globalt tillstånd för huruvida användare är inloggad
   const {loggedin, setLoggedin} = useContext(LoggedinContext); 
+  const {globalUsername, setGlobalUsername} = useContext(UsernameContext); 
 
   //Ifall användaren trycker på knappen "Enter " efter att ha fyllt i password
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -49,7 +50,9 @@ const Login = () => {
     console.log("Här", validUser)
     if(validUser){
       alert("Login successful"); 
-      setLoggedin(true); 
+      setLoggedin(true);
+      console.log(setGlobalUsername); 
+      setGlobalUsername(username); 
     } 
     else {
       SetError("Invalid username/password combination"); 

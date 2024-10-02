@@ -20,14 +20,24 @@ declare module 'express-session' {
 
 const app = express(); 
 
-app.use(cors())
+app.use(cors({
+  origin: "http://localhost:3000", 
+  credentials: true
+})); 
 // Parse incoming JSON request.
 app.use(express.json()); 
 
+app.set("trust proxy", 1); 
 app.use(session({
-  secret: 'secret-key',
+  secret: 'super-secret-key',
   resave: false,
   saveUninitialized: false,
+  secure: false, 
+  cookie:{
+    maxAge: 30*60*1000, //store cookies for 30 mins
+    sameSite: 'none', 
+    secure: true
+  }
 }));
 
 const mongoURI = 'mongodb+srv://Cluster46730:VE9vWGN0YkFm@cluster46730.bv6pq.mongodb.net/Hotel-404?retryWrites=true&w=majority&appName=Cluster46730'

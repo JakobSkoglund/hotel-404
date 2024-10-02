@@ -18,9 +18,11 @@ import HotelPage from './Components/hotelPage/hotelPage';
 import DisplayHotel from './Components/hotelDisplay/displayHotelCard';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'; 
 import Bookings from './Components/userBookingPage/userBookings'; 
+import axios from 'axios';
 
 //Används för att hålla koll på globalt tillstånd i individuella komponenter
-export const LoggedinContext = React.createContext<any>(false);    
+export const LoggedinContext = React.createContext<any>(false);
+export const UsernameContext = React.createContext<any>("");
 
 var initLoggedin = sessionStorage.getItem("loggedin") === "true"; 
 
@@ -35,29 +37,44 @@ const booking = () => {
 
 const Application: React.FC = () => {
   const [loggedin, setLoggedin] = useState(initLoggedin);
+  const [globalUsername, setGlobalUsername] = useState("");
 
+  // useEffect(() => {
+  //   var sessionLoggedin = window.sessionStorage.getItem("loggedin");
+  //   setLoggedin(sessionLoggedin === "true"); 
+  // }, []);
+  //
+  // useEffect(() => {
+  //   window.sessionStorage.setItem("loggedin", loggedin.toString()); 
+  // }, [loggedin])
+  axios.defaults.withCredentials = true;  
   useEffect(() => {
-    var sessionLoggedin = window.sessionStorage.getItem("loggedin");
-    setLoggedin(sessionLoggedin === "true"); 
-  }, []);
-
-  useEffect(() => {
-    window.sessionStorage.setItem("loggedin", loggedin.toString()); 
-  }, [loggedin])
-
+    const checkSession = async() => {
+      try{
+        const session = await axios.get("http://localhost:7700/api/user/session", { params: {
+          username: globalUsername}}) 
+      }
+      catch {
+        setLoggedin(false); 
+      }
+    }}); 
   if(!loggedin) {
     return (
       <div>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={
-            <LoggedinContext.Provider value={{loggedin: loggedin, setLoggedin: setLoggedin}}>
-            <Login/>
-            </LoggedinContext.Provider>}/>
+              <LoggedinContext.Provider value={{loggedin: loggedin, setLoggedin: setLoggedin}}>
+                <UsernameContext.Provider value={{globalUsername, setGlobalUsername}}>
+                  <Login/>
+                </UsernameContext.Provider>
+              </LoggedinContext.Provider>}/>
             <Route path="/signup" element={
-            <LoggedinContext.Provider value={{loggedin: loggedin, setLoggedin: setLoggedin}}>
-            <Signup/>
-            </LoggedinContext.Provider>}/> 
+              <LoggedinContext.Provider value={{loggedin: loggedin, setLoggedin: setLoggedin}}>
+                <UsernameContext.Provider value={{globalUsername, setGlobalUsername}}>
+                <Signup/>
+                </UsernameContext.Provider>
+              </LoggedinContext.Provider>}/> 
           </Routes>
         </BrowserRouter>
       </div>
@@ -67,6 +84,7 @@ const Application: React.FC = () => {
     return (
       <div>
       <LoggedinContext.Provider value={{loggedin: loggedin, setLoggedin: setLoggedin}}>
+      <UsernameContext.Provider value={{globalUsername, setGlobalUsername}}>
         <BrowserRouter>
         <NavAppBar/>
         <Routes>
@@ -80,6 +98,7 @@ const Application: React.FC = () => {
            <Route path="/hotelDetail" element={<HotelPage/>}/>
           </Routes>
         </BrowserRouter>
+        </UsernameContext.Provider>
         </LoggedinContext.Provider>
       </div>
     )
