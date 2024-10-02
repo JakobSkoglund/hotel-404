@@ -46,6 +46,20 @@ export async function CreateUser (name:string, lastname:string, username:string,
     return false;
   }
 }
+
+export async function DeleteUser(userID: string) {
+  try {
+    const response = await axios.delete('http://localhost:7700/api/user/deleteme', {
+      params: {userID: userID},
+    });
+    console.log("Deletion of user successful", response.data);
+    return true;
+  } catch (error) {
+    console.error("Deletion of user unsuccessful", error);
+    return false;
+  }
+}
+
 /*
 export function CreateUser(name: string, username: string, age: string, password: string, 
     lastname:string, key: string, isAdmin:boolean): IUser | string{   
