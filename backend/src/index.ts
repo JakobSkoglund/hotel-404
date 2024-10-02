@@ -7,14 +7,28 @@ import hotelRouter from "./Routers/hotelRouter";
 import userRouter from "./Routers/userRouter"; 
 import bookingRouter from "./Routers/bookingRouter";
 import cors from 'cors';
+import session from "express-session";
 
 import { getHotelDocumentById, getHotelDocumentByName } from './controllers/hotelController'
+
+declare module 'express-session' {
+  export interface SessionData {
+    isLoggedIn: boolean, 
+    username: string
+  }
+}
 
 const app = express(); 
 
 app.use(cors())
 // Parse incoming JSON request.
 app.use(express.json()); 
+
+app.use(session({
+  secret: 'secret-key',
+  resave: false,
+  saveUninitialized: false,
+}));
 
 const mongoURI = 'mongodb+srv://Cluster46730:VE9vWGN0YkFm@cluster46730.bv6pq.mongodb.net/Hotel-404?retryWrites=true&w=majority&appName=Cluster46730'
 

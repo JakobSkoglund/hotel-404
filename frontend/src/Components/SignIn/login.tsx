@@ -43,17 +43,17 @@ const Login = () => {
   
 
   //Funktion för att hantera Login och kollar på att errors som kan uppstå
-  const handleLogin = () => {
+  const handleLogin = async () => {
     SetError("");
-    const validUser=  VerifyUser(username, password); 
+    const validUser=  await VerifyUser(username, password); 
     console.log("Här", validUser)
-    /*if(validUser){
+    if(validUser){
       alert("Login successful"); 
       setLoggedin(true); 
     } 
     else {
       SetError("Invalid username/password combination"); 
-    }*/
+    }
 
     SetPassword("");
     SetUsername("");

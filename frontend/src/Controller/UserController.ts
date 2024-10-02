@@ -16,12 +16,15 @@ export async function VerifyUser (username: string, password:string)
   try 
   {
     const respone = await axios.post('http://localhost:7700/api/user/login', {
-      username,
-      password
+      username: username,
+      password: password
     });
     console.log('Login seccessful: ', respone.data);
+    return true; 
   } catch (error) {
     console.error('Login failed',error);
+    return false;
+    return false; 
   }
 }
 //

@@ -3,13 +3,17 @@ import { AuthLogin, newUser, deleteUser } from "../controllers/userController";
 import express from "express"; 
 const userRouter = express.Router(); 
 
-userRouter.post("/login", async function(req, res){
+userRouter.post("/login", async function(req, res, next){
   console.log("hello world"); 
   const username = req.body.username; 
   const password = req.body.password; 
   try {
-    const validUser = await AuthLogin(username, password); 
+    const validUser = await AuthLogin(username, password);    
     res.sendStatus(200);
+    req.session.isLoggedIn = true;
+    req.session.username = username;
+    console.log(req.session.username); 
+    next(); 
   }
   catch (error) {
     res.status(400).send(error)
