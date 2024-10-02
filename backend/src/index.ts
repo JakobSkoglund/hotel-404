@@ -6,11 +6,13 @@ import { Hotel } from "./Model/HotelModel";
 import hotelRouter from "./Routers/hotelRouter"; 
 import userRouter from "./Routers/userRouter"; 
 import bookingRouter from "./Routers/bookingRouter";
+import cors from 'cors';
 
 import { getHotelDocumentById, getHotelDocumentByName } from './controllers/hotelController'
 
 const app = express(); 
 
+app.use(cors())
 // Parse incoming JSON request.
 app.use(express.json()); 
 

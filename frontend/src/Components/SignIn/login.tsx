@@ -45,14 +45,15 @@ const Login = () => {
   //Funktion för att hantera Login och kollar på att errors som kan uppstå
   const handleLogin = () => {
     SetError("");
-    const validUser: string = VerifyUser(username, password); 
-    if(validUser){
+    const validUser=  VerifyUser(username, password); 
+    console.log("Här", validUser)
+    /*if(validUser){
       alert("Login successful"); 
       setLoggedin(true); 
     } 
     else {
       SetError("Invalid username/password combination"); 
-    }
+    }*/
 
     SetPassword("");
     SetUsername("");

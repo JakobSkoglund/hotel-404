@@ -15,7 +15,7 @@ export async function VerifyUser (username: string, password:string)
 {
   try 
   {
-    const respone = await axios.post('http://localhost:7700/login', {
+    const respone = await axios.post('http://localhost:7700/api/user/login', {
       username,
       password
     });
