@@ -8,7 +8,8 @@ const hotelSchema = new mongoose.Schema({
         title: { type: String, required: true },
         city: { type: String, required: true },
         description: { type: String, required: true },
-        price: { type: String, required: true },
+        price: { type: Number, required: true },
+        image: {type: String, default: "https://png.pngtree.com/png-vector/20190917/ourmid/pngtree-not-found-outline-icon-vectors-png-image_1737857.jpg"}
     },
 
     /* Hotel Page */

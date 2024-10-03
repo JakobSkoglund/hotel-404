@@ -1,5 +1,5 @@
 export interface IBooking {
-    id: number; 
+    id: string; 
     user: string; 
     hotel: string; 
     from_date: string; 

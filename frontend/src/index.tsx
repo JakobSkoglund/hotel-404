@@ -50,11 +50,9 @@ const Application: React.FC = () => {
   // }, [loggedin])
   axios.defaults.withCredentials = true;  
   useEffect(() => {
-    console.log("page has been refreshed"); 
     const checkSession = async() => {
-      console.log("checking session..."); 
       try{
-        const session = await axios.get("http://localhost:7700/api/user/session");    console.log(session); 
+        const session = await axios.get("http://localhost:7700/api/user/session");    
         setLoggedin(true); 
       }
       catch {
@@ -106,7 +104,7 @@ const Application: React.FC = () => {
               </div>}/>
             <Route path="/mybookings" element={<Bookings/>}/>
            <Route path="navapp" element={<NavAppBar/>}/>
-           <Route path="/hotelDetail" element={<HotelPage/>}/>
+           <Route path="/hotelDetail/:hotelId" element={<HotelPage/>}/>
           </Routes>
         </BrowserRouter>
         </UsernameContext.Provider>

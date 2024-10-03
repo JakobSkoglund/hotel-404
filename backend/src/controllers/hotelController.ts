@@ -5,38 +5,22 @@ import { Booking } from "../Model/Booking";
 import { Hotel } from "../Model/HotelModel"; 
 
 
-/*Booking.create({
-  id: 1, 
-  user: "Calle256", 
-  from_date: "2024-10-01", 
-  to_date: "2024-10-04", 
-  cost: 200, 
-  hotel: '66f6c89bdee2544cac6937b9'
-<<<<<<< HEAD
-});
-=======
-});*/ 
-
-
 export async function getHotels(city: string | null, fromDate: string,  toDate: string){
   var hotels;
-  console.log(city);
-  console.log(!city); 
   if(city){
     hotels = await Hotel.find({display: {city: city}}); 
   }
   else{
     hotels = await Hotel.find(); 
   }
-  console.log(hotels); 
   //Filter hotels that are unavailable
   var freeHotels = hotels; 
-/*  for(let hotel in hotels){
+  for(let hotel of hotels){
     const isFree = await hotelFreeBetweenDates(hotel, fromDate, toDate); 
     if(isFree){
       freeHotels.push(hotel); 
     }
-  }*/
+  }
   return freeHotels; 
 }
 
@@ -44,15 +28,11 @@ export async function hotelFreeBetweenDates(hotel:any, fromDate: string, toDate:
   console.log
   const hotelId = hotel._id; 
   const bookings = await Booking.find({hotel: hotelId});
-  console.log(bookings); 
-  console.log(typeof bookings); 
-  for(let booking in bookings){
+  for(let booking of bookings){
     const fromDateAsDate = new Date(fromDate); 
     const toDateAsDate = new Date(toDate);
-
-    //Ger error men vet inte varför. Funkar när den kör i alla fall
-    const bookingFromDate = new Date(booking.fromDate);  
-    const bookingToDate = new Date(booking.toDate);
+    const bookingFromDate = new Date(booking.from_date);  
+    const bookingToDate = new Date(booking.to_date);
 
     if(fromDateAsDate <= bookingToDate && toDateAsDate <= bookingFromDate){
       return false;
@@ -61,12 +41,18 @@ export async function hotelFreeBetweenDates(hotel:any, fromDate: string, toDate:
   return true; 
 }
 
+export async function getAllHotels(){
+  const hotels = await Hotel.find();
+  return hotels; 
+}
+
 export async function getHotelDocumentById(hotelId: string)
-{   
+{  
     try {
         const hotel = await Hotel.findById(hotelId);
         if(!hotel)
         {
+            console.log("couldn't find hotel"); 
             throw new Error('Error 001: Hotel not found');
         }
         return hotel;
@@ -101,6 +87,10 @@ export async function getHotelDocumentByName(hotelName: string)
         }
         throw error; // re-throw the error if needed
     }
+}
+
+export async function createHotel(body: any){
+  await Hotel.create(body); 
 }
 
 

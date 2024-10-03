@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { GetBookings } from "../../Controller/BookingController"; 
+import { GetBookings, DeleteBooking } from "../../Controller/BookingController"; 
 
 import Grid from '@mui/material/Grid2'; 
 import List from '@mui/material/List'
@@ -26,9 +26,9 @@ const Bookings: React.FC = () => {
     bookingsCall(); 
   }, [])
   //Function that handles cancellation
-  const handleCancelation = (id:number) => {
-    const afterCancelation = bookingList.filter((booking) => booking.id !== id);
-    SetBookingList(afterCancelation);
+  const handleCancelation = async (id:string) => {
+    await DeleteBooking(id); 
+    bookingsCall(); 
   }
   return (
     <Grid container
