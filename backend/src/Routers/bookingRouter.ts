@@ -1,5 +1,5 @@
-import { deleteBooking, createBooking } from "../controllers/booking";
-
+import { deleteBooking, createBooking, getBookingForUser } from "../controllers/booking";
+import { authenticateJWT } from "../controllers/auth";
 import express from 'express';
 
 const bookingRouter = express.Router();
@@ -30,5 +30,13 @@ bookingRouter.delete("/", async function(req, res) {
         res.status(400).send();
     }
 });
+
+bookingRouter.get("/", async function(req, res){
+  console.log("getting bookings..."); 
+  const username = req.user; 
+  const bookings = await getBookingForUser(username);
+  console.log(bookings); 
+  res.send(bookings).status(200); 
+})
 
 export default bookingRouter;

@@ -19,6 +19,7 @@ import DisplayHotel from './Components/hotelDisplay/displayHotelCard';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'; 
 import Bookings from './Components/userBookingPage/userBookings'; 
 import axios from 'axios';
+import {useNavigate} from 'react-router-dom'; 
 
 //Används för att hålla koll på globalt tillstånd i individuella komponenter
 export const LoggedinContext = React.createContext<any>(false);
@@ -49,15 +50,19 @@ const Application: React.FC = () => {
   // }, [loggedin])
   axios.defaults.withCredentials = true;  
   useEffect(() => {
+    console.log("page has been refreshed"); 
     const checkSession = async() => {
+      console.log("checking session..."); 
       try{
-        const session = await axios.get("http://localhost:7700/api/user/session", { params: {
-          username: globalUsername}}) 
+        const session = await axios.get("http://localhost:7700/api/user/session");    console.log(session); 
+        setLoggedin(true); 
       }
       catch {
         setLoggedin(false); 
       }
-    }}); 
+    }
+    checkSession(); 
+  }, []); 
   if(!loggedin) {
     return (
       <div>
@@ -74,7 +79,13 @@ const Application: React.FC = () => {
                 <UsernameContext.Provider value={{globalUsername, setGlobalUsername}}>
                 <Signup/>
                 </UsernameContext.Provider>
-              </LoggedinContext.Provider>}/> 
+              </LoggedinContext.Provider>}/>
+            <Route path="*" element={              
+              <LoggedinContext.Provider value={{loggedin: loggedin, setLoggedin: setLoggedin}}>
+                <UsernameContext.Provider value={{globalUsername, setGlobalUsername}}>
+                  <Login/>
+                </UsernameContext.Provider>
+              </LoggedinContext.Provider>}/>
           </Routes>
         </BrowserRouter>
       </div>

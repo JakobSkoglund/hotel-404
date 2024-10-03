@@ -8,8 +8,9 @@ import userRouter from "./Routers/userRouter";
 import bookingRouter from "./Routers/bookingRouter";
 import cors from 'cors';
 import session from "express-session";
-
 import { getHotelDocumentById, getHotelDocumentByName } from './controllers/hotelController'
+import * as jwt from "jsonwebtoken"; 
+import cookieParser from "cookie-parser"; 
 
 declare module 'express-session' {
   export interface SessionData {
@@ -25,7 +26,9 @@ app.use(cors({
   credentials: true
 })); 
 // Parse incoming JSON request.
-app.use(express.json()); 
+app.use(express.json());
+
+app.use(cookieParser()); 
 
 app.set("trust proxy", 1); 
 app.use(session({

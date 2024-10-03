@@ -1,6 +1,7 @@
 import mongoose from "mongoose"; 
 
 import { Booking } from "../Model/Booking"; 
+import { Hotel } from "../Model/HotelModel";
 
 export async function deleteBooking(bookingId: string) {
     
@@ -37,4 +38,24 @@ export async function createBooking(hotelID: string, user: string, from_date: st
     to_date: to_date,
     cost: calculatedCost
   }); 
+}
+
+export async function getBookingForUser(username: string) {
+  const bookings = await Booking.find({username: username});
+  console.log(bookings);
+  var formattedBookings = []
+  for(let booking of bookings) {
+    console.log(booking); 
+    const hotel = await Hotel.findById(booking.hotel); 
+    const formattedBooking = {
+      id: booking.id,
+      hotel: hotel.display.title, 
+      user: booking.user, 
+      to_date: booking.to_date, 
+      from_date: booking.from_date, 
+      cost: booking.cost
+    }; 
+    formattedBookings.push(formattedBooking); 
+  }
+  return formattedBookings; 
 }

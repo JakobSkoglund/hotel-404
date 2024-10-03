@@ -1,7 +1,13 @@
 import { bookings} from "../MocData/bookings";
 import { IBooking } from "../Model/Booking";
-
-export function GetBookings(): IBooking[] {
+import axios from "axios"; 
+export async function GetBookings() {
     //Kommer göra en API request sen men returnerar statisk data just nu
-    return bookings; 
+    const bookings = await axios.get("http://localhost:7700/api/booking/");
+    console.log(bookings.data); 
+    return bookings.data; 
+}
+
+export async function DeleteBooking(id: string){
+  const deleted = await axios.delete("http://localhost:7700/api/booking", {data: {bookingId: id}}); 
 }
