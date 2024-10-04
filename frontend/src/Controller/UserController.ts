@@ -62,6 +62,17 @@ export async function DeleteUser(username: string) {
   }
 }
 
+export async function LogOut() {
+  try {
+    const response = await axios.get('http://localhost:7700/api/user/logout');
+    console.log("Logout successful");
+    return true;
+  } catch (error) {
+    console.log("Logout unsuccessful");
+    return false;
+  }
+}
+
 /*
 export function CreateUser(name: string, username: string, age: string, password: string, 
     lastname:string, key: string, isAdmin:boolean): IUser | string{   

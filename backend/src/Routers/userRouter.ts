@@ -51,11 +51,22 @@ userRouter.delete("/deleteme", authenticateJWT, async function(req, res){
   const userID = req.user as string;
     try {
     const userDelete = await deleteUser(userID);
+    res.cookie("token", "none", {maxAge: 1});
     res.sendStatus(201);
   }
   catch {
     res.sendStatus(400);
   }
+});
+
+userRouter.get("/logout", authenticateJWT, async function(req, res){
+  try {
+    res.cookie("token", "none", {maxAge: 1});
+    res.sendStatus(200);
+  } catch {
+    res.sendStatus(400);
+  }
+  
 });
 
 

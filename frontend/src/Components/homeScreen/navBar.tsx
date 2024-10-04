@@ -13,7 +13,7 @@ import { LoggedinContext , UsernameContext} from '../../index';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
-import { DeleteUser } from '../../Controller/UserController';
+import { DeleteUser, LogOut } from '../../Controller/UserController';
 import { IUser } from '../../Model/User';
 
 const NavAppBar = () => {
@@ -69,9 +69,10 @@ const NavAppBar = () => {
         navigate('/');
     }
 
-    const handleSignOutButtonClick = () => {
-      setLoggedin(false); 
-      navigate('/'); 
+    const handleSignOutButtonClick = async () => {
+        const logout = await LogOut();
+        setLoggedin(false); 
+        navigate('/'); 
     }
 
     const handleBackToIndexClick = () => {
@@ -125,7 +126,7 @@ const NavAppBar = () => {
                             
                             <MenuItem onClick={handleMyPageBookingClick}>My Bookings</MenuItem>
                             <MenuItem onClick={() => handleDeleteUserOnClick(username)}> Delete Account</MenuItem>
-                            <MenuItem onClick={handleSignOutButtonClick}>Sign out</MenuItem>
+                            <MenuItem onClick={() => handleSignOutButtonClick()}>Sign out</MenuItem>
                         </Menu>
                     </Box>
                 </Box>
