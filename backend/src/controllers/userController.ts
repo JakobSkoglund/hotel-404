@@ -123,13 +123,15 @@ export async function deleteBooking(bookingId: string) {
     }
 }
 
-export async function deleteUser(userId:string) {
+export async function deleteUser(username:string) {
 
     try 
     {
         console.log("try_delete");
-        const userdelete  = await User.deleteOne({_id: userId});
-        const userbookingdelete = await Booking.deleteMany({user:userId});
+        const user  = await User.findOne({username: username});
+        console.log(username);
+        const userbookingdelete = await Booking.deleteMany({user: user?._id});
+        const userdelete = await User.deleteOne({username: username });
     }
     catch (error)
     {

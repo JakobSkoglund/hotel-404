@@ -48,9 +48,8 @@ userRouter.post("/signup", async function(req, res){
 
 
 userRouter.delete("/deleteme", authenticateJWT, async function(req, res){
-  const userID = req.query.userID as string;
-
-  try {
+  const userID = req.user as string;
+    try {
     const userDelete = await deleteUser(userID);
     res.sendStatus(201);
   }

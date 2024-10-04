@@ -47,10 +47,12 @@ export async function CreateUser (name:string, lastname:string, username:string,
   }
 }
 
-export async function DeleteUser(userID: string) {
+export async function DeleteUser(username: string) {
   try {
+    console.log(username); 
+    const params = new URLSearchParams([['username', username]]);
     const response = await axios.delete('http://localhost:7700/api/user/deleteme', {
-      params: {userID: userID},
+      data: {username: username}
     });
     console.log("Deletion of user successful", response.data);
     return true;
