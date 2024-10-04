@@ -13,5 +13,10 @@ npm run start
 This will start the frontend server on localhost:3000. 
 
 ## Backend 
-todo
+To run the backend Node.JS-app, run the following commands from the root of the repository: 
+```bash
+cd backend
+npm install # to install all dependencies
+npm run start
+```
     
