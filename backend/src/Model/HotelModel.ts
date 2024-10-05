@@ -19,30 +19,23 @@ const hotelSchema = new mongoose.Schema({
     },
     /* Hotel Pictures */
     hotel_img: {
-        data: Buffer,
-        contentType: String,
-    },
-    hall_img: {
-        data: Buffer,
-        contentType: String,
-    },
-    room_img: {
-        data: Buffer,
-        contentType: String,
-    },
-    bath_img: {
-        data: Buffer,
-        contentType: String,
-    },
-    food_img: {
-        data: Buffer,
-        contentType: String,
-    },
-    other_img: {
-        data: Buffer,
-        contentType: String,
-    },
-
+        url: { type: String, required: true }  // Make sure this stores the image URL directly
+      },
+      hall_img: {
+        url: { type: String }
+      },
+      room_img: {
+        url: { type: String }
+      },
+      bath_img: {
+        url: { type: String }
+      },
+      food_img: {
+        url: { type: String }
+      },
+      other_img: {
+        url: { type: String }
+      }
 
 });
 

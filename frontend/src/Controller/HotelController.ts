@@ -8,7 +8,8 @@ export async function getHotelInfo(){
   const formattedHotels = hotels.data.map((hotel: any) => {
     return {
       ...hotel.display,
-      id: hotel._id
+      id: hotel._id,
+      image: hotel.hotel_img?.url || "https://png.pngtree.com/png-vector/20190917/ourmid/pngtree-not-found-outline-icon-vectors-png-image_1737857.jpg"
     }; 
   }); 
   return formattedHotels; 
