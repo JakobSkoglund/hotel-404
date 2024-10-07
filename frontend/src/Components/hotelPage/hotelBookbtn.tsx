@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Grid, Box } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 import axios from "axios";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
@@ -10,6 +10,7 @@ import { IHotel } from '../../Model/Hotel';
 import { useParams } from "react-router-dom";
 import { useProps } from "@mui/x-data-grid/internals";
 import { LoggedinContext , UsernameContext} from "../../index";
+import { useContext } from "react";
 
 interface IHotelDetails {
     id: string;
@@ -49,9 +50,9 @@ const HotelBooking = () => {
 
         try 
         {
-            await axios.post("/api/bookings", {
-                hotelID: 
-                globalUsername,
+            await axios.post("http://localhost:7700/api/booking", {
+                hotelID: hotelId,
+                user: globalUsername,
                 from_date: fromDate,
                 to_date: toDate,
             });
