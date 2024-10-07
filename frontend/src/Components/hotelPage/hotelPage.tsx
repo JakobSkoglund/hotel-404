@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import HotelDescription from "./hotelDescription";
 import HotelTemplate from "./hoteltemplate";
 import HotelDate from "./hotelDate";
-import HotelBookbtn from "./hotelBookbtn";
+import HotelBooking from "./hotelBookbtn";
 import { pics } from "../../MocData/hotelPics";
 import { getHotelPage } from "../../Controller/HotelController";
 import { useEffect, useState } from "react"; 
@@ -46,7 +46,7 @@ const HotelPage = () => {
       </Grid>
       <Grid item xs={12}>
       <div style={{ marginTop: 25 }}> 
-          <HotelBookbtn />
+          <HotelBooking/>
         </div>
       </Grid>
 
