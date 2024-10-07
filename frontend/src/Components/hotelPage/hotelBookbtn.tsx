@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useContext} from "react";
 import { Grid, Box } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -50,8 +50,13 @@ const HotelBooking = () => {
 
         try 
         {
+<<<<<<< HEAD
             await axios.post("http://localhost:7700/api/booking", {
                 hotelID: hotelId,
+=======
+            await axios.post("http://localhost:7700/api/booking/", {
+                hotelID: hotelId,  
+>>>>>>> c519640e89b46ee326e53e4dcbbd27680496d72c
                 user: globalUsername,
                 from_date: fromDate,
                 to_date: toDate,

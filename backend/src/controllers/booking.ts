@@ -24,12 +24,17 @@ export async function deleteBooking(bookingId: string) {
     }
 }
 
-export async function createBooking(hotelID: string, user: string, from_date: string, to_date: string, cost: number){
-  
+export async function createBooking(hotelID: string, user: string, from_date: string, to_date: string){ 
   let date1 = new Date(from_date); 
   let date2 = new Date(to_date); 
   let days = Math.round((date2.getTime()-date1.getTime()) /(1000*3600*24));
-  console.log(days); 
+  let hotel = await Hotel.findById(hotelID);
+  console.log(hotel); 
+  if(!hotel){
+    throw new Error("couldn't find hotel"); 
+  }
+  const cost = hotel?.display?.price;
+  console.log(cost); 
   const calculatedCost = cost * days; 
   await Booking.create({
     hotel: hotelID, 
@@ -37,7 +42,8 @@ export async function createBooking(hotelID: string, user: string, from_date: st
     from_date: from_date, 
     to_date: to_date,
     cost: calculatedCost
-  }); 
+  });
+  console.log("successfully created!"); 
 }
 
 export async function getBookingForUser(username: string) {
@@ -51,8 +57,8 @@ export async function getBookingForUser(username: string) {
       id: booking.id,
       hotel: hotel.display.title, 
       user: booking.user, 
-      to_date: booking.to_date, 
-      from_date: booking.from_date, 
+      to_date: booking.to_date.split(":")[0], 
+      from_date: booking.from_date.split(":")[0], 
       cost: booking.cost
     }; 
     formattedBookings.push(formattedBooking); 
