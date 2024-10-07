@@ -57,8 +57,8 @@ export async function getBookingForUser(username: string) {
       id: booking.id,
       hotel: hotel.display.title, 
       user: booking.user, 
-      to_date: booking.to_date.split(":")[0], 
-      from_date: booking.from_date.split(":")[0], 
+      to_date: booking.to_date.split("T")[0], 
+      from_date: booking.from_date.split("T")[0], 
       cost: booking.cost
     }; 
     formattedBookings.push(formattedBooking); 

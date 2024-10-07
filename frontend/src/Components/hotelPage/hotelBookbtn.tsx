@@ -10,7 +10,6 @@ import { IHotel } from '../../Model/Hotel';
 import { useParams } from "react-router-dom";
 import { useProps } from "@mui/x-data-grid/internals";
 import { LoggedinContext , UsernameContext} from "../../index";
-import { useContext } from "react";
 
 interface IHotelDetails {
     id: string;
@@ -50,13 +49,8 @@ const HotelBooking = () => {
 
         try 
         {
-<<<<<<< HEAD
-            await axios.post("http://localhost:7700/api/booking", {
-                hotelID: hotelId,
-=======
             await axios.post("http://localhost:7700/api/booking/", {
                 hotelID: hotelId,  
->>>>>>> c519640e89b46ee326e53e4dcbbd27680496d72c
                 user: globalUsername,
                 from_date: fromDate,
                 to_date: toDate,

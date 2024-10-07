@@ -9,15 +9,17 @@ import { DatePicker} from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 import SearchIcon from "@mui/icons-material/Search";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
   const [city, setCity] = useState<string>("");
   const [dateCheckIn, setDateCheckIn] = useState<Date |null> (null);
   const [dateCheckOut, setDateCheckOut] = useState<Date |null> (null);
+  const navigate = useNavigate();
   
   const handleSearch = () => {
     if (city && dateCheckIn && dateCheckOut) {
-      //Här ska vi fixa funktionalitet till söka 
+      navigate(`/search-results?city=${city}&checkIn=${dateCheckIn.toISOString()}&checkOut=${dateCheckOut.toISOString()}`);
     } else {
       alert("Please select a city and dates");
     }
