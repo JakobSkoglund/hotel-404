@@ -11,16 +11,18 @@ hotelRouter.get("/all", async function(req, res){
 })
 
 hotelRouter.get("/getHotels", async function(req, res){
-  const city = req.body.city;
-  const fromDate = req.body.fromDate; 
-  const toDate = req.body.toDate;
+  const city = req.query.city;
+  const fromDate = req.query.dateCheckIn; 
+  const toDate = req.query.dateCheckOut;
+  console.log("query:", req.query); 
 
   if(!fromDate || !toDate){
+    console.log("bad request"); 
     res.status(400).send('invalid request');
     return; 
   }
   const result = await getHotels(city, fromDate, toDate);
-  console.log(result); 
+  console.log("hotels:", result); 
   res.send(JSON.stringify(result)).status(200); 
 })
 

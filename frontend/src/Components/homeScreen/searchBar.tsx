@@ -18,8 +18,10 @@ const SearchBar = () => {
   const navigate = useNavigate();
   
   const handleSearch = () => {
+    const queryToDate = dateCheckOut?.toISOString().split('T')[0]; 
+    const queryFromDate = dateCheckIn?.toISOString().split('T')[0]; 
     if (city && dateCheckIn && dateCheckOut) {
-      navigate(`/search-results?city=${city}&checkIn=${dateCheckIn.toISOString()}&checkOut=${dateCheckOut.toISOString()}`);
+      navigate(`/search-results?city=${city}&checkIn=${queryFromDate}&checkOut=${queryToDate}`);
     } else {
       alert("Please select a city and dates");
     }

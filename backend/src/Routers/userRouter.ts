@@ -7,7 +7,6 @@ import express from "express";
 const userRouter = express.Router(); 
 
 userRouter.post("/login", async function(req, res, next){
-  console.log("hello world"); 
   const username = req.body.username; 
   const password = req.body.password; 
   try {

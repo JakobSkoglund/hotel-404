@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { IHotel } from "../../Model/Hotel";
 import axios from 'axios';
 import DisplayHotel from "../hotelDisplay/displayHotelCard";
+import {getHotelQuery} from "../../Controller/HotelController";  
+
 
 const SearchResults: React.FC = () => {
     const [hotels, setHotels] = useState<IHotel[]>([]);
@@ -12,14 +14,19 @@ const SearchResults: React.FC = () => {
     const checkIn = queryParams.get("checkIn");
     const checkOut = queryParams.get("checkOut");
     const navigate = useNavigate();
+    
 
     useEffect(() => {
         const fetchHotels = async () => {
             try {
-                const response = await axios.get("http://localhost:7700/api/hotels", {
-                    params: { city, dateCheckIn: checkIn, dateCheckOut: checkOut },
-                });
-                setHotels(response.data);
+                const params = {
+                  city: city ? city : "", 
+                  dateCheckIn: checkIn ? checkIn: "", 
+                  dateCheckOut: checkOut ? checkOut: ""
+                }; 
+                 
+                const result = await getHotelQuery(params);  
+                setHotels(result);
             } catch (error) {
                 console.error("Error fetching hotels:", error);
             }

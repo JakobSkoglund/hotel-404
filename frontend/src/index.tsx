@@ -20,6 +20,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Bookings from './Components/userBookingPage/userBookings'; 
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom'; 
+import SearchResults from './Components/homeScreen/searchResult';
 
 //Används för att hålla koll på globalt tillstånd i individuella komponenter
 export const LoggedinContext = React.createContext<any>(false);
@@ -105,6 +106,7 @@ const Application: React.FC = () => {
             <Route path="/mybookings" element={<Bookings/>}/>
            <Route path="navapp" element={<NavAppBar/>}/>
            <Route path="/hotelDetail/:hotelId" element={<HotelPage/>}/>
+            <Route path="/search-results/*" element={<SearchResults/>}/>
           </Routes>
         </BrowserRouter>
         </UsernameContext.Provider>

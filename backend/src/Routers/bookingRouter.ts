@@ -32,7 +32,6 @@ bookingRouter.delete("/", async function(req, res) {
 });
 
 bookingRouter.get("/", async function(req, res){
-  console.log("getting bookings..."); 
   const username = req.user; 
   const bookings = await getBookingForUser(username);
   console.log(bookings); 

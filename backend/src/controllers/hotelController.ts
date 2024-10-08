@@ -3,18 +3,20 @@ import mongoose from "mongoose";
 import { Booking } from "../Model/Booking"; 
 //mongoose.connect("mongodb://127.0.0.1:27017/webdev"); 
 import { Hotel } from "../Model/HotelModel"; 
+import { time } from "console";
 
 
 export async function getHotels(city: string | null, fromDate: string,  toDate: string){
   var hotels;
   if(city){
-    hotels = await Hotel.find({display: {city: city}}); 
+    hotels = await Hotel.find({'display.city': city}); 
   }
   else{
     hotels = await Hotel.find(); 
   }
   //Filter hotels that are unavailable
-  var freeHotels = hotels; 
+  var freeHotels = [];
+  console.log(hotels.length); 
   for(let hotel of hotels){
     const isFree = await hotelFreeBetweenDates(hotel, fromDate, toDate); 
     if(isFree){
@@ -25,7 +27,6 @@ export async function getHotels(city: string | null, fromDate: string,  toDate: 
 }
 
 export async function hotelFreeBetweenDates(hotel:any, fromDate: string, toDate: string){
-  console.log
   const hotelId = hotel._id; 
   const bookings = await Booking.find({hotel: hotelId});
   for(let booking of bookings){
