@@ -4,6 +4,7 @@ import { DatePicker} from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 
+// HotelDate component for selecting check-in and check-out dates
 const HotelDate = () => {
 
     const [dateCheckIn, setDateCheckIn] = useState<Date |null> (null);

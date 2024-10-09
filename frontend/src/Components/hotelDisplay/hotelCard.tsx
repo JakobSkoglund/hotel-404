@@ -9,6 +9,8 @@ import { createStyles } from "@mui/material";
 import { useNavigate, useNavigation } from "react-router-dom"; 
 type HotelProps = IHotel
 
+
+//the template of a hotel card, used in displayhotelcard
 const HotelCard: React.FC<HotelProps> = ({image, title, description, price, city, id}) => {
   console.log(id); 
   const navigate = useNavigate();
@@ -21,7 +23,7 @@ const HotelCard: React.FC<HotelProps> = ({image, title, description, price, city
         display: 'flex',
         flexDirection: 'column'
       }}
-      
+      //when clicked opens up page for the hotel
     >
       
       <CardActionArea onClick={()=> navigate(`/hotelDetail/${id}`)}>

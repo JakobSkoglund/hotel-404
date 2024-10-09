@@ -13,7 +13,7 @@ import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 
 
-
+// HotelPage component for displaying detailed information about a hotel
 const HotelPage = () => {
   const {hotelId }= useParams();
   console.log(hotelId); 

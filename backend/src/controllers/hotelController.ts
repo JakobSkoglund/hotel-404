@@ -1,7 +1,7 @@
 import { Booking } from "../Model/Booking"; 
 import { Hotel } from "../Model/HotelModel"; 
 
-
+// Fetch hotels, optionally filtered by city, and return only those available between the given dates
 export async function getHotels(city: string | null, fromDate: string,  toDate: string){
   var hotels;
   if(city){
@@ -21,7 +21,7 @@ export async function getHotels(city: string | null, fromDate: string,  toDate: 
   }
   return freeHotels; 
 }
-
+// Check if a hotel is available between the given dates
 export async function hotelFreeBetweenDates(hotel:any, fromDate: string, toDate: string){
   const hotelId = hotel._id; 
   const bookings = await Booking.find({hotel: hotelId});
@@ -42,7 +42,7 @@ export async function getAllHotels(){
   const hotels = await Hotel.find();
   return hotels; 
 }
-
+// Get hotel by its ID, throw an error if not found
 export async function getHotelDocumentById(hotelId: string)
 {  
     try {
@@ -64,7 +64,7 @@ export async function getHotelDocumentById(hotelId: string)
         throw error; // re-throw the error if needed
     }
 }
-
+// Get hotel by its name, throw an error if not found
 export async function getHotelDocumentByName(hotelName: string)
 {   
     try {
@@ -85,7 +85,7 @@ export async function getHotelDocumentByName(hotelName: string)
         throw error; // re-throw the error if needed
     }
 }
-
+// Create a new hotel record
 export async function createHotel(body: any){
   await Hotel.create(body); 
 }
