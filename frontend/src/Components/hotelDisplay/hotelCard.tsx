@@ -30,10 +30,10 @@ const HotelCard: React.FC<HotelProps> = ({image, title, description, price, city
         <CardMedia
           component="img"
           sx={{
-            //height: { xs: "25vh", sm: "35vh" },
-            height:"100%",
+            //För att göra att alla Cards får samma storlek även ifall bilderna är olika stora 
+            height: { xs: "30vh", sm: "35vh", md:"40vh" },
             width: "100%",
-            //objectFit: "cover"
+            objectFit: "cover"
           }}
           image={image}
           alt="Image of the Hotel"
