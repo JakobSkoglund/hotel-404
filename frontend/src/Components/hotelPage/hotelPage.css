@@ -1,0 +1,15 @@
+/* hotelPage.css */
+
+/* Add this container to control the overall size of the gallery */
+.gallery-container {
+    width: 80%;         /* Gallerians bred i förhållande till sidan */
+    max-width: 800px; /* Max gränsen för gallerians bred */
+    margin: 0 auto;     /* FÖr att centrera gallerian */
+  }
+  
+  .custom-image-gallery img {
+    height: 400px;      /* Sätter höjden för*/
+    object-fit: cover;  /* så att bilderna tar hela containern */
+    border-radius: 8px; /* gör kanterna rundare */
+  }
+  

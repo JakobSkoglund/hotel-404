@@ -12,7 +12,7 @@ const HotelDescription = ({desc, name }: DescriptionProps) => {
 
     return(
         <Grid container justifyContent="center">
-        <Grid item xs={12} sm={8}>
+        <Grid item xs={12} sm={12}>
         <Card variant='outlined' sx ={{maxWidth:980, padding: 2, border:'none', margin: "0 auto",}}>
             <Typography variant="h4" align='center'>{name}</Typography>
             <Typography>
