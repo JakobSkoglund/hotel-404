@@ -23,4 +23,4 @@ export async function CreateBooking(
     user: user,
     from_date: from_date,
     to_date: to_date}); 
-  };  
+};  
