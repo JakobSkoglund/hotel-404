@@ -28,7 +28,12 @@ const SearchBar = () => {
     const queryFromDate = dateCheckIn?.toISOString().split('T')[0]; 
     if (from > to ){
       alert("Please select valid dates");
-    } else if (city && dateCheckIn && dateCheckOut) {
+    } 
+    else if(from < Number(today) || to < Number(today)){
+      alert("Please select valid dates"); 
+    }
+
+    else if (city && dateCheckIn && dateCheckOut) {
       navigate(`/search-results?city=${city}&checkIn=${queryFromDate}&checkOut=${queryToDate}`);
     } else {
       alert("Please select a city and dates");

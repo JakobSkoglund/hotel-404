@@ -1,10 +1,7 @@
 import * as React from "react";
 import Grid from "@mui/material/Grid";
 import HotelDescription from "./hotelDescription";
-import HotelTemplate from "./hoteltemplate";
-import HotelDate from "./hotelDate";
 import HotelBooking from "./hotelBookbtn";
-import { pics } from "../../MocData/hotelPics";
 import { getHotelPage } from "../../Controller/HotelController";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -18,13 +15,19 @@ const HotelPage = () => {
   const { hotelId } = useParams();
   console.log(hotelId);
   const [hotel, setHotel] = useState<IHotelDetails>();
+  const [validHotel, setValidHotel] = useState<Boolean>(true); 
   const getHotelInfo = async function () {
-    const hotel: IHotelDetails = await getHotelPage(hotelId ? hotelId : "");
-    console.log(hotel);
-    setHotel(hotel);
+    try{
+      const hotel = await getHotelPage(hotelId? hotelId : "");
+      console.log(hotel); 
+      setValidHotel(!(!hotel));
+      setHotel(hotel); 
+    } catch{
+      setValidHotel(false); 
+    }
   };
   useEffect(() => {
-    getHotelInfo();
+    getHotelInfo();  
   }, []);
 
   const hotelImages = [
@@ -34,7 +37,7 @@ const HotelPage = () => {
     { original: hotel ? hotel.room_img.url : "" },
     { original: hotel ? hotel.other_img.url : "" },
   ];
-  return (
+  return validHotel ? (
     <Grid
       container
       direction="column"
@@ -63,7 +66,17 @@ const HotelPage = () => {
         </div>
       </Grid>
     </Grid>
-  );
+  ) : (
+    <Grid
+      container
+      direction="column"
+      justifyContent="center"
+      alignItems="center"
+      style={{ marginTop: 2 }}
+    >
+    <h1>Could not find hotel</h1>
+    </Grid>
+  )
 };
 
 export default HotelPage;

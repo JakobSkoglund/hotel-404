@@ -1,6 +1,7 @@
-import {IHotel} from "../Model/Hotel";
+import {IHotelDetails} from "../Model/Hotel";
 //import { hotels } from "../MocData/hotelCards"; 
 import axios from "axios"; 
+
 
 
 export async function getHotelInfo(){
@@ -28,7 +29,7 @@ export async function getHotelQuery(params: any){
   return formattedHotels; 
 }
 
-export async function getHotelPage(id: string){
+export async function getHotelPage(id: string): Promise<IHotelDetails>{
   console.log(id); 
   const params = new URLSearchParams([['hotelId', id]]);
   const hotel = await axios.get("http://localhost:7700/api/hotels/hotelDetails", {params});

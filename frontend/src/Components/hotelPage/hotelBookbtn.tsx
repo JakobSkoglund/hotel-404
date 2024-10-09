@@ -11,7 +11,7 @@ import { useParams } from "react-router-dom";
 import { useProps } from "@mui/x-data-grid/internals";
 import { LoggedinContext , UsernameContext} from "../../index";
 import { CenterFocusStrong } from "@mui/icons-material";
-
+import { CreateBooking } from "../../Controller/BookingController";
 //the hotel booking boton that is used to book after putting in dates after chooisng hotel.
 
 interface IHotelDetails {
@@ -43,6 +43,7 @@ const HotelBooking = () => {
     console.log(hotelId); 
     const {globalUsername, setGlobalUsername} = useContext(UsernameContext); 
 
+    const timeNow = Number(Date.now()); 
     const handleBookHotel = async () => {
         if(!dateCheckIn || !dateCheckOut) {
             alert("Please select both check-in and check-out dates.");
@@ -50,19 +51,20 @@ const HotelBooking = () => {
         } else if (dateCheckIn > dateCheckOut){
             alert("Please choose a valid date");
             return;
-        };
+        } else if(Number(dateCheckIn) < timeNow || Number(dateCheckOut) < timeNow){
+          alert("Please choose a valid date"); 
+          return; 
+        }
 
         const fromDate = dateCheckIn.toISOString();
         const toDate = dateCheckOut.toISOString();
 
         try 
-        {
-            await axios.post("http://localhost:7700/api/booking/", {
-                hotelID: hotelId,  
-                user: globalUsername,
-                from_date: fromDate,
-                to_date: toDate,
-            });
+        {   
+            if(!hotelId){
+              throw new Error("can't book hotel without ID"); 
+            }
+            await CreateBooking(hotelId, globalUsername, fromDate, toDate); 
             alert("Booking successful!");
             window.location.reload();
         }

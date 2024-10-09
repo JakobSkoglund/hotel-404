@@ -11,3 +11,16 @@ export async function GetBookings() {
 export async function DeleteBooking(id: string){
   const deleted = await axios.delete("http://localhost:7700/api/booking", {data: {bookingId: id}}); 
 }
+
+export async function CreateBooking(
+  hotelId: string,
+  user: string,
+  from_date:string,
+  to_date: string){
+
+  await axios.post("http://localhost:7700/api/booking/", {
+    hotelID: hotelId,  
+    user: user,
+    from_date: from_date,
+    to_date: to_date}); 
+  };  

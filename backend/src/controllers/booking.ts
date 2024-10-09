@@ -28,6 +28,15 @@ export async function createBooking(hotelID: string, user: string, from_date: st
   let date2 = new Date(to_date); 
   let days = Math.round((date2.getTime()-date1.getTime()) /(1000*3600*24));
   let hotel = await Hotel.findById(hotelID);
+  const timeNow = Date.now(); 
+
+  //If checkout date is less than checkin date, throw an error
+  //Also throw an error if either date is before the current time
+  if(days < 0){
+    throw new Error("invalid dates"); 
+  } else if(Number(date1) < timeNow || Number(date2) < timeNow){
+    throw new Error("invalid dates"); 
+  }
   if(!hotel){
     throw new Error("couldn't find hotel");
   }
