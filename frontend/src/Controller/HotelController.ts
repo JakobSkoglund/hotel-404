@@ -32,5 +32,6 @@ export async function getHotelPage(id: string){
   console.log(id); 
   const params = new URLSearchParams([['hotelId', id]]);
   const hotel = await axios.get("http://localhost:7700/api/hotels/hotelDetails", {params});
+  console.log(hotel.data); 
   return hotel.data; 
 }

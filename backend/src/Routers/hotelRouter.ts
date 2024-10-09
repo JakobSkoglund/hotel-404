@@ -36,7 +36,9 @@ hotelRouter.get("/hotelDetails", async (req: Request<{hotelId: string}>, res) =>
       bath_img: hotel.bath_img, 
       hall_img: hotel.hall_img, 
       other_img: hotel.other_img, 
-      food_img: hotel.food_img
+      food_img: hotel.food_img, 
+      room_img: hotel.room_img
+      
     }; 
     res.status(200).send(result); 
   }

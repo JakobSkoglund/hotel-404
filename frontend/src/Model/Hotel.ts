@@ -15,10 +15,10 @@ export interface IHotelDetails {
     title: string, 
     description: string
   }, 
-  hotel_img: string, 
-  hall_img: string, 
-  room_img: string, 
-  bath_img: string, 
-  food_img: string, 
-  other_img: string
+  hotel_img: {url: string}, 
+  hall_img:{url: string}, 
+  room_img:{url: string}, 
+  bath_img:{url: string}, 
+  food_img:{url: string}, 
+  other_img:{url: string}
 }

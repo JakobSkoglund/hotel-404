@@ -9,7 +9,7 @@ import { getHotelPage } from "../../Controller/HotelController";
 import { useEffect, useState } from "react"; 
 import { useParams } from "react-router-dom";
 import { IHotelDetails } from "../../Model/Hotel";
-
+import ImageGallery from "react-image-gallery"; 
 
 
 
@@ -20,13 +20,31 @@ const HotelPage = () => {
   const [hotel, setHotel] = useState<IHotelDetails>(); 
   const getHotelInfo = async function(){
     const hotel: IHotelDetails = await getHotelPage(hotelId? hotelId : "");
-    console.log(hotel.page); 
-    setHotel(hotel); 
+    console.log(hotel); 
+    setHotel(hotel);
+    
   };
   useEffect(() => {
     getHotelInfo(); 
-  }, [])
+  }, []); 
 
+  let hotelImages = [
+    {original: hotel? hotel.hotel_img.url: "", 
+    originalHeight: 1080*0.25, 
+    originalWidth: 1920*0.25}, 
+    {original: hotel? hotel.bath_img.url: "", 
+    originalHeight: 1080*0.25, 
+    originalWidth: 1920*0.25}, 
+    {original: hotel? hotel.food_img.url: "", 
+    originalHeight: 1080*0.25, 
+    originalWidth: 1920*0.25}, 
+    {original: hotel? hotel.room_img.url:"", 
+    originalHeight: 1080*0.25, 
+    originalWidth: 1920*0.25}, 
+    {original: hotel? hotel.other_img.url:"", 
+    originalHeight: 1080*0.25, 
+    originalWidth: 1920*0.25},
+    ]
   return (
     <Grid
       container
@@ -35,9 +53,7 @@ const HotelPage = () => {
       alignItems="center"
       style={{ marginTop: 2 }}
     >
-      <Grid item xs={12}>
-        <HotelTemplate hotels={pics} />
-      </Grid>
+        <ImageGallery items={hotelImages}/>
       <Grid item xs={12}>
         <HotelDescription desc={hotel? hotel.page.description: ""} name={hotel? hotel.page.title: ""} />
       </Grid>
