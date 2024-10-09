@@ -2,31 +2,25 @@ import React from 'react';
 import {useState, useEffect} from 'react'; 
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+
 import Login from './Components/SignIn/login';
 import reportWebVitals from './reportWebVitals';
 import Signup from './Components/SignIn/signup';
 import NavAppBar from './Components/homeScreen/navBar';
 import SearchBar from './Components/homeScreen/searchBar';
-//import HotelTemplate from './Components/hotelDisplay/hoteltemplate';
-import HotelTemplate from './Components/hotelPage/hoteltemplate';
-import HotelDate from './Components/hotelPage/hotelDate';
-import { pics } from './MocData/hotelPics';
-import HotelDescription from './Components/hotelPage/hotelDescription';
+
 import HotelPage from './Components/hotelPage/hotelPage';
 
 import DisplayHotel from './Components/hotelDisplay/displayHotelCard';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'; 
 import Bookings from './Components/userBookingPage/userBookings'; 
 import axios from 'axios';
-import {useNavigate} from 'react-router-dom'; 
 import SearchResults from './Components/homeScreen/searchResult';
 
 //Används för att hålla koll på globalt tillstånd i individuella komponenter
 export const LoggedinContext = React.createContext<any>(false);
 export const UsernameContext = React.createContext<any>("");
 
-var initLoggedin = sessionStorage.getItem("loggedin") === "true"; 
 
 const booking = () => {
   return (
