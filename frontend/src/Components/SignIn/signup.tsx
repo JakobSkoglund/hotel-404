@@ -21,6 +21,7 @@ const Signup = () => {
     width: 380,
     margin: "20px auto",
   };
+  //Styles för olika element
   const btnstyle = { margin: "10px 3px" };
   const userlblstyle = { margin: "10px 3px" };
   const titleSpacing = { marginTop: "5px" };
@@ -40,6 +41,7 @@ const Signup = () => {
 
   const {loggedin, setLoggedin} = useContext(LoggedinContext); 
 
+  //Async funktion för att hantera nya användare
  const handleSignup = async () => {
   SetErrorMsg("");
   const newUser = await CreateUser(name,lastname, username, age, password, false);
@@ -61,50 +63,6 @@ const Signup = () => {
   const handKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Enter") {
       handleSignup();
-   /*   var userCreate: IUser | string = CreateUser(firstname, username, age, password, lastname, "1", false) 
-      if(typeof userCreate === "string"){
-        SetErrorMsg(userCreate); 
-      }
-      else {
-        alert("Sign up successful!");
-        setLoggedin(true); 
-      }*/
-  
-  //Den här funktionen hanterar nya användare
-  /*const handleSignUp = () => {
-    //kolla ifall den redan finns med i listan
-    const match = profiles.find(
-      (profile) => profile.name === firstname && profile.lastname === lastname
-    );
-    //Kollar ifall användarnamnet är taget av en annan användare
-    const usernameTaken = profiles.find(
-      (profile) => profile.username === username
-    );
-    //Ser till att användaren har fyllt i alla textfields
-    if (!firstname || !lastname || !age || !username || !password) {
-      SetErrorMsg("All fields are required!");
-      return;
-    } else if (!match) {
-      if (usernameTaken) {
-        SetErrorMsg("Username is taken, try another one!");
-        return;
-      }
-      //kommer att skapa en ny profile och lägga den i MOCK listan
-      const newProfile: IProfile = {
-        name: firstname,
-        lastname: lastname,
-        age: age,
-        username: username,
-        password: password,
-        key: (profiles.length + 1).toString(),
-      };
-      profiles.push(newProfile);
-      alert("Sign up successful!");
-      setLoggedin(true); 
-    } else {
-      alert("User already have an account, try to Sign in!");
-    }*/
-    //lägger den nya profilen i MOCK listan
 
     //Sätter alla textFields tomma igen
       SetFirstName("");
@@ -112,7 +70,7 @@ const Signup = () => {
       SetAge(0);
       SetUsername("");
       SetPassword("");
-      //SetErrorMsg("");
+      SetErrorMsg("");
     }
   };
 
@@ -203,6 +161,7 @@ const Signup = () => {
             <b>Sign in</b>
           </Typography>
         </Button>
+        {/*Länken till Sign In Sidan */}
         <Typography sx={{ textAlign: "center" }}>
           Already have an account?&nbsp;
           <Link to="/">Sign in</Link>

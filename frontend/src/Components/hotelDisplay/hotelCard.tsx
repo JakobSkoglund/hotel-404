@@ -5,28 +5,29 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import CardActionArea from "@mui/material/CardActionArea";
 import { IHotel } from "../../Model/Hotel";
-import { createStyles } from "@mui/material";
-import { useNavigate, useNavigation } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom"; 
 type HotelProps = IHotel
 
 
-//the template of a hotel card, used in displayhotelcard
+//Den här komponenten är till Hotel korten som displayar alla hotell i startsidan efter att man har loggat in
+//Komponenten har emot bild, title, beskrivning, pris, stad och id för hotellet som ska visas i varje kort
 const HotelCard: React.FC<HotelProps> = ({image, title, description, price, city, id}) => {
+  //För att testa att man får in rätt id
   console.log(id); 
   const navigate = useNavigate();
   return (
+    //Card Component från MUI
     <Card
       sx={{
-        //height: { xs: "auto", sm: "52vh" },
-        
+        //Styling på kortet i sin helhet
         width: { xs: "100%", sm: "100%", md: "100%", lg: "100%" }, 
         display: 'flex',
         flexDirection: 'column'
       }}
-      //when clicked opens up page for the hotel
     >
       
       <CardActionArea onClick={()=> navigate(`/hotelDetail/${id}`)}>
+        {/*Hämtar data tillhörande varje hotell från databasen */}
         <CardMedia
           component="img"
           sx={{

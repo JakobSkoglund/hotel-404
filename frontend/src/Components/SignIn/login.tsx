@@ -13,14 +13,13 @@ import { Link} from 'react-router-dom';
 
 const Login = () => {
   
-  //lite style
+  //lite style för kortet som Sign In form är på
   const paperStyle = {
     padding: 20,
-    //height: "50vh",
     width: 380,
     margin: "20px auto",
   };
-
+  //Styles för olika element
   const btnstyle = { margin: "10px 3px" };
   const userlblstyle = { margin: "10px 3px" };
   const titleSpacing = { marginTop: "5px" };
@@ -29,6 +28,7 @@ const Login = () => {
   const [username, SetUsername] = useState("");
   //för att hantera password
   const [password, SetPassword] = useState("");
+  //För att hantera errors som uppstår
   const [error, SetError] = useState("");
   
   //Globalt tillstånd för huruvida användare är inloggad
@@ -47,16 +47,19 @@ const Login = () => {
   const handleLogin = async () => {
     SetError("");
     const validUser=  await VerifyUser(username, password); 
+    //Om användaren matar in rätt inloggnings uppgifter
     if(validUser){
       alert("Login successful"); 
       setLoggedin(true);
+      //För att Skriva in i terminalen
       console.log(setGlobalUsername); 
       setGlobalUsername(username); 
     } 
+    //Om användaren matar in fel uppgifter
     else {
       SetError("Invalid username/password combination"); 
     }
-
+    //Tömmer alla TextFeilds efter att denna process är klar
     SetPassword("");
     SetUsername("");
   };
@@ -123,6 +126,7 @@ const Login = () => {
             <b>Sign in</b>
           </Typography>
         </Button>
+        {/*Länken till Sign Up sidan */}
         <Typography sx={{ textAlign: "center" }}>
           Do you want to create an account?&nbsp;
           <Link to={"signup"}>Sign Up</Link>

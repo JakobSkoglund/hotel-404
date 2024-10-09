@@ -6,7 +6,7 @@ import { DialogTitle, Grid, IconButton, Menu, MenuItem, Toolbar, Typography} fro
 import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import Button from '@mui/material/Button';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { Html } from '@mui/icons-material';
+
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LoggedinContext , UsernameContext} from '../../index';
@@ -14,7 +14,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import { DeleteUser, LogOut } from '../../Controller/UserController';
-import { IUser } from '../../Model/User';
+
 
 //This is the navigations bar at the top (where you find about language and user settings)
 
