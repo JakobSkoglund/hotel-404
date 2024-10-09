@@ -32,7 +32,7 @@ const booking = () => {
 }
 
 const Application: React.FC = () => {
-  const [loggedin, setLoggedin] = useState(initLoggedin);
+  const [loggedin, setLoggedin] = useState(false);
   const [globalUsername, setGlobalUsername] = useState("");
 
   axios.defaults.withCredentials = true;  

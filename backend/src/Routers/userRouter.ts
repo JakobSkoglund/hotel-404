@@ -11,7 +11,7 @@ userRouter.post("/login", async function(req, res, next){
   const password = req.body.password; 
   try {
     const validUser = await AuthLogin(username, password);    
-    const accessToken = jwt.sign({username: username}, accessTokenSecret);
+    const accessToken = jwt.sign({username: username}, accessTokenSecret, {expiresIn: "20m"});
     res.cookie('token', accessToken, {httpOnly: true}); 
     res.sendStatus(201); 
     req.session.isLoggedIn = true;
@@ -22,7 +22,6 @@ userRouter.post("/login", async function(req, res, next){
   catch (error) {
   console.log(error); 
     res.status(400).send(error)
-    console.log("Jag är här");
   }
   
 });   
@@ -37,8 +36,9 @@ userRouter.post("/signup", async function(req, res){
   const isAdmin = false; 
   try {
     const createUser = await newUser(name, lastname, username, age, password, isAdmin);
-    const accessToken = jwt.sign({username: username}, accessTokenSecret, {expiresIn: "20m"}); 
-    res.json({accessToken}).status(201).send(); 
+    const accessToken = jwt.sign({username: username}, accessTokenSecret, {expiresIn: "20m"});
+    res.cookie('token', accessToken, {httpOnly: true}); 
+    res.json().status(201).send(); 
   }
   catch{
     res.sendStatus(400); 

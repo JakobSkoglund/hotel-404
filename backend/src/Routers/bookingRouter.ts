@@ -30,7 +30,7 @@ bookingRouter.delete("/", async function(req, res) {
     }
 });
 // Route to get bookings for the authenticated user
-bookingRouter.get("/", async function(req, res){
+bookingRouter.get("/", authenticateJWT, async function(req, res){
   const username = req.user; 
   const bookings = await getBookingForUser(username);
   console.log(bookings); 

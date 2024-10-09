@@ -1,4 +1,3 @@
-import { bookings} from "../MocData/bookings";
 import { IBooking } from "../Model/Booking";
 import axios from "axios"; 
 export async function GetBookings() {
