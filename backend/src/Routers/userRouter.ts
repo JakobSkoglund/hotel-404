@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 
 import express from "express"; 
 const userRouter = express.Router(); 
-
+// Route to handle user login
 userRouter.post("/login", async function(req, res, next){
   const username = req.body.username; 
   const password = req.body.password; 
@@ -27,7 +27,7 @@ userRouter.post("/login", async function(req, res, next){
   
 });   
 
-
+// Route to handle user signup
 userRouter.post("/signup", async function(req, res){
   const username = req.body.username; 
   const password = req.body.password; 
@@ -46,6 +46,7 @@ userRouter.post("/signup", async function(req, res){
 })
 
 
+// Route to delete a user (authenticated)
 userRouter.delete("/deleteme", authenticateJWT, async function(req, res){
   const userID = req.user as string;
     try {
@@ -57,7 +58,7 @@ userRouter.delete("/deleteme", authenticateJWT, async function(req, res){
     res.sendStatus(400);
   }
 });
-
+// Route to handle user logout (authenticated)
 userRouter.get("/logout", authenticateJWT, async function(req, res){
   try {
     res.cookie("token", "none", {maxAge: 1});
@@ -68,7 +69,7 @@ userRouter.get("/logout", authenticateJWT, async function(req, res){
   
 });
 
-
+// Route to check if a user is authenticated (session check)
 userRouter.get("/session", authenticateJWT, (req, res) => {
  res.sendStatus(200);  
 }); 

@@ -6,6 +6,7 @@ import { getHotelInfo } from "../../Controller/HotelController";
 import { IHotel } from "../../Model/Hotel";
 import { useNavigate } from "react-router-dom"; 
 
+//Displays hotelCards onto the main hotel page 
 
 interface DisplayHotelProps {
   hotels?: IHotel[];  // Optional hotels prop, used when passed from search results

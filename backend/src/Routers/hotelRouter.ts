@@ -4,12 +4,12 @@ import express from "express";
 import { Request } from "express";
 
 const hotelRouter = express.Router(); 
-
+// Route to get all hotels
 hotelRouter.get("/all", async function(req, res){
   const hotels = await getAllHotels(); 
   res.status(200).send(hotels)
 })
-
+// Route to get available hotels based on city and date range
 hotelRouter.get("/getHotels", async function(req, res){
   const city = req.query.city;
   const fromDate = req.query.dateCheckIn; 
@@ -25,7 +25,7 @@ hotelRouter.get("/getHotels", async function(req, res){
   console.log("hotels:", result); 
   res.send(JSON.stringify(result)).status(200); 
 })
-
+// Route to get hotel details by hotel ID
 hotelRouter.get("/hotelDetails", async (req: Request<{hotelId: string}>, res) => {
   try{
     const query = req.query.hotelId ? String(req.query.hotelId) : "";
@@ -47,7 +47,7 @@ hotelRouter.get("/hotelDetails", async (req: Request<{hotelId: string}>, res) =>
   }
 })
 
-
+// Route to create a new hotel
 hotelRouter.post("/", async(req, res) => {
   try {
     await createHotel(req.body); 

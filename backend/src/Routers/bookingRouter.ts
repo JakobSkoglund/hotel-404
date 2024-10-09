@@ -3,7 +3,7 @@ import { authenticateJWT } from "../controllers/auth";
 import express from 'express';
 
 const bookingRouter = express.Router();
-
+// Route to create a booking with JWT authentication
 bookingRouter.post("/", authenticateJWT, async function(req, res){
     const hotelID = req.body.hotelID;
     const user = req.user;
@@ -18,7 +18,7 @@ bookingRouter.post("/", authenticateJWT, async function(req, res){
         res.status(400).send(error);
     }
 });
-
+// Route to delete a booking by ID
 bookingRouter.delete("/", async function(req, res) {
 
     const bookingId = req.body.bookingId;
@@ -30,7 +30,7 @@ bookingRouter.delete("/", async function(req, res) {
         res.status(400).send();
     }
 });
-
+// Route to get bookings for the authenticated user
 bookingRouter.get("/", async function(req, res){
   const username = req.user; 
   const bookings = await getBookingForUser(username);

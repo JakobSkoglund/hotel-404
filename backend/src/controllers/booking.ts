@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 import { Booking } from "../Model/Booking"; 
 import { Hotel } from "../Model/HotelModel";
 
+
+// Function to delete a booking by its ID
 export async function deleteBooking(bookingId: string) {
     
     try {
@@ -23,7 +25,7 @@ export async function deleteBooking(bookingId: string) {
         throw error;
     }
 }
-
+// Function to create a new booking
 export async function createBooking(hotelID: string, user: string, from_date: string, to_date: string){ 
   let date1 = new Date(from_date); 
   let date2 = new Date(to_date); 
@@ -45,7 +47,7 @@ export async function createBooking(hotelID: string, user: string, from_date: st
   });
   console.log("successfully created!"); 
 }
-
+// Function to retrieve bookings for a specific user
 export async function getBookingForUser(username: string) {
   const bookings = await Booking.find({username: username});
   console.log(bookings);
