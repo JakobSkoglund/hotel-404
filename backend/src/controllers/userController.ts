@@ -4,23 +4,11 @@ import { error } from "console";
 import { Booking } from "../Model/Booking";
 
 
-/*User.create({
-    name: "Adam",
-    lastname:"abc",
-    username:"Adam123",
-    age:21,
-    password:"0000",
-    isAdmin:false
-});*/
-console.log("Found connection");
-
-    
 //function som hanterar login
 export async function AuthLogin (username: string, password:string)
 {
     try {
         const found = await User.findOne({username:username, password:password})
-        console.log(found);
         if (!found)
         {
             //If there is no sush a username
@@ -127,11 +115,9 @@ export async function deleteUser(username:string) {
 
     try 
     {
-        console.log("try_delete");
         const user  = await User.findOne({username: username});
-        console.log(username);
-        const userbookingdelete = await Booking.deleteMany({user: user?._id});
-        const userdelete = await User.deleteOne({username: username });
+        await Booking.deleteMany({user: user?._id});
+        await User.deleteOne({username: username });
     }
     catch (error)
     {
@@ -150,13 +136,4 @@ export async function deleteUser(username:string) {
 }
 
 
-/* 
-main();
 
-function main() 
-{
-    const uid = "66fbb54dca5e52a91c5b8237"
-    const test = deleteUser(uid)
-    console.log(test)
-}
-*/

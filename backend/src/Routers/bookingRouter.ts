@@ -9,7 +9,6 @@ bookingRouter.post("/", authenticateJWT, async function(req, res){
     const user = req.user;
     const from_date = req.body.from_date;
     const to_date = req.body.to_date;
-    console.log("creating booking..."); 
     console.log(hotelID, user, from_date, to_date); 
     try {
         const bookingDone = await createBooking(hotelID, user, from_date, to_date);

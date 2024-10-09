@@ -1,9 +1,5 @@
-import mongoose from "mongoose"; 
-
 import { Booking } from "../Model/Booking"; 
-//mongoose.connect("mongodb://127.0.0.1:27017/webdev"); 
 import { Hotel } from "../Model/HotelModel"; 
-import { time } from "console";
 
 
 export async function getHotels(city: string | null, fromDate: string,  toDate: string){
