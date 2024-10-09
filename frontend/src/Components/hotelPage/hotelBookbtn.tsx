@@ -10,6 +10,7 @@ import { IHotel } from '../../Model/Hotel';
 import { useParams } from "react-router-dom";
 import { useProps } from "@mui/x-data-grid/internals";
 import { LoggedinContext , UsernameContext} from "../../index";
+import { CenterFocusStrong } from "@mui/icons-material";
 
 //the hotel booking boton that is used to book after putting in dates after chooisng hotel.
 
@@ -46,7 +47,10 @@ const HotelBooking = () => {
         if(!dateCheckIn || !dateCheckOut) {
             alert("Please select both check-in and check-out dates.");
             return;
-        }
+        } else if (dateCheckIn > dateCheckOut){
+            alert("Please choose a valid date");
+            return;
+        };
 
         const fromDate = dateCheckIn.toISOString();
         const toDate = dateCheckOut.toISOString();
@@ -101,9 +105,16 @@ const HotelBooking = () => {
               </Grid>
             </Grid>
           </Box>
-          <CuteButton variant="contained" onClick={handleBookHotel}>
-            Book now!
-          </CuteButton>
+          <Box 
+            sx={{
+              mt: 4,
+              display: "flex",
+              justifyContent: "center"
+            }}>
+                <CuteButton variant="contained" onClick={handleBookHotel}>
+                Book now!
+                </CuteButton>
+          </Box>
         </Grid>
       );
     };

@@ -58,9 +58,6 @@ const HotelPage = () => {
         />
       </Grid>
       <Grid item xs={12}>
-        <HotelDate />
-      </Grid>
-      <Grid item xs={12}>
         <div style={{ marginTop: 25 }}>
           <HotelBooking />
         </div>

@@ -53,6 +53,7 @@ const NavAppBar = () => {
         setOpenAboutDialog(false); // Close the dialog
     };
 
+    // when clicked a menu is shown where you can select to see your bookings, delete user..
     const handleMyPageClick = (event: React.MouseEvent<HTMLElement>) => {
         setUserAnchorEl(event.currentTarget);
     }
@@ -61,23 +62,27 @@ const NavAppBar = () => {
         setUserAnchorEl(null);
     }
 
+    // Goes to you bookings page.
     const handleMyPageBookingClick = () => {
         setUserAnchorEl(null);
         navigate('/myBookings');
     }
 
+    // deletes the user that is currently logged in.
     const handleDeleteUserOnClick = async (username: string) => {
         const deleted = await DeleteUser(username);
         setLoggedin(false);
         navigate('/');
     }
 
+    // signs out the user currently logged in.
     const handleSignOutButtonClick = async () => {
         const logout = await LogOut();
         setLoggedin(false); 
         navigate('/'); 
     }
 
+    // Goes back to the front page.
     const handleBackToIndexClick = () => {
         navigate('/');
     }

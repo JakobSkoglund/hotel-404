@@ -17,11 +17,18 @@ const SearchBar = () => {
   const [dateCheckIn, setDateCheckIn] = useState<Date |null> (null);
   const [dateCheckOut, setDateCheckOut] = useState<Date |null> (null);
   const navigate = useNavigate();
+  const from = Number(dateCheckIn); // Converts the dates to numbers, so we can compare. 
+  const to = Number(dateCheckOut); // check out date can not be before check in date for example.
+  const today = new Date();
+  const todayDate = today.toLocaleDateString('en');
   
+  // The city and dates must be valid to be able to search for hotels.
   const handleSearch = () => {
     const queryToDate = dateCheckOut?.toISOString().split('T')[0]; 
     const queryFromDate = dateCheckIn?.toISOString().split('T')[0]; 
-    if (city && dateCheckIn && dateCheckOut) {
+    if (from > to ){
+      alert("Please select valid dates");
+    } else if (city && dateCheckIn && dateCheckOut) {
       navigate(`/search-results?city=${city}&checkIn=${queryFromDate}&checkOut=${queryToDate}`);
     } else {
       alert("Please select a city and dates");

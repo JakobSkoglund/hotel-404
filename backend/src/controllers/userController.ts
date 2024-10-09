@@ -89,32 +89,11 @@ export async function newUser(name:string, lastname:string, username:string, age
 
 }
 
-export async function deleteBooking(bookingId: string) {
-    
-    try {
-        const booking = await Booking.findByIdAndDelete(bookingId);
-        
-        if (!booking) {
-            throw new Error('Error 001: Booking not found');
-        }
-
-        return true;
-        
-    } catch (error) {
-        
-        if (error instanceof Error) {
-            console.error('Error retrieving booking by ID:', error.message);
-        } else {
-            console.error('An unexpected error occurred:', error);
-        }
-        throw error;
-    }
-}
-
+// Function to delete a user
 export async function deleteUser(username:string) {
-
     try 
     {
+        // Find the user, delete the users bookings and then delete the user
         const user  = await User.findOne({username: username});
         await Booking.deleteMany({user: user?._id});
         await User.deleteOne({username: username });
