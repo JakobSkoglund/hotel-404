@@ -40,20 +40,6 @@ const Signup = () => {
 
   const {loggedin, setLoggedin} = useContext(LoggedinContext); 
 
- /* const handleSignup = () => {
-    const userCreate: IUser | string = CreateUser(firstname, username, age, password, lastname, "1", false);
-      if(typeof userCreate === "string"){
-        console.log(userCreate); 
-        SetErrorMsg(userCreate); 
-      }
-      else {
-        alert("Sign up successful!");
-        setLoggedin(true);
-        navigate("/"); 
-      }
-
-
-  }*/
  const handleSignup = async () => {
   SetErrorMsg("");
   const newUser = await CreateUser(name,lastname, username, age, password, false);

@@ -41,17 +41,12 @@ const Application: React.FC = () => {
   const [loggedin, setLoggedin] = useState(initLoggedin);
   const [globalUsername, setGlobalUsername] = useState("");
 
-  // useEffect(() => {
-  //   var sessionLoggedin = window.sessionStorage.getItem("loggedin");
-  //   setLoggedin(sessionLoggedin === "true"); 
-  // }, []);
-  //
-  // useEffect(() => {
-  //   window.sessionStorage.setItem("loggedin", loggedin.toString()); 
-  // }, [loggedin])
   axios.defaults.withCredentials = true;  
   useEffect(() => {
     const checkSession = async() => {
+      //Every time app is rendered, try to authenticate to the server
+      //If unsuccessful, set loggedIn-state to false. 
+
       try{
         const session = await axios.get("http://localhost:7700/api/user/session");    
         setLoggedin(true); 
@@ -61,35 +56,28 @@ const Application: React.FC = () => {
       }
     }
     checkSession(); 
-  }, []); 
+  }, []);
+
+  //If user is not logged in, render only login and signup pages 
   if(!loggedin) {
     return (
       <div>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={
-              <LoggedinContext.Provider value={{loggedin: loggedin, setLoggedin: setLoggedin}}>
-                <UsernameContext.Provider value={{globalUsername, setGlobalUsername}}>
-                  <Login/>
-                </UsernameContext.Provider>
-              </LoggedinContext.Provider>}/>
-            <Route path="/signup" element={
-              <LoggedinContext.Provider value={{loggedin: loggedin, setLoggedin: setLoggedin}}>
-                <UsernameContext.Provider value={{globalUsername, setGlobalUsername}}>
-                <Signup/>
-                </UsernameContext.Provider>
-              </LoggedinContext.Provider>}/>
-            <Route path="*" element={              
-              <LoggedinContext.Provider value={{loggedin: loggedin, setLoggedin: setLoggedin}}>
-                <UsernameContext.Provider value={{globalUsername, setGlobalUsername}}>
-                  <Login/>
-                </UsernameContext.Provider>
-              </LoggedinContext.Provider>}/>
-          </Routes>
-        </BrowserRouter>
+        <LoggedinContext.Provider value={{loggedin: loggedin, setLoggedin: setLoggedin}}>
+          <UsernameContext.Provider value={{globalUsername, setGlobalUsername}}>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Login/>}/>
+                <Route path="/signup" element={<Signup/>}/>
+                <Route path="*" element={<Login/>}/>
+              </Routes>
+            </BrowserRouter>
+          </UsernameContext.Provider>
+        </LoggedinContext.Provider>
       </div>
     )
   }
+
+  //If user is logged in, render the full application
   else {
     return (
       <div>
@@ -107,6 +95,12 @@ const Application: React.FC = () => {
            <Route path="navapp" element={<NavAppBar/>}/>
            <Route path="/hotelDetail/:hotelId" element={<HotelPage/>}/>
             <Route path="/search-results/*" element={<SearchResults/>}/>
+            <Route path="*" element={
+              <div>
+                <SearchBar/>
+                <DisplayHotel/>
+              </div>
+            }/>
           </Routes>
         </BrowserRouter>
         </UsernameContext.Provider>

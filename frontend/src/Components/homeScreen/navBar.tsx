@@ -16,6 +16,9 @@ import DialogActions from '@mui/material/DialogActions';
 import { DeleteUser, LogOut } from '../../Controller/UserController';
 import { IUser } from '../../Model/User';
 
+//This is the navigations bar at the top (where you find about language and user settings)
+
+
 const NavAppBar = () => {
     
     const navigate = useNavigate(); 

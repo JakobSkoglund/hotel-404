@@ -65,7 +65,25 @@ const HotelPage = () => {
         </div>
       </Grid>
     </Grid>
+<<<<<<< HEAD
   );
+=======
+      );
+    }
+    else {
+      return (
+      <Grid
+        container
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        style={{ marginTop: 2 }}
+      >
+      <p>Couldn't find hotel</p>
+      </Grid>
+      )
+    }
+>>>>>>> 9be0f1dbd5ee43cdaa46595c17d29e18f4a6c357
 };
 
 export default HotelPage;

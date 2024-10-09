@@ -11,6 +11,7 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
 
+//the searchbar that takes city, from-to date and then sends it through searchResult backend to check if it exists, send back info on a new page.
 const SearchBar = () => {
   const [city, setCity] = useState<string>("");
   const [dateCheckIn, setDateCheckIn] = useState<Date |null> (null);

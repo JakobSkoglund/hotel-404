@@ -47,7 +47,6 @@ const Login = () => {
   const handleLogin = async () => {
     SetError("");
     const validUser=  await VerifyUser(username, password); 
-    console.log("Här", validUser)
     if(validUser){
       alert("Login successful"); 
       setLoggedin(true);

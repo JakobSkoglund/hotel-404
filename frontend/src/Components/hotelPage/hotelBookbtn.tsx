@@ -11,6 +11,8 @@ import { useParams } from "react-router-dom";
 import { useProps } from "@mui/x-data-grid/internals";
 import { LoggedinContext , UsernameContext} from "../../index";
 
+//the hotel booking boton that is used to book after putting in dates after chooisng hotel.
+
 interface IHotelDetails {
     id: string;
     title: string;
@@ -20,6 +22,7 @@ interface IHotelDetails {
     hotel_img: string;
   }
 
+  // The blue button
 const CuteButton = styled(Button)(({ theme }) => ({
     backgroundColor: '#007BFF', 
     color: '#FFFFFF', 
@@ -31,6 +34,7 @@ const CuteButton = styled(Button)(({ theme }) => ({
     transition: 'background-color 0.3s ease',
 }));
 
+// HotelBooking component for selecting check-in and check-out dates and booking the hotel.
 const HotelBooking = () => {
     const [dateCheckIn, setDateCheckIn] = useState<Date | null>(null);
     const [dateCheckOut, setDateCheckOut] = useState<Date | null>(null);

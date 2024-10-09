@@ -1,13 +1,12 @@
-import mongoose from "mongoose"; 
-
 import { Booking } from "../Model/Booking"; 
 import { Hotel } from "../Model/HotelModel";
 
+
+// Function to delete a booking by its ID
 export async function deleteBooking(bookingId: string) {
     
     try {
         const booking = await Booking.findByIdAndDelete(bookingId);
-        console.log(booking); 
         
         if (!booking) {
             throw new Error('Error 001: Booking not found');
@@ -23,18 +22,19 @@ export async function deleteBooking(bookingId: string) {
         throw error;
     }
 }
-
+// Function to create a new booking
 export async function createBooking(hotelID: string, user: string, from_date: string, to_date: string){ 
   let date1 = new Date(from_date); 
   let date2 = new Date(to_date); 
   let days = Math.round((date2.getTime()-date1.getTime()) /(1000*3600*24));
   let hotel = await Hotel.findById(hotelID);
-  console.log(hotel); 
   if(!hotel){
-    throw new Error("couldn't find hotel"); 
+    throw new Error("couldn't find hotel");
   }
-  const cost = hotel?.display?.price;
-  console.log(cost); 
+  const cost = hotel.display?.price;
+  if(!cost){
+    throw new Error("Couldn't get hotel price"); 
+  }
   const calculatedCost = cost * days; 
   await Booking.create({
     hotel: hotelID, 
@@ -43,19 +43,18 @@ export async function createBooking(hotelID: string, user: string, from_date: st
     to_date: to_date,
     cost: calculatedCost
   });
-  console.log("successfully created!"); 
 }
-
+// Function to retrieve bookings for a specific user
 export async function getBookingForUser(username: string) {
   const bookings = await Booking.find({username: username});
   console.log(bookings);
   var formattedBookings = []
   for(let booking of bookings) {
     console.log(booking); 
-    const hotel = await Hotel.findById(booking.hotel); 
+    const hotel = await Hotel.findById(booking.hotel);
     const formattedBooking = {
       id: booking.id,
-      hotel: hotel.display.title, 
+      hotel: hotel?.display?.title, 
       user: booking.user, 
       to_date: booking.to_date.split("T")[0], 
       from_date: booking.from_date.split("T")[0], 

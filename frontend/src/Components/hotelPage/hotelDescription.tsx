@@ -7,7 +7,7 @@ type DescriptionProps = {
   name: string; 
   desc: string; 
 }; 
-
+// hotelcomponent that shows description to the hotels
 const HotelDescription = ({desc, name }: DescriptionProps) => {
 
     return(

@@ -5,6 +5,7 @@ import axios from 'axios';
 import DisplayHotel from "../hotelDisplay/displayHotelCard";
 import {getHotelQuery} from "../../Controller/HotelController";  
 
+//after searchBar been used, searchResult fetches from the backend the result onto a new page.
 
 const SearchResults: React.FC = () => {
     const [hotels, setHotels] = useState<IHotel[]>([]);
@@ -19,7 +20,7 @@ const SearchResults: React.FC = () => {
     useEffect(() => {
         const fetchHotels = async () => {
             try {
-                const params = {
+                const params = { //checks if hotels with city name and checkin dates are availabel 
                   city: city ? city : "", 
                   dateCheckIn: checkIn ? checkIn: "", 
                   dateCheckOut: checkOut ? checkOut: ""
@@ -39,7 +40,7 @@ const SearchResults: React.FC = () => {
     return (
       <div>
         <h2>Search Results</h2>
-        <DisplayHotel hotels={hotels} />  {/* Pass the hotels as props */}
+        <DisplayHotel hotels={hotels} />  
       </div>
     );
 };
