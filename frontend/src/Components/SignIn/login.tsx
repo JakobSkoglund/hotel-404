@@ -46,9 +46,9 @@ const Login = () => {
   //Funktion för att hantera Login och kollar på att errors som kan uppstå
   const handleLogin = async () => {
     SetError("");
-    const validUser=  await VerifyUser(username, password); 
+    const validUser: boolean | string=  await VerifyUser(username, password); 
     //Om användaren matar in rätt inloggnings uppgifter
-    if(validUser){
+    if(validUser == true){
       alert("Login successful"); 
       setLoggedin(true);
       //För att Skriva in i terminalen
@@ -57,7 +57,7 @@ const Login = () => {
     } 
     //Om användaren matar in fel uppgifter
     else {
-      SetError("Invalid username/password combination"); 
+      SetError(validUser as string); 
     }
     //Tömmer alla TextFeilds efter att denna process är klar
     SetPassword("");

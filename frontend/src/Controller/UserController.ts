@@ -1,5 +1,5 @@
 
-import axios from 'axios';
+import axios, {AxiosError} from 'axios';
 
 /*export function VerifyUser(username: string, password: string): boolean{
     //Will make an API request in the future. 
@@ -10,7 +10,7 @@ import axios from 'axios';
     return false; 
 }*/
 
-export async function VerifyUser (username: string, password:string)
+export async function VerifyUser (username: string, password:string): Promise<boolean | string>
 {
   try 
   {
@@ -20,14 +20,19 @@ export async function VerifyUser (username: string, password:string)
     });
     console.log('Login seccessful: ', respone.data);
     return true; 
-  } catch (error) {
-    console.error('Login failed',error);
-    return false;
-    return false; 
+  } catch (err:unknown) {
+    const error = err as AxiosError;
+    if(error.response){
+      console.error("invalid user", error); 
+      return "Invalid username/password combination"; 
+    } else {
+      console.error('Login failed',error);
+      return "Couldn't reach server. Please check your internet connection";
+    }
   }
 }
 
-export async function CreateUser (name:string, lastname:string, username:string, age: number, password:string, isAdmin:boolean)
+export async function CreateUser (name:string, lastname:string, username:string, age: number, password:string, isAdmin:boolean) : Promise<boolean>
 {
   try 
   {
@@ -50,7 +55,6 @@ export async function CreateUser (name:string, lastname:string, username:string,
 export async function DeleteUser(username: string) {
   try {
     console.log(username); 
-    const params = new URLSearchParams([['username', username]]);
     const response = await axios.delete('http://localhost:7700/api/user/deleteme', {
       data: {username: username}
     });
