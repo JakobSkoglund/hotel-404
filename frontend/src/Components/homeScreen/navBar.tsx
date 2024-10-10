@@ -24,7 +24,9 @@ const NavAppBar = () => {
     const navigate = useNavigate(); 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [userAnchorEl, setUserAnchorEl] = useState<null | HTMLElement>(null);
+    //För att hantera Språk, ifall vi väljer att implementera det i framtiden
     const [selectedLanguage, setSelectedLanguage] = useState<string>('English');
+    //För att hantera "About" pop up
     const [openAboutDialog, setOpenAboutDialog] = useState(false);
 
 
@@ -39,16 +41,16 @@ const NavAppBar = () => {
     const handleLanguageClose = () => {
         setAnchorEl(null);
     }
-
+    //Hanterar olika språk, framtida feature
     const handleLanguageSelect = (language: string) => {
         setSelectedLanguage(language);
         setAnchorEl(null);
     }
- 
+    //För att öppna "About" pop up
     const handleAboutClick = () => {
         setOpenAboutDialog(true); // Open the dialog
     }
-
+    //För att stänga "About" pop up
     const handleAboutDialogClose = () => {
         setOpenAboutDialog(false); // Close the dialog
     };

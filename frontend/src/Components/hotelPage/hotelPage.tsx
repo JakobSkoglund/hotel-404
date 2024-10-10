@@ -16,8 +16,10 @@ const HotelPage = () => {
   console.log(hotelId);
   const [hotel, setHotel] = useState<IHotelDetails>();
   const [validHotel, setValidHotel] = useState<Boolean>(true); 
+  //Funktionen används för att hämta data som tillhör en specifik hotel mha hotelId som tillhör detta hotell
   const getHotelInfo = async function () {
     try{
+      //Ifall hotelId är null eller tom kommer den att skicka en tom sträng tillbaka
       const hotel = await getHotelPage(hotelId? hotelId : "");
       console.log(hotel); 
       setValidHotel(!(!hotel));
@@ -29,7 +31,7 @@ const HotelPage = () => {
   useEffect(() => {
     getHotelInfo();  
   }, []);
-
+  //Används för att hämta bilderna som tillhöra detta hotell som finns sparade i databasen
   const hotelImages = [
     { original: hotel ? hotel.hotel_img.url : "" },
     { original: hotel ? hotel.bath_img.url : "" },
@@ -77,6 +79,7 @@ const HotelPage = () => {
     <h1>Could not find hotel</h1>
     </Grid>
   )
+  {/*Ovanstående används ifall användaren försöker komma åt ett hotell som inte finns */}
 };
 
 export default HotelPage;

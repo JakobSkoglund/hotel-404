@@ -1,5 +1,4 @@
 import {IHotelDetails} from "../Model/Hotel";
-//import { hotels } from "../MocData/hotelCards"; 
 import axios from "axios"; 
 
 
