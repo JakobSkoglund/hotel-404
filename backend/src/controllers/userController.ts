@@ -95,7 +95,7 @@ export async function deleteUser(username:string) {
     {
         // Find the user, delete the users bookings and then delete the user
         const user  = await User.findOne({username: username});
-        await Booking.deleteMany({user: user?._id});
+        await Booking.deleteMany({user: username});
         await User.deleteOne({username: username });
     }
     catch (error)
