@@ -11,10 +11,11 @@ export async function getHotels(city: string | null, fromDate: string,  toDate: 
     hotels = await Hotel.find(); 
   }
   //Filter hotels that are unavailable
+  const checkInDate = new Date(fromDate); 
+  const checkOutDate = new Date(toDate); 
   var freeHotels = [];
-  console.log(hotels.length); 
   for(let hotel of hotels){
-    const isFree = await hotelFreeBetweenDates(hotel, fromDate, toDate); 
+    const isFree = await hotelFreeBetweenDates(hotel, checkInDate, checkOutDate); 
     if(isFree){
       freeHotels.push(hotel); 
     }
@@ -22,16 +23,13 @@ export async function getHotels(city: string | null, fromDate: string,  toDate: 
   return freeHotels; 
 }
 // Check if a hotel is available between the given dates
-export async function hotelFreeBetweenDates(hotel:any, fromDate: string, toDate: string){
+export async function hotelFreeBetweenDates(hotel:any, fromDate: Date, toDate: Date){
   const hotelId = hotel._id; 
   const bookings = await Booking.find({hotel: hotelId});
   for(let booking of bookings){
-    const fromDateAsDate = new Date(fromDate); 
-    const toDateAsDate = new Date(toDate);
     const bookingFromDate = new Date(booking.from_date);  
     const bookingToDate = new Date(booking.to_date);
-
-    if(fromDateAsDate <= bookingToDate && toDateAsDate <= bookingFromDate){
+    if(fromDate <= bookingToDate && bookingFromDate >= fromDate){
       return false;
     }
   } 

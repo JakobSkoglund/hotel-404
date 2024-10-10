@@ -56,9 +56,9 @@ const HotelBooking = () => {
           return; 
         }
 
-        const fromDate = dateCheckIn.toISOString();
-        const toDate = dateCheckOut.toISOString();
-
+        const fromDate = dateCheckIn.toString();
+        const toDate = dateCheckOut.toString();
+        console.log(fromDate, toDate); 
         try 
         {   
             if(!hotelId){

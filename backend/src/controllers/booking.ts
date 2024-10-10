@@ -29,7 +29,9 @@ export async function createBooking(hotelID: string, user: string, from_date: st
   let days = Math.round((date2.getTime()-date1.getTime()) /(1000*3600*24));
   let hotel = await Hotel.findById(hotelID);
   const timeNow = Date.now(); 
-
+  
+  const checkInDate = date1.toISOString().split('T')[0]; 
+  const checkOutDate = date2.toISOString().split('T')[0]; 
   //If checkout date is less than checkin date, throw an error
   //Also throw an error if either date is before the current time
   if(days < 0){
@@ -48,8 +50,8 @@ export async function createBooking(hotelID: string, user: string, from_date: st
   await Booking.create({
     hotel: hotelID, 
     user: user, 
-    from_date: from_date, 
-    to_date: to_date,
+    from_date: checkInDate, 
+    to_date: checkOutDate,
     cost: calculatedCost
   });
 }

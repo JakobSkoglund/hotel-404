@@ -24,8 +24,8 @@ const SearchBar = () => {
   
   // The city and dates must be valid to be able to search for hotels.
   const handleSearch = () => {
-    const queryToDate = dateCheckOut?.toISOString().split('T')[0]; 
-    const queryFromDate = dateCheckIn?.toISOString().split('T')[0]; 
+    const queryToDate = dateCheckOut?.toString()
+    const queryFromDate = dateCheckIn?.toString()
     if (from > to ){
       alert("Please select valid dates");
     } 
