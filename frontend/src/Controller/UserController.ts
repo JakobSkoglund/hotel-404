@@ -1,14 +1,7 @@
 
 import axios, {AxiosError} from 'axios';
 
-/*export function VerifyUser(username: string, password: string): boolean{
-    //Will make an API request in the future. 
-    //Not very secure at the moment, will need to be fixed
-    if(profiles.some(user => user.username === username && user.password === password)){
-      return true; 
-    }
-    return false; 
-}*/
+
 
 export async function VerifyUser (username: string, password:string): Promise<boolean | string>
 {

@@ -6,8 +6,6 @@ export interface IHotel {
     title:string;
     city:string;
     key:string;
-
-    //lägg til mer om du vill
 }
 
 export interface IHotelDetails {

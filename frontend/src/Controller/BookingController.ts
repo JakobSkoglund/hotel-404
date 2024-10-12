@@ -6,11 +6,11 @@ export async function GetBookings() {
     console.log(bookings.data); 
     return bookings.data; 
 }
-
+//För att hantera "cancel booking"
 export async function DeleteBooking(id: string){
   const deleted = await axios.delete("http://localhost:7700/api/booking", {data: {bookingId: id}}); 
 }
-
+//Skapar en bokning med hotell detaljerna samt binder det till användaren som utför bokningen
 export async function CreateBooking(
   hotelId: string,
   user: string,
