@@ -1,8 +1,11 @@
 import { Booking } from "../Model/Booking"; 
 import { Hotel } from "../Model/HotelModel"; 
+import { logging } from "../logging";
+
 
 // Fetch hotels, optionally filtered by city, and return only those available between the given dates
 export async function getHotels(city: string | null, fromDate: string,  toDate: string){
+  logging(`Searching for hotels ${city === null ? "" : `in city ${city}`} between ${fromDate} and ${toDate}`); 
   var hotels;
   if(city){
     hotels = await Hotel.find({'display.city': city}); 
@@ -37,6 +40,7 @@ export async function hotelFreeBetweenDates(hotel:any, fromDate: Date, toDate: D
 }
 
 export async function getAllHotels(){
+  logging("Getting all hotels");
   const hotels = await Hotel.find();
   return hotels; 
 }
@@ -47,7 +51,7 @@ export async function getHotelDocumentById(hotelId: string)
         const hotel = await Hotel.findById(hotelId);
         if(!hotel)
         {
-            console.log("couldn't find hotel"); 
+            logging("couldn't find hotel"); 
             throw new Error('Error 001: Hotel not found');
         }
         return hotel;
@@ -55,9 +59,9 @@ export async function getHotelDocumentById(hotelId: string)
     catch (error) 
     {
         if (error instanceof Error) {
-            console.error('Error retrieving hotel by ID:', error.message);
+            logging(`Error retrieving hotel by ID: ${error.message}`);
         } else {
-            console.error('An unexpected error occurred:', error);
+            logging(`An unexpected error occurred: ${error}`);
         }
         throw error; // re-throw the error if needed
     }
@@ -76,15 +80,16 @@ export async function getHotelDocumentByName(hotelName: string)
     catch (error) 
     {
         if (error instanceof Error) {
-            console.error('Error retrieving hotel by Name:', error.message);
+            logging(`Error retrieving hotel by Name: ${error.message}`);
         } else {
-            console.error('An unexpected error occurred:', error);
+            logging(`An unexpected error occured: ${error}`);
         }
         throw error; // re-throw the error if needed
     }
 }
 // Create a new hotel record
 export async function createHotel(body: any){
+  logging("Creating hotel"); 
   await Hotel.create(body); 
 }
 
