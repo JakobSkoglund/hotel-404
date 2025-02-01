@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import session from "express-session"; 
 import userRouter from "./routes/userRoutes.js"; 
 
+// session
 declare module 'express-session' {
   export interface SessionData {
     isLoggedIn: boolean, 
@@ -11,16 +12,21 @@ declare module 'express-session' {
   }
 }
 
+// express app
 const app = express(); 
 
+// cors
 app.use(cors({
   origin: "http://localhost:3000", 
   credentials: true
 })); 
+
+// cookie parser
 // Parse incoming JSON request.
 app.use(express.json());
 app.use(cookieParser()); 
 
+// session
 app.set("trust proxy", 1); 
 app.use(session({
   secret: 'super-secret-key',
