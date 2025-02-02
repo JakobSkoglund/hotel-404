@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import { Request, Response } from "express";
 import { User } from "../models/User";
 import { generateAccessToken } from "../services/tokenService";
-
+import { Booking } from "../../../src/Model/Booking";
 
 // Login for a user
 export const login = async (req: Request, res: Response) => {
@@ -57,9 +57,88 @@ export const signup = async (req: Request, res: Response) => {
     }
 
     catch (error) {
-        return res.sendStatus(400).json({message: "Could not create an account"});
+        return res.status(400).json({ message: "Could not create an account" });
     }
 }
+
+// Function to delete a user
+export const deleteUser = async (req: Request, res: Response) => {
+    console.log("hello");
+    try 
+    {
+        // Extract username from request body
+        const { username } = req.body;
+
+        console.log(username);
+        
+        // if UserId is not sent/recieved
+        if (!username) {
+            return res.status(400).json({ error: "User name is required" });
+        }
+
+        // Find the user, delete the users bookings and then delete the user
+        const user  = await User.findOne({username: username});
+
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        // Microservice clash, we have to access booking-service inside user-service.
+        // Maybe API-call to bookking-service?
+        await Booking.deleteMany({user: username});
+        await User.deleteOne({username: username});
+
+        // respond with sucessmessage
+        return res.status(200).json({ message: "User deleted successfully" });
+
+    }
+    catch (error)
+    {
+        return res.status(500).json({ error: "Internal server error" });
+    }
+}
+
+// Function that handles logout
+export const logout = async (req: Request, res: Response) => {
+    try {
+        req.session.destroy((err) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).json({ message: "Logout failed" });
+            }
+            res.clearCookie("token"); // Clear JWT token
+            return res.status(200).json({message: "Logout sucess"});
+        });
+    } catch (error) {
+        res.sendStatus(400);
+    }
+};
+
+
+// Function that handles user authentication (session check)
+export const session = async (req: Request, res: Response) => {
+
+    try {
+        // Since authenticateJWT middleware already verifies the token, we just return session info
+        return res.status(200).json({
+            message: "Session active",
+            user: (req as any).user?.username,  // Extracted from JWT token
+        });
+
+    } catch (error) {
+        return res.status(500).json({ error: "Internal server error" });
+    }
+};
+
+
+
+
+
+
+
+
+///////// Helper functions that handles some logic for functions above
+
 
 //function som hanterar login
 export async function AuthLogin(username: string, password:string)
@@ -97,29 +176,16 @@ export async function AuthLogin(username: string, password:string)
 
 // Function that checks if username is already taken
 // Return true if unique, false if username is taken
-async function usernameCheck(username: string)
-{
-    try {
-        const check = await User.findOne({username:username})
-
-        if(check)
-        {
-            return false;
-        }
-        return true;
-    }
-    catch (error)
-    {
-        console.error(error)
-    }
+async function usernameCheck(username: string): Promise<boolean> {
+    const check = await User.exists({ username });
+    return !check;
 }
+
 
 //En funktion för att kolla ålder
 //Om åldern är ok returnar den true 
-function checkAge (age:number) 
-{
-    return age >=18;
-}
+const checkAge = (age: number) => age >= 18;
+
 
 //Function för att hantera en ny användare
 export async function newUser(name:string, lastname:string, username:string, age: number, password: string, isAdmin: boolean) {
@@ -148,34 +214,5 @@ export async function newUser(name:string, lastname:string, username:string, age
 
         console.log("User Successfully created!");
     
-    
 
 }
-
-// Function to delete a user
-export async function deleteUser(username:string) {
-    try 
-    {
-        // Find the user, delete the users bookings and then delete the user
-        const user  = await User.findOne({username: username});
-        await Booking.deleteMany({user: username});
-        await User.deleteOne({username: username });
-    }
-    catch (error)
-    {
-        if (error instanceof Error) 
-        {
-            console.error('Error deleting user by ID:', error.message);
-        } 
-        else 
-        {
-            console.error('An unexpected error occurred:', error);
-        }
-
-        throw error;
-    }
-
-}
-
-
-

@@ -1,10 +1,11 @@
 import { deleteBooking, createBooking, getBookingForUser } from "../controllers/booking";
-import { authenticateJWT } from "../controllers/auth";
+import { authenticateJWT } from "../../user-service/src/middleware/authMiddleware";
 import express from 'express';
 
 const bookingRouter = express.Router();
+
 // Route to create a booking with JWT authentication
-bookingRouter.post("/", authenticateJWT, async function(req, res){
+bookingRouter.post("/", authenticateJWT, async function(req: any, res){
     const hotelID = req.body.hotelID;
     const user = req.user;
     const from_date = req.body.from_date;
@@ -29,8 +30,8 @@ bookingRouter.delete("/", async function(req, res) {
         res.status(400).send();
     }
 });
-// Route to get bookings for the authenticated user
-bookingRouter.get("/", authenticateJWT, async function(req, res){
+// Route to get bookings for the authenticated users
+bookingRouter.get("/", authenticateJWT, async function(req: any, res){
   const username = req.user; 
   const bookings = await getBookingForUser(username);
   console.log(bookings); 
