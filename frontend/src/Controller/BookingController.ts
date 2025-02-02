@@ -1,8 +1,15 @@
+import { cwd } from "process";
 import { IBooking } from "../Model/Booking";
 import axios from "axios"; 
-export async function GetBookings() {
+
+
+export async function GetBookings(username: string) {
+
+    console.log("!!!!!!!!!!!!!!!!!!!" + username);
     //Kommer göra en API request sen men returnerar statisk data just nu
-    const bookings = await axios.get("http://localhost:7700/api/booking/");
+    const bookings = await axios.get(`http://localhost:7700/api/booking/`, {
+      data: {username: username}
+    });
     console.log(bookings.data); 
     return bookings.data; 
 }

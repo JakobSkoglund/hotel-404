@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { GetBookings, DeleteBooking } from "../../Controller/BookingController"; 
 
 import Grid from '@mui/material/Grid2'; 
@@ -14,13 +14,24 @@ import TableContainer from '@mui/material/TableContainer';
 import TableBody from '@mui/material/TableBody';
 import { Button } from '@mui/material';
 import { IBooking } from '../../Model/Booking';
+import { LoggedinContext , UsernameContext} from "../../index";
+
 
 const Bookings: React.FC = () => {
+
+  const { globalUsername } = useContext(UsernameContext); // Access global username from context
+
   //Stores all the bookings
   const [bookingList, SetBookingList] = useState<IBooking[]>([]);
     const bookingsCall = async function(){
-      const bookings = await GetBookings(); 
-      SetBookingList(bookings); 
+      try {
+
+        const bookings = await GetBookings(globalUsername); 
+        SetBookingList(bookings); 
+      }
+      catch (error) {
+        
+      }
     }
   useEffect(() => {
     bookingsCall(); 
