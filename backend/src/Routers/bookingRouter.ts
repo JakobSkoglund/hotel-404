@@ -7,17 +7,20 @@ const bookingRouter = express.Router();
 // Route to create a booking with JWT authentication
 bookingRouter.post("/", authenticateJWT, async function(req: any, res){
     const hotelID = req.body.hotelID;
-    const user = req.user;
+    const username = req.user.username;
     const from_date = req.body.from_date;
     const to_date = req.body.to_date;
-    console.log(hotelID, user, from_date, to_date); 
+
     try {
-        const bookingDone = await createBooking(hotelID, user, from_date, to_date);
+        const bookingDone = await createBooking(hotelID, username, from_date, to_date);
+        
         res.status(201).send("booking successful!");
     } catch (error){
         res.status(400).send(error);
     }
 });
+
+
 // Route to delete a booking by ID
 bookingRouter.delete("/", async function(req, res) {
 
@@ -30,12 +33,18 @@ bookingRouter.delete("/", async function(req, res) {
         res.status(400).send();
     }
 });
+
 // Route to get bookings for the authenticated users
 bookingRouter.get("/", authenticateJWT, async function(req: any, res){
-  const username = req.user; 
-  const bookings = await getBookingForUser(username);
-  console.log(bookings); 
-  res.send(bookings).status(200); 
+
+    const username = req.query.username;  // 👈 Extract username from query parameters
+    console.log("username = "+ username)
+
+    if (!username) {
+        return res.status(400).json({ message: "Username is required" });
+    }
+    const bookings = await getBookingForUser(username);
+    res.send(bookings).status(200); 
 })
 
 export default bookingRouter;

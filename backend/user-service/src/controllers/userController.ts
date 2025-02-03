@@ -63,7 +63,6 @@ export const signup = async (req: Request, res: Response) => {
 
 // Function to delete a user
 export const deleteUser = async (req: Request, res: Response) => {
-    console.log("hello");
     try 
     {
         // Extract username from request body
@@ -117,12 +116,12 @@ export const logout = async (req: Request, res: Response) => {
 
 // Function that handles user authentication (session check)
 export const session = async (req: Request, res: Response) => {
-
+        console.log("Session request received. User object:", (req as any).user); // Debugging
     try {
         // Since authenticateJWT middleware already verifies the token, we just return session info
         return res.status(200).json({
             message: "Session active",
-            user: (req as any).user?.username,  // Extracted from JWT token
+            user: (req as any).user.username
         });
 
     } catch (error) {

@@ -8,6 +8,9 @@ import bookingRouter from "./Routers/bookingRouter";
 import cors from 'cors';
 import session from "express-session";
 import cookieParser from "cookie-parser"; 
+import dotenv from "dotenv";
+
+dotenv.config();
 
 declare module 'express-session' {
   export interface SessionData {
