@@ -19,7 +19,7 @@ import { LoggedinContext , UsernameContext} from "../../index";
 
 const Bookings: React.FC = () => {
 
-  const { globalUsername } = useContext(UsernameContext); // Access global username from context
+    const {globalUsername, setGlobalUsername} = useContext(UsernameContext); 
 
   //Stores all the bookings
   const [bookingList, SetBookingList] = useState<IBooking[]>([]);
@@ -33,9 +33,16 @@ const Bookings: React.FC = () => {
         
       }
     }
+
+  // Call immediately if globalUsername is already available
   useEffect(() => {
-    bookingsCall(); 
-  }, [])
+    
+      bookingsCall();
+    
+  }, []);  // 👈 Runs once on mount
+
+
+
   //Function that handles cancellation
   const handleCancelation = async (id:string) => {
     await DeleteBooking(id); 

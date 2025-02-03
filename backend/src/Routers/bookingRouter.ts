@@ -37,8 +37,7 @@ bookingRouter.delete("/", async function(req, res) {
 // Route to get bookings for the authenticated users
 bookingRouter.get("/", authenticateJWT, async function(req: any, res){
 
-    const username = req.query.username;  // 👈 Extract username from query parameters
-    console.log("username = "+ username)
+    const username = req.query.username;  // Extract username from query parameters
 
     if (!username) {
         return res.status(400).json({ message: "Username is required" });

@@ -27,7 +27,6 @@ export const login = async (req: Request, res: Response) => {
         return res.status(201).json({message: "Login successful"});
     }
     catch (error) {
-        console.log(error); 
         res.status(400).send(error)
     }
 
@@ -67,8 +66,6 @@ export const deleteUser = async (req: Request, res: Response) => {
     {
         // Extract username from request body
         const { username } = req.body;
-
-        console.log(username);
         
         // if UserId is not sent/recieved
         if (!username) {
@@ -116,7 +113,6 @@ export const logout = async (req: Request, res: Response) => {
 
 // Function that handles user authentication (session check)
 export const session = async (req: Request, res: Response) => {
-        console.log("Session request received. User object:", (req as any).user); // Debugging
     try {
         // Since authenticateJWT middleware already verifies the token, we just return session info
         return res.status(200).json({
@@ -154,7 +150,6 @@ export async function AuthLogin(username: string, password:string)
         }
 
         //Om den hittar ett doc där username och password stämmer så fås _id
-        console.log(found._id)
         return found._id;
     }
 

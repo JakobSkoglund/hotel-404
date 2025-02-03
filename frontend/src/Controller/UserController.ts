@@ -11,7 +11,6 @@ export async function VerifyUser (username: string, password:string): Promise<bo
       username: username,
       password: password
     });
-    console.log('Login seccessful: ', respone.data);
     return true; 
   } catch (err:unknown) {
     const error = err as AxiosError;
@@ -38,7 +37,6 @@ export async function CreateUser (name:string, lastname:string, username:string,
       isAdmin: isAdmin,
       age:age
     });
-    console.log('Sign Up seccessful ', respone.data);
     return true
   } catch (error) {
     console.error('Sign Up failed', error);
@@ -49,7 +47,6 @@ export async function CreateUser (name:string, lastname:string, username:string,
 // HTTP request implemented in backend
 export async function DeleteUser(username: string) {
   try {
-    console.log(username); 
     const response = await axios.delete('http://localhost:7700/api/user/deleteme', {
       data: {username: username}
     });
