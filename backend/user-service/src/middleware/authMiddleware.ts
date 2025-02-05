@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import jwt, { JwtPayload } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
-const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
+const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET as string;
 
 // Middleware function to authenticate the JWT token
 export const authenticateJWT = (req: Request, res: Response, next: NextFunction) => {
@@ -13,7 +13,7 @@ export const authenticateJWT = (req: Request, res: Response, next: NextFunction)
     }
 
     try {
-
+        
         // Verify token
         const decoded = jwt.verify(token, accessTokenSecret) as { username: string };
         // Attach the decoded username to req.user
