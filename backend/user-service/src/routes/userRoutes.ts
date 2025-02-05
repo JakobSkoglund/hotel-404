@@ -11,6 +11,8 @@ router.post("/login", login);
 // signup
 router.post("/signup", signup);
 
+// logout
+router.post("/logout", logout);
 
 
 ////// protected routes under the JWT ////////
@@ -18,8 +20,6 @@ router.post("/signup", signup);
 // delete user
 router.delete("/deleteme", authenticateJWT, deleteUser);
 
-// logout
-router.post("/logout", authenticateJWT, logout);
 
 // session
 router.get("/session", authenticateJWT, session);

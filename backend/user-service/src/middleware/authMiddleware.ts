@@ -1,8 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
 
-const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET || "fallback-secret";
+const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 
 // Middleware function to authenticate the JWT token
 export const authenticateJWT = (req: Request, res: Response, next: NextFunction) => {
@@ -15,7 +14,6 @@ export const authenticateJWT = (req: Request, res: Response, next: NextFunction)
 
     try {
 
-        
         // Verify token
         const decoded = jwt.verify(token, accessTokenSecret) as { username: string };
         // Attach the decoded username to req.user
