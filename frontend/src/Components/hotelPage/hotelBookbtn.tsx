@@ -40,7 +40,6 @@ const HotelBooking = () => {
     const [dateCheckIn, setDateCheckIn] = useState<Date | null>(null);
     const [dateCheckOut, setDateCheckOut] = useState<Date | null>(null);
     const {hotelId }= useParams();
-    console.log(hotelId); 
     const {globalUsername, setGlobalUsername} = useContext(UsernameContext); 
 
     const timeNow = Number(Date.now()); 
@@ -58,12 +57,11 @@ const HotelBooking = () => {
 
         const fromDate = dateCheckIn.toString();
         const toDate = dateCheckOut.toString();
-        console.log(fromDate, toDate); 
         try 
         {   
-            if(!hotelId){
-              throw new Error("can't book hotel without ID"); 
-            }
+          if(!hotelId){
+            throw new Error("can't book hotel without ID"); 
+          }
             await CreateBooking(hotelId, globalUsername, fromDate, toDate); 
             alert("Booking successful!");
             window.location.reload();

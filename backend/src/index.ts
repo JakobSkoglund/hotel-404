@@ -3,11 +3,14 @@
 import express from "express"; 
 import mongoose from "mongoose";
 import hotelRouter from "./Routers/hotelRouter"; 
-import userRouter from "./Routers/userRouter"; 
+import userRouter from "../user-service/src/routes/userRoutes"; 
 import bookingRouter from "./Routers/bookingRouter";
 import cors from 'cors';
 import session from "express-session";
 import cookieParser from "cookie-parser"; 
+import dotenv from "dotenv";
+
+dotenv.config();
 
 declare module 'express-session' {
   export interface SessionData {
@@ -39,7 +42,9 @@ app.use(session({
   }
 }));
 
-const mongoURI = 'mongodb+srv://Cluster46730:VE9vWGN0YkFm@cluster46730.bv6pq.mongodb.net/Hotel-404?retryWrites=true&w=majority&appName=Cluster46730'
+//const mongoURI = 'mongodb+srv://Cluster46730:VE9vWGN0YkFm@cluster46730.bv6pq.mongodb.net/Hotel-404?retryWrites=true&w=majority&appName=Cluster46730'
+
+const mongoURI = 'mongodb+srv://emilfroding:asd123@scaledb.tql8n.mongodb.net/Hotel-404?retryWrites=true&w=majority&appName=ScaleDb'
 
 mongoose.connect(mongoURI)
   .then(() => {
@@ -51,7 +56,8 @@ mongoose.connect(mongoURI)
 
 app.use("/api/hotels", hotelRouter); 
 app.use("/api/user", userRouter);
-app.use("/api/booking", bookingRouter); 
+app.use("/api/booking", bookingRouter);
+
 
 app.use((req, _, next) => {
   console.log(req.path, req.method); 

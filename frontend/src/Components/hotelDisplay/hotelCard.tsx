@@ -12,8 +12,7 @@ type HotelProps = IHotel
 //Den här komponenten är till Hotel korten som displayar alla hotell i startsidan efter att man har loggat in
 //Komponenten har emot bild, title, beskrivning, pris, stad och id för hotellet som ska visas i varje kort
 const HotelCard: React.FC<HotelProps> = ({image, title, description, price, city, id}) => {
-  //För att testa att man får in rätt id
-  console.log(id); 
+
   const navigate = useNavigate();
   return (
     //Card Component från MUI

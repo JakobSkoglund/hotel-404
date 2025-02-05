@@ -71,7 +71,7 @@ userRouter.get("/logout", authenticateJWT, async function(req, res){
 
 // Route to check if a user is authenticated (session check)
 userRouter.get("/session", authenticateJWT, (req, res) => {
- res.sendStatus(200);  
+  res.sendStatus(200);  
 }); 
 
 
