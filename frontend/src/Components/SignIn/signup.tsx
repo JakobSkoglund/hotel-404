@@ -44,7 +44,6 @@ const Signup = () => {
  const handleSignup = async () => {
   SetErrorMsg("");
   const newUser = await CreateUser(name,lastname, username, age, password, false);
-  console.log('Sign Up handler');
   if(newUser) {
     alert("Sign Up successful");
     setLoggedin(true);

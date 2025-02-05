@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { GetBookings, DeleteBooking } from "../../Controller/BookingController"; 
 
 import Grid from '@mui/material/Grid2'; 
@@ -14,17 +14,35 @@ import TableContainer from '@mui/material/TableContainer';
 import TableBody from '@mui/material/TableBody';
 import { Button } from '@mui/material';
 import { IBooking } from '../../Model/Booking';
+import { LoggedinContext , UsernameContext} from "../../index";
+
 
 const Bookings: React.FC = () => {
+
+    const {globalUsername, setGlobalUsername} = useContext(UsernameContext); 
+
   //Stores all the bookings
   const [bookingList, SetBookingList] = useState<IBooking[]>([]);
     const bookingsCall = async function(){
-      const bookings = await GetBookings(); 
-      SetBookingList(bookings); 
+      try {
+
+        const bookings = await GetBookings(globalUsername); 
+        SetBookingList(bookings); 
+      }
+      catch (error) {
+        
+      }
     }
+
+  // Call immediately if globalUsername is already available
   useEffect(() => {
-    bookingsCall(); 
-  }, [])
+    
+      bookingsCall();
+    
+  }, []);  // 👈 Runs once on mount
+
+
+
   //Function that handles cancellation
   const handleCancelation = async (id:string) => {
     await DeleteBooking(id); 

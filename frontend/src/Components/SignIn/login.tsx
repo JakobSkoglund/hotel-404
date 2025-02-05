@@ -52,7 +52,6 @@ const Login = () => {
       alert("Login successful"); 
       setLoggedin(true);
       //För att Skriva in i terminalen
-      console.log(setGlobalUsername); 
       setGlobalUsername(username); 
     } 
     //Om användaren matar in fel uppgifter

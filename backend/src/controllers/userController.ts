@@ -15,7 +15,6 @@ export async function AuthLogin (username: string, password:string)
             throw new Error('User not found');
         }
         //Om den hittar ett doc där username och password stämmer så fås _id
-        console.log(found._id)
         return found._id;
     }
     catch (error)

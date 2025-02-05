@@ -1,9 +1,13 @@
-import { IBooking } from "../Model/Booking";
+
 import axios from "axios"; 
-export async function GetBookings() {
+
+
+export async function GetBookings(username: string) {
+
     //Kommer göra en API request sen men returnerar statisk data just nu
-    const bookings = await axios.get("http://localhost:7700/api/booking/");
-    console.log(bookings.data); 
+    const bookings = await axios.get(`http://localhost:7700/api/booking/`, {
+      params: {username}
+    });
     return bookings.data; 
 }
 //För att hantera "cancel booking"

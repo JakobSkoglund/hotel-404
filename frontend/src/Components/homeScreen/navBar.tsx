@@ -31,7 +31,7 @@ const NavAppBar = () => {
 
 
     const {loggedin, setLoggedin} = useContext(LoggedinContext);
-    const {username, setUsername} = useContext(UsernameContext); 
+    const { globalUsername } = useContext(UsernameContext); // Access global username from context
     {/*const navigate = useNavigate();*/}
 
     const handleLanguageClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -73,8 +73,10 @@ const NavAppBar = () => {
     // deletes the user that is currently logged in.
     const handleDeleteUserOnClick = async (username: string) => {
         const deleted = await DeleteUser(username);
-        setLoggedin(false);
-        navigate('/');
+        if (deleted) {
+            setLoggedin(false);
+            navigate('/');
+        }
     }
 
     // signs out the user currently logged in.
@@ -135,7 +137,7 @@ const NavAppBar = () => {
                         >
                             
                             <MenuItem onClick={handleMyPageBookingClick}>My Bookings</MenuItem>
-                            <MenuItem onClick={() => handleDeleteUserOnClick(username)}> Delete Account</MenuItem>
+                            <MenuItem onClick={() => handleDeleteUserOnClick(globalUsername)}> Delete Account</MenuItem>
                             <MenuItem onClick={() => handleSignOutButtonClick()}>Sign out</MenuItem>
                         </Menu>
                     </Box>
