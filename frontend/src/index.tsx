@@ -44,6 +44,8 @@ const Application: React.FC = () => {
       try{
         const session = await axios.get("http://localhost:7700/api/user/session");    
         setLoggedin(true);
+        console.log(session.data.user);
+        console.log("hello Session");
         setGlobalUsername(session.data.user); // Ensure the username is set globally
 
       }

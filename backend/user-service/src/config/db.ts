@@ -1,7 +1,8 @@
 import mongoose from "mongoose"; 
 
-const mongoURI = 'mongodb+srv://emilfroding:asd123@scaledb.tql8n.mongodb.net/Hotel-404?retryWrites=true&w=majority&appName=ScaleDb'
-mongoose.connect(mongoURI)
+const DB_URI = process.env.DB_URI as string;
+
+mongoose.connect(DB_URI)
   .then(() => {
     console.log('Connected to MongoDB Atlas');
   })

@@ -2,16 +2,16 @@
 // för att köra: PS C:\Users\David\Desktop\Skola\WA\hotel-404\backend\src> npx tsx index.ts
 import express from "express"; 
 import mongoose from "mongoose";
-import hotelRouter from "../hotel-service/src/routes/hotelRoutes"; 
-import userRouter from "../user-service/src/routes/userRoutes"; 
-import bookingRouter from "../booking-service/routes/bookingRouter";
+import bookingRouter from "./routes/bookingRouter";
+import connectDB from "./config/db";
 import cors from 'cors';
 import session from "express-session";
 import cookieParser from "cookie-parser"; 
-
 import dotenv from "dotenv";
 
 dotenv.config();
+const PORT = process.env.PORT as string;
+
 
 declare module 'express-session' {
   export interface SessionData {
@@ -19,16 +19,6 @@ declare module 'express-session' {
     username: string
   }
 }
-
-//Define custom environment variable for ProcessEnv
-declare global {
-  namespace NodeJS {
-    interface ProcessEnv {
-      DB_CONNECTION_STRING: string; 
-    }
-  }
-}
-
 
 const app = express(); 
 
@@ -53,30 +43,20 @@ app.use(session({
   }
 }));
 
+// Connect to database
+connectDB()
 
-const mongoURI: string = process.env.DB_CONNECTION_STRING as string;
-
-
-mongoose.connect(mongoURI)
-  .then(() => {
-    console.log('Connected to MongoDB Atlas');
-  })
-  .catch(err => {
-    console.error('MongoDB connection error:', err);
-  });
-
-app.use("/api/hotels", hotelRouter); 
-app.use("/api/user", userRouter);
-app.use("/api/booking", bookingRouter);
-
-
+// Middleware
 app.use((req, _, next) => {
   console.log(req.path, req.method); 
   next(); 
 }); 
 
 
+// routes that booking uses
+app.use("/api/booking", bookingRouter);
+
 // Start server
-app.listen(7700, () => {
-  console.log("Listening on port 7700"); 
+app.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}`); 
 }); 
