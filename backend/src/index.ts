@@ -1,5 +1,3 @@
-// src/index.js
-// för att köra: PS C:\Users\David\Desktop\Skola\WA\hotel-404\backend\src> npx tsx index.ts
 import express from "express"; 
 import mongoose from "mongoose";
 import hotelRouter from "./Routers/hotelRouter"; 
@@ -8,7 +6,8 @@ import bookingRouter from "./Routers/bookingRouter";
 import cors from 'cors';
 import session from "express-session";
 import cookieParser from "cookie-parser"; 
-import "dotenv/config"; 
+import "dotenv/config";
+import { logging } from "./logging";
 
 declare module 'express-session' {
   export interface SessionData {
@@ -55,10 +54,10 @@ const mongoURI: string = process.env.DB_CONNECTION_STRING as string;
 
 mongoose.connect(mongoURI)
   .then(() => {
-    console.log('Connected to MongoDB Atlas');
+    logging('Connected to MongoDB Atlas');
   })
   .catch(err => {
-    console.error('MongoDB connection error:', err);
+    logging(`MongoDB connection error: ${err}`);
   });
 
 app.use("/api/hotels", hotelRouter); 
@@ -66,12 +65,12 @@ app.use("/api/user", userRouter);
 app.use("/api/booking", bookingRouter); 
 
 app.use((req, _, next) => {
-  console.log(req.path, req.method); 
+  logging(`Endpoint: ${req.path}, method: ${req.method}`); 
   next(); 
 }); 
 
 
 // Start server
 app.listen(7700, () => {
-  console.log("Listening on port 7700"); 
+  logging("Listening on port 7700"); 
 }); 
