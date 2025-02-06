@@ -1,10 +1,10 @@
-import { deleteBooking, createBooking, getBookingForUser } from "../../booking-service/controllers/bookingController";
+import { deleteBooking, createBooking, getBookingForUser } from "../controllers/bookingController";
 import { authenticateJWT } from "../../user-service/src/middleware/authMiddleware";
 import express from 'express';
 
 const bookingRouter = express.Router();
 
-// Route to create a booking with JWT authentication
+// Route to create a booking with JWT authentication         SEPERATION NOT DONE
 bookingRouter.post("/", authenticateJWT, async function(req: any, res){
     const hotelID = req.body.hotelID;
     const username = req.user.username;
@@ -21,7 +21,7 @@ bookingRouter.post("/", authenticateJWT, async function(req: any, res){
 });
 
 
-// Route to delete a booking by ID
+// Route to delete a booking by ID.         SEPERATION DONE
 bookingRouter.delete("/", async function(req, res) {
 
     const bookingId = req.body.bookingId;
