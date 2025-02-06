@@ -85,6 +85,9 @@ export const deleteUser = async (req: Request, res: Response) => {
         if (response.status != 200) {
             throw Error;
         } 
+        else {
+            console.log("!!!!!!!!!!!!!!!!!!! IT WORKED !!!!!!!!!!!!!!!!!!!!!!!")
+        }
 
         await User.deleteOne({username: username});
 
