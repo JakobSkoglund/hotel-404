@@ -1,4 +1,5 @@
-import { Booking } from "../Model/Booking"; 
+import { Booking } from "../../booking-service/models/Booking";
+//import { Booking } from "../Model/Booking"; 
 import { Hotel } from "../Model/HotelModel"; 
 
 // Fetch hotels, optionally filtered by city, and return only those available between the given dates
