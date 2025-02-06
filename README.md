@@ -1,4 +1,4 @@
-# Hotel 404 (project group 5)
+# Hotel 404 (project group 10)
 
 This is our project for the programming web applications course, made with the MERN Stack using Typescript. Hotel 404 is an application for finding available (mock) hotel bookings and managing your bookings. 
 

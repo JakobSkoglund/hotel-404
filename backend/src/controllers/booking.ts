@@ -1,25 +1,22 @@
 import { Booking } from "../Model/Booking"; 
 import { Hotel } from "../Model/HotelModel";
-import { logging } from "../logging";
+
 
 // Function to delete a booking by its ID
-export async function deleteBooking(bookingId: string) {    
+export async function deleteBooking(bookingId: string) {
+    
     try {
-        logging("Deleting booking: " + bookingId); 
         const booking = await Booking.findByIdAndDelete(bookingId);
         
         if (!booking) {
-            logging("Booking not found"); 
             throw new Error('Error 001: Booking not found');
         }
         
     } catch (error) {
         
         if (error instanceof Error) {
-            logging("Database error when retrieving booking"); 
             console.error('Error retrieving booking by ID:', error.message);
         } else {
-            logging("An unexpected error occured: " + error as string); 
             console.error('An unexpected error occurred:', error);
         }
         throw error;
@@ -27,7 +24,6 @@ export async function deleteBooking(bookingId: string) {
 }
 // Function to create a new booking
 export async function createBooking(hotelID: string, user: string, from_date: string, to_date: string){ 
-  logging(`Creating booking for user ${user} for hotel ${hotelID}`); 
   let date1 = new Date(from_date); 
   let date2 = new Date(to_date); 
   let days = Math.round((date2.getTime()-date1.getTime()) /(1000*3600*24));
@@ -39,14 +35,11 @@ export async function createBooking(hotelID: string, user: string, from_date: st
   //If checkout date is less than checkin date, throw an error
   //Also throw an error if either date is before the current time
   if(days < 0){
-    logging("Invalid dates when creating booking"); 
     throw new Error("invalid dates"); 
   } else if(Number(date1) < timeNow || Number(date2) < timeNow){
-    logging("Invalid dates when creating booking"); 
     throw new Error("invalid dates"); 
   }
   if(!hotel){
-    logging("Could not find hotel"); 
     throw new Error("couldn't find hotel");
   }
   const cost = hotel.display?.price;
@@ -64,7 +57,6 @@ export async function createBooking(hotelID: string, user: string, from_date: st
 }
 // Function to retrieve bookings for a specific user
 export async function getBookingForUser(username: string) {
-  logging("Getting bookings for " || username); 
   console.log(username); 
   const bookings = await Booking.find({user: username});
   console.log(bookings);
