@@ -1,5 +1,6 @@
 import { deleteBooking, createBooking, getBookingForUser } from "../controllers/bookingController";
 import { authenticateJWT } from "../../user-service/src/middleware/authMiddleware";
+import {Booking} from "../models/Booking";
 import express from 'express';
 
 const bookingRouter = express.Router();
@@ -45,5 +46,18 @@ bookingRouter.get("/", authenticateJWT, async function(req: any, res){
     const bookings = await getBookingForUser(username);
     res.send(bookings).status(200); 
 })
+
+
+bookingRouter.delete("/deleteBookings/:username", async (req, res) => {
+    try {
+        const { username } = req.params;
+        await Booking.deleteMany({ user: username });
+        return res.status(200).json({ message: "Bookings deleted successfully" });
+    } catch (error) {
+        console.error("Error deleting bookings:", error);
+        return res.status(500).json({ error: "Internal server error" });
+    }
+});
+
 
 export default bookingRouter;

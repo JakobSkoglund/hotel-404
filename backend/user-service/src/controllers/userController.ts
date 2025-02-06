@@ -2,7 +2,8 @@ import jwt from "jsonwebtoken";
 import { Request, Response } from "express";
 import { User } from "../models/User";
 import { generateAccessToken } from "../services/tokenService";
-import { Booking } from "../../../src/Model/Booking";
+import axios from "axios";
+
 
 // Login for a user
 export const login = async (req: Request, res: Response) => {
@@ -79,9 +80,12 @@ export const deleteUser = async (req: Request, res: Response) => {
             return res.status(404).json({ error: "User not found" });
         }
 
-        // Microservice clash, we have to access booking-service inside user-service.
-        // Maybe API-call to bookking-service?
-        await Booking.deleteMany({user: username});
+        // API-call to bookking-service, try to delete all the users bookings
+        const response = await axios.delete(`http://localhost:7700/api/booking/deleteBookings/${username}`);
+        if (response.status != 200) {
+            throw Error;
+        } 
+
         await User.deleteOne({username: username});
 
         // respond with sucessmessage
