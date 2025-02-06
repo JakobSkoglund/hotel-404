@@ -1,60 +1,57 @@
-import { AuthLogin, newUser, deleteUser } from "../controllers/userController";
+import { AuthLogin, newUser, deleteUser } from "../controllers/userController"; 
 import { accessTokenSecret, authenticateJWT } from "../controllers/auth";
-import jwt from "jsonwebtoken";
-import { logging } from "../logging";
+import jwt from "jsonwebtoken"; 
 
-import express from "express";
-const userRouter = express.Router();
+
+import express from "express"; 
+const userRouter = express.Router(); 
 // Route to handle user login
-userRouter.post("/login", async function(req, res, next) {
-  logging(`POST request to login from ${req.socket.remoteAddress}`)
-  const username = req.body.username;
-  const password = req.body.password;
+userRouter.post("/login", async function(req, res, next){
+  const username = req.body.username; 
+  const password = req.body.password; 
   try {
-    const validUser = await AuthLogin(username, password);
-    const accessToken = jwt.sign({ username: username }, accessTokenSecret, { expiresIn: "20m" });
-    res.cookie('token', accessToken, { httpOnly: true });
-    res.sendStatus(201);
+    const validUser = await AuthLogin(username, password);    
+    const accessToken = jwt.sign({username: username}, accessTokenSecret, {expiresIn: "20m"});
+    res.cookie('token', accessToken, {httpOnly: true}); 
+    res.sendStatus(201); 
     req.session.isLoggedIn = true;
     req.session.username = username;
-    console.log(req.session.username);
-    next();
+    console.log(req.session.username); 
+    next(); 
   }
   catch (error) {
-    console.log(error);
+  console.log(error); 
     res.status(400).send(error)
   }
-
-});
+  
+});   
 
 // Route to handle user signup
-userRouter.post("/signup", async function(req, res) {
-  logging(`POST request to signup from ${req.socket.remoteAddress}`)
-  const username = req.body.username;
-  const password = req.body.password;
-  const name = req.body.name;
-  const lastname = req.body.lastname;
-  const age = req.body.age;
-  const isAdmin = false;
+userRouter.post("/signup", async function(req, res){
+  const username = req.body.username; 
+  const password = req.body.password; 
+  const name = req.body.name; 
+  const lastname = req.body.lastname; 
+  const age = req.body.age; 
+  const isAdmin = false; 
   try {
     const createUser = await newUser(name, lastname, username, age, password, isAdmin);
-    const accessToken = jwt.sign({ username: username }, accessTokenSecret, { expiresIn: "20m" });
-    res.cookie('token', accessToken, { httpOnly: true });
-    res.json().status(201).send();
+    const accessToken = jwt.sign({username: username}, accessTokenSecret, {expiresIn: "20m"});
+    res.cookie('token', accessToken, {httpOnly: true}); 
+    res.json().status(201).send(); 
   }
-  catch {
-    res.sendStatus(400);
+  catch{
+    res.sendStatus(400); 
   }
 })
 
 
 // Route to delete a user (authenticated)
-userRouter.delete("/deleteme", authenticateJWT, async function(req, res) {
-  logging(`DELETE request to delete user from ${req.socket.remoteAddress}: ${req.user as string}`)
+userRouter.delete("/deleteme", authenticateJWT, async function(req, res){
   const userID = req.user as string;
-  try {
+    try {
     const userDelete = await deleteUser(userID);
-    res.cookie("token", "none", { maxAge: 1 });
+    res.cookie("token", "none", {maxAge: 1});
     res.sendStatus(201);
   }
   catch {
@@ -62,22 +59,20 @@ userRouter.delete("/deleteme", authenticateJWT, async function(req, res) {
   }
 });
 // Route to handle user logout (authenticated)
-userRouter.get("/logout", authenticateJWT, async function(req, res) {
-  logging(`GET request to logout user from ${req.socket.remoteAddress}: ${req.user as string}`)
+userRouter.get("/logout", authenticateJWT, async function(req, res){
   try {
-    res.cookie("token", "none", { maxAge: 1 });
+    res.cookie("token", "none", {maxAge: 1});
     res.sendStatus(200);
   } catch {
     res.sendStatus(400);
   }
-
+  
 });
 
 // Route to check if a user is authenticated (session check)
 userRouter.get("/session", authenticateJWT, (req, res) => {
-  logging(`GET request to retrieve session from ${req.socket.remoteAddress}: ${req.user as string}`)
-  res.sendStatus(200);
-});
+ res.sendStatus(200);  
+}); 
 
 
 
