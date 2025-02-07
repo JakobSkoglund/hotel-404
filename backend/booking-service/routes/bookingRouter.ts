@@ -1,10 +1,11 @@
-import { deleteBooking, createBooking, getBookingForUser } from "../../booking-service/controllers/bookingController";
+import { deleteBooking, createBooking, getBookingForUser } from "../controllers/bookingController";
 import { authenticateJWT } from "../../user-service/src/middleware/authMiddleware";
+import {Booking} from "../models/Booking";
 import express from 'express';
 
 const bookingRouter = express.Router();
 
-// Route to create a booking with JWT authentication
+// Route to create a booking with JWT authentication         SEPERATION NOT DONE
 bookingRouter.post("/", authenticateJWT, async function(req: any, res){
     const hotelID = req.body.hotelID;
     const username = req.user.username;
@@ -21,7 +22,7 @@ bookingRouter.post("/", authenticateJWT, async function(req: any, res){
 });
 
 
-// Route to delete a booking by ID
+// Route to delete a booking by ID.         SEPERATION DONE
 bookingRouter.delete("/", async function(req, res) {
 
     const bookingId = req.body.bookingId;
@@ -45,5 +46,18 @@ bookingRouter.get("/", authenticateJWT, async function(req: any, res){
     const bookings = await getBookingForUser(username);
     res.send(bookings).status(200); 
 })
+
+
+bookingRouter.delete("/deleteBookings/:username", async (req, res) => {
+    try {
+        const { username } = req.params;
+        await Booking.deleteMany({ user: username });
+        return res.status(200).json({ message: "Bookings deleted successfully" });
+    } catch (error) {
+        console.error("Error deleting bookings:", error);
+        return res.status(500).json({ error: "Internal server error" });
+    }
+});
+
 
 export default bookingRouter;

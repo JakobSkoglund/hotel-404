@@ -1,5 +1,5 @@
-import { Booking } from "../Model/Booking"; 
-import { Hotel } from "../Model/HotelModel";
+import { Booking } from "../models/Booking"; 
+import { Hotel } from "../../src/Model/HotelModel";
 
 
 // Function to delete a booking by its ID
@@ -22,12 +22,25 @@ export async function deleteBooking(bookingId: string) {
         throw error;
     }
 }
+
+
 // Function to create a new booking
 export async function createBooking(hotelID: string, user: string, from_date: string, to_date: string){ 
   let date1 = new Date(from_date); 
   let date2 = new Date(to_date); 
   let days = Math.round((date2.getTime()-date1.getTime()) /(1000*3600*24));
+
+
+
+
+
+  // Need to create API call in Hotel-service that returns values { hotelName: "name" || NULL, price: number }
   let hotel = await Hotel.findById(hotelID);
+
+
+
+
+
   const timeNow = Date.now(); 
   
   const checkInDate = date1.toISOString().split('T')[0]; 
@@ -60,7 +73,11 @@ export async function getBookingForUser(username: string) {
   const bookings = await Booking.find({user: username});
   var formattedBookings = []
   for(let booking of bookings) {
-    const hotel = await Hotel.findById(booking.hotel);
+
+
+  // Need to create API call in Hotel-service that returns values { hotelName: "name" || NULL, price: number }
+
+  const hotel = await Hotel.findById(booking.hotel);
     const formattedBooking = {
       id: booking.id,
       hotel: hotel?.display?.title, 
