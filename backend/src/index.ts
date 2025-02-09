@@ -8,6 +8,7 @@ import bookingRouter from "./Routers/bookingRouter";
 import cors from 'cors';
 import session from "express-session";
 import cookieParser from "cookie-parser"; 
+
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -18,6 +19,16 @@ declare module 'express-session' {
     username: string
   }
 }
+
+//Define custom environment variable for ProcessEnv
+declare global {
+  namespace NodeJS {
+    interface ProcessEnv {
+      DB_CONNECTION_STRING: string; 
+    }
+  }
+}
+
 
 const app = express(); 
 
@@ -42,9 +53,9 @@ app.use(session({
   }
 }));
 
-//const mongoURI = 'mongodb+srv://Cluster46730:VE9vWGN0YkFm@cluster46730.bv6pq.mongodb.net/Hotel-404?retryWrites=true&w=majority&appName=Cluster46730'
 
-const mongoURI = 'mongodb+srv://emilfroding:asd123@scaledb.tql8n.mongodb.net/Hotel-404?retryWrites=true&w=majority&appName=ScaleDb'
+const mongoURI: string = process.env.DB_CONNECTION_STRING as string;
+
 
 mongoose.connect(mongoURI)
   .then(() => {
