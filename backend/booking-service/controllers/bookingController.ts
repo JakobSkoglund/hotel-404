@@ -1,4 +1,4 @@
-import { Booking } from "../models/Booking"; 
+import { Booking } from "../../src/Model/Booking";
 import { Hotel } from "../../src/Model/HotelModel";
 
 

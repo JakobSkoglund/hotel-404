@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken"; 
 import { Request, Response } from "express";
-import { User } from "../models/User";
+import { User } from "../../../src/Model/User";
 import { generateAccessToken } from "../services/tokenService";
 import axios from "axios";
 
