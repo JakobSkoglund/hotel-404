@@ -21,10 +21,12 @@ export const authenticateJWT = (req: Request, res: Response, next: NextFunction)
         //(req as any).user = { username: decoded.username };
         (req as any).user = decoded;  // Attach decoded user to request
         logger.info("Valid token"); 
+        logger.info('');
         next();
         
     } catch (error) {
         logger.error("Invalid token"); 
+        logger.info('');
         return res.status(403); // Forbidden: Invalid token
     }
 };

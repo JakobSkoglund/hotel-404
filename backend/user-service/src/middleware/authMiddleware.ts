@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
+import { logger } from "../../../Logging/logger";
 
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET as string;
 
@@ -22,7 +23,8 @@ export const authenticateJWT = (req: Request, res: Response, next: NextFunction)
         next();
         
     } catch (error) {
-        console.log("Invalid token");
+        logger.info("Invalid token");
+        logger.info('');
         return res.status(403); // Forbidden: Invalid token
     }
 };

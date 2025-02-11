@@ -7,6 +7,7 @@ import { logger} from "../../Logging/logger";
 export async function deleteBooking(bookingId: string) {
     
     try {
+        logger.info("Function {deleteBooking}: Attempting to delete a booking by ID");
         const booking = await Booking.findByIdAndDelete(bookingId);
         
         if (!booking) {
@@ -18,8 +19,10 @@ export async function deleteBooking(bookingId: string) {
         
         if (error instanceof Error) {
             logger.error(`Error retrieving booking by ID: ${bookingId},  ${error.message}`);
+            logger.info('');
         } else {
             logger.error('An unexpected error occurred:', error);
+            logger.info('');
         }
         throw error;
     }
@@ -29,7 +32,7 @@ export async function deleteBooking(bookingId: string) {
 // Function to create a new booking
 export async function createBooking(hotelID: string, user: string, from_date: string, to_date: string){ 
 
-  logger.info(`Creating booking for user: ${user}, hotelID: ${hotelID}, from: ${from_date}, to: ${to_date}`);
+  logger.info(`Function {createBooking}: Creating booking for user: ${user}, hotelID: ${hotelID}, from: ${from_date}, to: ${to_date}`);
 
 
   let date1 = new Date(from_date); 
@@ -77,16 +80,18 @@ export async function createBooking(hotelID: string, user: string, from_date: st
             to_date: checkOutDate,
             cost: calculatedCost
         });
-        logger.info(`Booking created successfully for user: ${user} at hotelID: ${hotelID}`);
+  logger.info(`Booking created successfully for user: ${user} at hotelID: ${hotelID}`);
+  logger.info('');
     } catch (error: any) {
         logger.error(`Error creating booking: ${error.message}`);
+        logger.info('');
         throw error;
     }
 }
 // Function to retrieve bookings for a specific user
 export async function getBookingForUser(username: string) {
 
-  logger.info(`Fetching bookings for user: ${username}`);
+  logger.info(`Function {getBookingForUser}: Fetching bookings for user: ${username}`);
 
 
   const bookings = await Booking.find({user: username});
@@ -110,6 +115,7 @@ export async function getBookingForUser(username: string) {
 
       formattedBookings.push(formattedBooking); 
   }
-  logger.info(`Fetched ${formattedBookings.length} bookings for user: ${username}`);
+  logger.info(`Successfully fetched ${formattedBookings.length} bookings for user: ${username}`);
+  logger.info('');
   return formattedBookings; 
 }

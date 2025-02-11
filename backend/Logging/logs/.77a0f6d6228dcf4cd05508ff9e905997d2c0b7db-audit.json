@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 3
+    },
+    "auditLog": "/Users/jakobskoglund/Skalbara_System/hotel-404/backend/Logging/logs/.77a0f6d6228dcf4cd05508ff9e905997d2c0b7db-audit.json",
+    "files": [
+        {
+            "date": 1739286655979,
+            "name": "/Users/jakobskoglund/Skalbara_System/hotel-404/backend/Logging/logs/app-2025-02-11.log",
+            "hash": "2c3e231c2a1be39b01ec3df83fe38806db41d5c2a4cc6a6fbb90c60c4797e994"
+        }
+    ],
+    "hashType": "sha256"
+}

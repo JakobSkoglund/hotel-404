@@ -18,9 +18,11 @@ bookingRouter.post("/", authenticateJWT, async function(req: any, res){
     try {
         const bookingDone = await createBooking(hotelID, username, from_date, to_date);
         logger.info(`Booking successful for user: ${username} at hotelID: ${hotelID}`);
+        logger.info('');
         res.status(201).send("booking successful!");
     } catch (error: any){
         logger.error(`Error creating booking for user: ${username}. Error: ${error.message}`);
+        logger.info('');
         res.status(400).send(error);
     }
 });
@@ -35,9 +37,11 @@ bookingRouter.delete("/", async function(req, res) {
     try {
         const bookingDeleted = await deleteBooking(bookingId);
         logger.info(`Booking deleted with ID: ${bookingId}`);
+        logger.info('');
         res.status(200).send();
     } catch (error: any){
         logger.error(`Error deleting booking with ID: ${bookingId}. Error: ${error.message}`);
+        logger.info('');
         res.status(400).send(error);
     }
 });
@@ -49,15 +53,18 @@ bookingRouter.get("/", authenticateJWT, async function(req: any, res){
 
     if (!username) {
         logger.warn('Username is required in the query parameters.');
+        logger.info('');
         return res.status(400).json({ message: "Username is required" });
     }
     logger.info(`Fetching bookings for user: ${username}`);
     try {
         const bookings = await getBookingForUser(username);
         logger.info(`Fetched bookings for user: ${username}`);
+        logger.info('');
         res.send(bookings).status(200); 
     } catch (error: any) {
         logger.error(`Error fetching bookings for user: ${username}. Error: ${error.message}`);
+        logger.info('');
         res.status(500).send({ message: "Internal server error" });
     }
 })
@@ -71,9 +78,11 @@ bookingRouter.delete("/deleteBookings/:username", async (req, res) => {
     try {
         await Booking.deleteMany({ user: username });
         logger.info(`All bookings deleted for user: ${username}`);
+        logger.info('');
         return res.status(200).json({ message: "Bookings deleted successfully" });
     } catch (error: any) {
         logger.error(`Error deleting bookings for user: ${username}. Error: ${error.message}`);
+        logger.info('');
         return res.status(500).json({ error: "Internal server error" });
     }
 });
