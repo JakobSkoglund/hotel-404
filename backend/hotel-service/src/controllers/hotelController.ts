@@ -1,4 +1,3 @@
-import { Booking } from "../../../src/Model/Booking"; 
 import { Hotel } from "../../../src/Model/HotelModel"; 
 import { Request, Response } from "express";
 
@@ -33,20 +32,6 @@ export const getHotels = async (req: Request, res: Response) => {
     }
 };
 
-// Check if a hotel is available between the given dates
-const hotelFreeBetweenDates = async (hotel: any, fromDate: Date, toDate: Date) => {
-    const bookings = await Booking.find({ hotel: hotel._id });
-  
-    for (let booking of bookings) {
-      const bookingFromDate = new Date(booking.from_date);
-      const bookingToDate = new Date(booking.to_date);
-  
-      if (fromDate <= bookingToDate && bookingFromDate >= fromDate) {
-        return false;
-      }
-    }
-    return true;
-  };
 
   export const getAllHotels = async (_req: Request, res: Response) => {
     try {

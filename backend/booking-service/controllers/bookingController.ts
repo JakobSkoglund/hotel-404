@@ -1,5 +1,5 @@
 import { Booking } from "../models/Booking"; 
-import { Hotel } from "../../src/Model/HotelModel";
+import axios from "axios";
 
 
 // Function to delete a booking by its ID
@@ -33,13 +33,18 @@ export async function createBooking(hotelID: string, user: string, from_date: st
 
 
 
+  let hotelTitle = ""; // Declare variable outside
+  let hotelPrice = 0;  // Default value for price
 
-  // Need to create API call in Hotel-service that returns values { hotelName: "name" || NULL, price: number }
-  let hotel = await Hotel.findById(hotelID);
+  // Api call that get hotelData
+  const response = await axios.get(`http://localhost:7700/api/hotels/hotelDetails`, {
+    params: { hotelId : hotelID }
+  });
 
+    const hotelData = response.data;
 
-
-
+    hotelTitle = hotelData.display.title;
+    hotelPrice = hotelData.display.price;
 
   const timeNow = Date.now(); 
   
@@ -52,10 +57,8 @@ export async function createBooking(hotelID: string, user: string, from_date: st
   } else if(Number(date1) < timeNow || Number(date2) < timeNow){
     throw new Error("invalid dates"); 
   }
-  if(!hotel){
-    throw new Error("couldn't find hotel");
-  }
-  const cost = hotel.display?.price;
+  
+  const cost = hotelPrice;
   if(!cost){
     throw new Error("Couldn't get hotel price"); 
   }
@@ -77,10 +80,27 @@ export async function getBookingForUser(username: string) {
 
   // Need to create API call in Hotel-service that returns values { hotelName: "name" || NULL, price: number }
 
-  const hotel = await Hotel.findById(booking.hotel);
+  let hotelTitle = ""; // Declare variable outside
+  let hotelPrice = 0;  // Default value for price
+
+  // Api call that get hotelData
+  const response = await axios.get(`http://localhost:7700/api/hotels/hotelDetails`, {
+    params: { hotelId : booking.hotel }
+  });
+
+    const hotelData = response.data;
+
+    hotelTitle = hotelData.display.title;
+    hotelPrice = hotelData.display.price;
+
+
+
+  //const hotel = await Hotel.findById(booking.hotel);
+
+
     const formattedBooking = {
       id: booking.id,
-      hotel: hotel?.display?.title, 
+      hotel: hotelTitle, 
       user: booking.user, 
       to_date: booking.to_date.split("T")[0], 
       from_date: booking.from_date.split("T")[0], 
