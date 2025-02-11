@@ -1,7 +1,4 @@
-// src/index.js
-// för att köra: PS C:\Users\David\Desktop\Skola\WA\hotel-404\backend\src> npx tsx index.ts
 import express from "express"; 
-import mongoose from "mongoose";
 import bookingRouter from "./routes/bookingRouter";
 import connectDB from "./config/db";
 import cors from 'cors';

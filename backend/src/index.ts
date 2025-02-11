@@ -54,7 +54,7 @@ app.use(session({
 }));
 
 
-const mongoURI: string = process.env.DB_CONNECTION_STRING as string;
+const mongoURI: string = process.env.DB_URI as string;
 
 
 mongoose.connect(mongoURI)

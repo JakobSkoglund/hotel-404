@@ -3,6 +3,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser"; 
 import session from "express-session"; 
 import userRouter from "./routes/userRoutes.js"; 
+import connectDB from "./config/db.js"
 
 // session
 declare module 'express-session' {
