@@ -12,7 +12,7 @@ export const authenticateJWT = (req: AuthRequest, res: Response, next: NextFunct
   const token = req.cookies.token;
 
   if (!token) {
-    return res.sendStatus(401); // ❌ Unauthorized: No token found
+    return res.sendStatus(401); // Unauthorized: No token found
   }
 
   try {
