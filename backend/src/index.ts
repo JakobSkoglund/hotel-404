@@ -7,7 +7,9 @@ import userRouter from "../user-service/src/routes/userRoutes";
 import bookingRouter from "../booking-service/routes/bookingRouter";
 import cors from 'cors';
 import session from "express-session";
-import cookieParser from "cookie-parser"; 
+import cookieParser from "cookie-parser";
+import { createProxyMiddleware } from "http-proxy-middleware";
+
 
 import dotenv from "dotenv";
 
@@ -53,10 +55,21 @@ app.use(session({
   }
 }));
 
-
+// Load the .env variables
 const mongoURI: string = process.env.DB_URI as string;
+const API_GATEWAY_PORT = process.env.API_GATEWAY_PORT as string;
+const USER_SERVICE_PORT = process.env.USER_SERVICE_PORT as string;
+const BOOKING_SERVICE_PORT = process.env.BOOKING_SERVICE_PORT as string;
+const HOTEL_SERVICE_PORT = process.env.HOTEL_SERVICE_PORT as string;
 
+// Print out the loaded variables
+console.log(`mongoURI = ${mongoURI}`);
+console.log(`API_GATEWAY_PORT = ${API_GATEWAY_PORT}`);
+console.log(`USER_SERVICE_PORT = ${USER_SERVICE_PORT}`);
+console.log(`BOOKING_SERVICE_PORT = ${BOOKING_SERVICE_PORT}`);
+console.log(`HOTEL_SERVICE_PORT = ${HOTEL_SERVICE_PORT}`);
 
+/* 
 mongoose.connect(mongoURI)
   .then(() => {
     console.log('Connected to MongoDB Atlas');
@@ -64,10 +77,24 @@ mongoose.connect(mongoURI)
   .catch(err => {
     console.error('MongoDB connection error:', err);
   });
+ */
+ 
+// Proxy the user routes
+app.use("/api/user", createProxyMiddleware({
+  target: `http://localhost:${USER_SERVICE_PORT}`, // Forward to the user service
+  changeOrigin: true, // Change the origin of the request to the target server
+}));
 
+// Forward requests to Booking Service
+app.use("/api/booking", createProxyMiddleware({ target: `http://localhost:${BOOKING_SERVICE_PORT}`, changeOrigin: true }));
+
+// Forward requests to Hotel Service
+app.use("/api/hotels", createProxyMiddleware({ target: `http://localhost:${HOTEL_SERVICE_PORT}`, changeOrigin: true }));
+
+/* 
 app.use("/api/hotels", hotelRouter); 
 app.use("/api/user", userRouter);
-app.use("/api/booking", bookingRouter);
+app.use("/api/booking", bookingRouter); */
 
 
 app.use((req, _, next) => {
@@ -77,6 +104,6 @@ app.use((req, _, next) => {
 
 
 // Start server
-app.listen(7700, () => {
-  console.log("Listening on port 7700"); 
+app.listen(API_GATEWAY_PORT, () => {
+  console.log(`Listening on port ${API_GATEWAY_PORT}`); 
 }); 

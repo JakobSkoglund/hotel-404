@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 // Define the MongoDB connection URI, using the value from .env or a default fallback
-const mongoURI = process.env.MONGO_URI || "mongodb+srv://emilfroding:asd123@scaledb.tql8n.mongodb.net/Hotel-404?retryWrites=true&w=majority&appName=ScaleDb";
+const mongoURI = process.env.DB_URI as string;
 
 // Function to establish a connection to the MongoDB database
 const connectHotelDB = async () => {

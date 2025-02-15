@@ -4,6 +4,11 @@ import { authenticateJWT, authorizeRole } from "../middleware/authMiddleware";
 
 const hotelRouter = Router();  // Use Express Router
 
+hotelRouter.post("/test", async function(req, res) {
+    console.log("Hotel-service test");
+    res.status(200).send("Hotel-service Server is running!");  // Send a response back to confirm the connection
+});
+
 // Get all hotels
 hotelRouter.get("/all", getAllHotels);
 
