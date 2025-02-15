@@ -7,6 +7,8 @@ import connectHotelDB from "./config/db";
 import hotelRouter from "./routes/hotelRoutes";
 
 dotenv.config();
+const HOTEL_SERVICE_PORT = process.env.HOTEL_SERVICE_PORT as string;
+
 
 //session
 declare module 'express-session' {
@@ -59,6 +61,6 @@ app.use((req, _, next) => {
 
 
 // Start server
-app.listen(7700, () => {
-  console.log("User-ServiceListening on port 7700"); 
+app.listen(HOTEL_SERVICE_PORT, () => {
+  console.log(`Hotel-Service Listening on port ${HOTEL_SERVICE_PORT}`); 
 }); 

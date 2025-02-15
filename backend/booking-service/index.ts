@@ -7,7 +7,7 @@ import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 
 dotenv.config();
-const PORT = process.env.PORT as string;
+const BOOKING_SERVICE_PORT = process.env.BOOKING_SERVICE_PORT as string;
 
 
 declare module 'express-session' {
@@ -54,6 +54,6 @@ app.use((req, _, next) => {
 app.use("/api/booking", bookingRouter);
 
 // Start server
-app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`); 
+app.listen(BOOKING_SERVICE_PORT, () => {
+  console.log(`Booking-Service is Listening on port ${BOOKING_SERVICE_PORT}`); 
 }); 

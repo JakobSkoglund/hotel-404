@@ -4,6 +4,10 @@ import cookieParser from "cookie-parser";
 import session from "express-session"; 
 import userRouter from "./routes/userRoutes.js"; 
 import connectDB from "./config/db.js"
+import dotenv from "dotenv";
+
+dotenv.config();
+const USER_SERVICE_PORT = process.env.USER_SERVICE_PORT as string;
 
 // session
 declare module 'express-session' {
@@ -40,7 +44,7 @@ app.use(session({
   }
 }));
 
-
+connectDB();
 
 // routes
 app.use("/api/user", userRouter);
@@ -55,6 +59,6 @@ app.use((req, _, next) => {
 
 
 // Start server
-app.listen(7700, () => {
-  console.log("User-ServiceListening on port 7700"); 
+app.listen(USER_SERVICE_PORT, () => {
+  console.log(`User-ServiceListening on port ${USER_SERVICE_PORT}`); 
 }); 

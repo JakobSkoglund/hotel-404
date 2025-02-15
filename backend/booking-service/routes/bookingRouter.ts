@@ -1,9 +1,15 @@
 import { deleteBooking, createBooking, getBookingForUser } from "../controllers/bookingController";
-import { authenticateJWT } from "../../user-service/src/middleware/authMiddleware";
-import {Booking} from "../../src/Model/Booking";
+import { authenticateJWT } from "../middleware/authMiddleware";
+import {Booking} from "../models/Booking";
 import express from 'express';
 
 const bookingRouter = express.Router();
+
+bookingRouter.post("/test", async function(req, res) {
+    console.log("Booking-service test");
+    res.status(200).send("Booking-service Server is running!");  // Send a response back to confirm the connection
+});
+
 
 // Route to create a booking with JWT authentication         SEPERATION NOT DONE
 bookingRouter.post("/", authenticateJWT, async function(req: any, res){
