@@ -4,9 +4,11 @@ import session from "express-session";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import connectHotelDB from "./config/db";
-import hotelRouter from "./routes/hotelRoutes";
+import {hotelRouter} from "./routes/hotelRoutes";
 
 dotenv.config();
+
+
 
 //session
 declare module 'express-session' {
@@ -59,6 +61,7 @@ app.use((req, _, next) => {
 
 
 // Start server
-app.listen(7700, () => {
-  console.log("User-ServiceListening on port 7700"); 
-}); 
+const PORT = process.env.PORT || 7800; // Använd 5000 istället för 7700
+app.listen(PORT, () => {
+  console.log(`Hotel-Service Listening on port ${PORT}`);
+});

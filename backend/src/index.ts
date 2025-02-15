@@ -2,7 +2,7 @@
 // för att köra: PS C:\Users\David\Desktop\Skola\WA\hotel-404\backend\src> npx tsx index.ts
 import express from "express"; 
 import mongoose from "mongoose";
-import hotelRouter from "../hotel-service/src/routes/hotelRoutes"; 
+//import {hotelRouter} from "../hotel-service/src/routes/hotelRoutes"; 
 import userRouter from "../user-service/src/routes/userRoutes"; 
 import bookingRouter from "./Routers/bookingRouter";
 import cors from 'cors';
@@ -38,15 +38,16 @@ app.use(session({
   cookie:{
     maxAge: 30*60*1000, //store cookies for 30 mins
     sameSite: 'none', 
-    secure: true
+    secure: false
   }
 }));
 
-//const mongoURI = 'mongodb+srv://Cluster46730:VE9vWGN0YkFm@cluster46730.bv6pq.mongodb.net/Hotel-404?retryWrites=true&w=majority&appName=Cluster46730'
 
 const mongoURI = 'mongodb+srv://emilfroding:asd123@scaledb.tql8n.mongodb.net/Hotel-404?retryWrites=true&w=majority&appName=ScaleDb'
 
-mongoose.connect(mongoURI)
+mongoose.connect(mongoURI, {
+  serverSelectionTimeoutMS: 30000,
+})
   .then(() => {
     console.log('Connected to MongoDB Atlas');
   })
@@ -54,7 +55,7 @@ mongoose.connect(mongoURI)
     console.error('MongoDB connection error:', err);
   });
 
-app.use("/api/hotels", hotelRouter); 
+//app.use("/api/hotels", hotelRouter); 
 app.use("/api/user", userRouter);
 app.use("/api/booking", bookingRouter);
 
@@ -66,6 +67,7 @@ app.use((req, _, next) => {
 
 
 // Start server
-app.listen(7700, () => {
-  console.log("Listening on port 7700"); 
-}); 
+const PORT = process.env.PORT || 7700;
+app.listen(PORT, () => {
+  console.log(`Backend-Service Listening on port ${PORT}`);
+});

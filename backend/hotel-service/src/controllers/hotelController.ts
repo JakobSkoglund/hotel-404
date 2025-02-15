@@ -1,61 +1,87 @@
-import { Booking } from "../../../src/Model/Booking"; 
 import { Hotel } from "../../../src/Model/HotelModel"; 
 import { Request, Response } from "express";
 
 // Fetch hotels, optionally filtered by city, and return only those available between the given dates
 export const getHotels = async (req: Request, res: Response) => {
-    try {
+  try {
+      console.log("🔎 Incoming request to /api/hotels/getHotels");
+      console.log("Query params:", req.query);
+
       const city = typeof req.query.city === "string" ? req.query.city : null;
       const fromDate = typeof req.query.dateCheckIn === "string" ? req.query.dateCheckIn : null;
       const toDate = typeof req.query.dateCheckOut === "string" ? req.query.dateCheckOut : null;
-  
-    
+
+      console.log("Parsed params -> City:", city, "From:", fromDate, "To:", toDate);
+
       if (!fromDate || !toDate) {
-        return res.status(400).json({ message: "Check-in and check-out dates are required." });
+          console.log("❌ Missing dates!");
+          return res.status(400).json({ message: "Check-in and check-out dates are required." });
       }
-  
+
       const checkInDate = new Date(fromDate);
       const checkOutDate = new Date(toDate);
-  
+
       if (isNaN(checkInDate.getTime()) || isNaN(checkOutDate.getTime())) {
-        return res.status(400).json({ message: "Invalid date format. Use YYYY-MM-DD." });
+          console.log("❌ Invalid date format!");
+          return res.status(400).json({ message: "Invalid date format. Use YYYY-MM-DD." });
       }
-  
+
       if (checkInDate >= checkOutDate) {
-        return res.status(400).json({ message: "Check-out date must be after check-in date." });
+          console.log("❌ Check-out date must be after check-in date!");
+          return res.status(400).json({ message: "Check-out date must be after check-in date." });
       }
-  
-      let hotels = city ? await Hotel.find({ "display.city": city }) : await Hotel.find();
-      
+
+      console.log("✅ Searching for hotels...");
+
+      let hotels;
+      if (city) {
+          hotels = await Hotel.find({ "display.city": city });
+      } else {
+          hotels = await Hotel.find();
+      }
+
+      console.log("🏨 Found hotels:", hotels);
       res.status(200).json(hotels);
-    } catch (error) {
-      res.status(500).json({ message: "Error fetching available hotels", error });
+  } catch (error) {
+      console.error("❌ Error fetching available hotels:", error);
+      if (error instanceof Error) {
+        // Skicka tillbaka felmeddelandet från Error-objektet
+        res.status(500).json({ message: "Error fetching available hotels", error: error.message });
+    } else {
+        // Om error inte är av typen Error, skicka ett generiskt felmeddelande
+        res.status(500).json({ message: "Error fetching available hotels", error: "An unknown error occurred" });
     }
+
+  }
+}; 
+
+
+export const getAllHotels = async (_req: Request, res: Response) => {
+  try {
+    console.log("Fetching all hotels...");
+
+    // Försök att hämta alla hotell från databasen
+    const hotels = await Hotel.find();
+    console.log("Hotels fetched successfully:", hotels);
+
+    res.status(200).json(hotels);
+  } catch (error: unknown) {
+    // Kontrollera om felet är ett Error-objekt innan du försöker komma åt dess egenskaper
+    if (error instanceof Error) {
+      // Logga detaljerat felmeddelande och stack-trace om det finns
+      console.error("Error occurred while fetching hotels:", error.message);
+      console.error("Stack trace:", error.stack);
+
+      // Skicka ett användbart felmeddelande till klienten
+      res.status(500).json({ message: "Error fetching hotels", error: error.message });
+    } else {
+      // Hantera okända fel
+      console.error("Unknown error occurred:", error);
+      res.status(500).json({ message: "An unknown error occurred", error: String(error) });
+    }
+  }
 };
 
-// Check if a hotel is available between the given dates
-const hotelFreeBetweenDates = async (hotel: any, fromDate: Date, toDate: Date) => {
-    const bookings = await Booking.find({ hotel: hotel._id });
-  
-    for (let booking of bookings) {
-      const bookingFromDate = new Date(booking.from_date);
-      const bookingToDate = new Date(booking.to_date);
-  
-      if (fromDate <= bookingToDate && bookingFromDate >= fromDate) {
-        return false;
-      }
-    }
-    return true;
-  };
-
-  export const getAllHotels = async (_req: Request, res: Response) => {
-    try {
-      const hotels = await Hotel.find();
-      res.status(200).json(hotels);
-    } catch (error) {
-      res.status(500).json({ message: "Error fetching hotels", error });
-    }
-  };
 // Get hotel by its ID, throw an error if not found
 export async function getHotelDocumentById(hotelId: string)
 {  

@@ -1,5 +1,4 @@
 import { createHotel, getHotels, getAllHotels, getHotelDocumentById} from "../controllers/hotelController";
-
 import express from "express";
 import { Request } from "express";
 
