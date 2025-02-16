@@ -20,7 +20,7 @@ declare module 'express-session' {
 const app = express(); 
 
 app.use(cors({
-  origin: "http://localhost:3000", 
+  origin: "http://localhost:7700", 
   credentials: true
 })); 
 // Parse incoming JSON request.
@@ -40,15 +40,15 @@ app.use(session({
   }
 }));
 
-// Connect to database
-connectDB()
 
-// Middleware
-app.use((req, _, next) => {
-  console.log(req.path, req.method); 
-  next(); 
+// middleware
+app.use((req, res, next) => {
+  console.log(`Request received at Booking Service: ${req.method} ${req.path}`);
+  next();
 }); 
 
+// Connect to database
+connectDB()
 
 // routes that booking uses
 app.use("/api/booking", bookingRouter);

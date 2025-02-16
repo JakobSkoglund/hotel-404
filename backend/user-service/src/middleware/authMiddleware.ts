@@ -23,6 +23,6 @@ export const authenticateJWT = (req: Request, res: Response, next: NextFunction)
         
     } catch (error) {
         console.log("Invalid token");
-        return res.status(403); // Forbidden: Invalid token
+        return res.status(403).json({ error: "Invalid token" });
     }
 };

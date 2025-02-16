@@ -9,9 +9,8 @@ import cors from 'cors';
 import session from "express-session";
 import cookieParser from "cookie-parser";
 import { createProxyMiddleware } from "http-proxy-middleware";
-
-
 import dotenv from "dotenv";
+import axios from "axios";
 
 dotenv.config();
 
@@ -22,27 +21,20 @@ declare module 'express-session' {
   }
 }
 
-//Define custom environment variable for ProcessEnv
-declare global {
-  namespace NodeJS {
-    interface ProcessEnv {
-      DB_CONNECTION_STRING: string; 
-    }
-  }
-}
-
 
 const app = express(); 
 
+// Set up CORS (ensure front-end can access the API Gateway)
 app.use(cors({
-  origin: "http://localhost:3000", 
-  credentials: true
-})); 
-// Parse incoming JSON request.
-app.use(express.json());
+  origin: 'http://localhost:3000',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,  // to send cookies if needed
+}));
+app.options('*', cors()); // This handles OPTIONS for all routes
 
-app.use(cookieParser()); 
 
+// Session middleware
 app.set("trust proxy", 1); 
 app.use(session({
   secret: 'super-secret-key',
@@ -69,38 +61,69 @@ console.log(`USER_SERVICE_PORT = ${USER_SERVICE_PORT}`);
 console.log(`BOOKING_SERVICE_PORT = ${BOOKING_SERVICE_PORT}`);
 console.log(`HOTEL_SERVICE_PORT = ${HOTEL_SERVICE_PORT}`);
 
-/* 
-mongoose.connect(mongoURI)
-  .then(() => {
-    console.log('Connected to MongoDB Atlas');
-  })
-  .catch(err => {
-    console.error('MongoDB connection error:', err);
-  });
- */
- 
-// Proxy the user routes
-app.use("/api/user", createProxyMiddleware({
-  target: `http://localhost:${USER_SERVICE_PORT}`, // Forward to the user service
-  changeOrigin: true, // Change the origin of the request to the target server
+// Define the microservices and their base URLs
+const services = {
+  'user-service'    : `http://localhost:${USER_SERVICE_PORT}`,
+  'booking-service' : `http://localhost:${BOOKING_SERVICE_PORT}`,
+  'hotel-service'   : `http://localhost:${HOTEL_SERVICE_PORT}`
+};
+
+
+
+
+// Proxy to User Service
+ app.use('/api/user', createProxyMiddleware({
+  target: services["user-service"],  // Forward to user-service (running on localhost:7701)
+  changeOrigin: true,  // Change the origin of the request to the target's origin
+  pathRewrite: (path, req) => {
+    // Adjust the path if necessary
+    const rewrittenPath = "/api/user" + path;
+    console.log(`${path} -> ${rewrittenPath}`);  // Log path transformation
+    return rewrittenPath;
+  },
 }));
 
-// Forward requests to Booking Service
-app.use("/api/booking", createProxyMiddleware({ target: `http://localhost:${BOOKING_SERVICE_PORT}`, changeOrigin: true }));
+/* app.use('/api/user', createProxyMiddleware({ target: 'http://localhost:7701', changeOrigin: true }));
+ */
 
-// Forward requests to Hotel Service
-app.use("/api/hotels", createProxyMiddleware({ target: `http://localhost:${HOTEL_SERVICE_PORT}`, changeOrigin: true }));
-
-/* 
-app.use("/api/hotels", hotelRouter); 
-app.use("/api/user", userRouter);
-app.use("/api/booking", bookingRouter); */
 
 
 app.use((req, _, next) => {
   console.log(req.path, req.method); 
-  next(); 
-}); 
+/*   next(); 
+ */
+ });  
+
+
+app.options('/api/user/*', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.sendStatus(204);
+});
+
+
+// Proxy to Booking Service
+app.use('/api/booking', createProxyMiddleware({
+  target: services["booking-service"],
+  changeOrigin: true,
+  pathRewrite: (path, req) => {
+    const rewrittenPath = "/api/booking" + path
+    return rewrittenPath;
+  },
+}));
+
+// Proxy to Hotel Service
+app.use('/api/hotels', createProxyMiddleware({
+  target: services["hotel-service"],
+  changeOrigin: true,
+  pathRewrite: (path, req) => {
+    const rewrittenPath = "/api/hotels" + path
+    return rewrittenPath;
+  },
+}));
+
 
 
 // Start server

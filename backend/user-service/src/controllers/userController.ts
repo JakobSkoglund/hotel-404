@@ -23,33 +23,40 @@ export const login = async (req: Request, res: Response) => {
         req.session.isLoggedIn = true;
         req.session.username = username;
 
+        
         // Send sucesscode response
         return res.status(201).json({message: "Login successful"});
     }
     catch (error) {
         res.status(400).send(error)
     }
-
+    
 }
 
 // Function that handles signup
 export const signup = async (req: Request, res: Response) => {
     const {username, password, name, lastname, age} = req.body;
     const isAdmin = false;
+    console.log(req.body);
     try {
         // try to create a new User
         const createUser = await newUser(name, lastname, username, age, password, isAdmin);
         
         // Generate JWT token
         const accessToken = generateAccessToken({ username });
-
-         // Set token as HTTP-only cookie
+        console.log("1")
+        
+        // Set token as HTTP-only cookie
         res.cookie("token", accessToken, { httpOnly: true, secure: process.env.NODE_ENV === "production" });
-
+        console.log("2")
+        
         // Store session info
         req.session.isLoggedIn = true;
+        console.log("3")
         req.session.username = username;
-
+        console.log("4")
+        
+        console.log(req.session.isLoggedIn, req.session.username);
         
         // Send sucess code response
         return res.status(201).json({message: "User Successfully created!"});

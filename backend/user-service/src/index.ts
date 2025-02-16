@@ -20,11 +20,6 @@ declare module 'express-session' {
 // express app
 const app = express(); 
 
-// cors
-app.use(cors({
-  origin: "http://localhost:3000", 
-  credentials: true
-})); 
 
 // cookie parser
 // Parse incoming JSON request.
@@ -44,18 +39,11 @@ app.use(session({
   }
 }));
 
+// Connect to db
 connectDB();
 
 // routes
 app.use("/api/user", userRouter);
-
-
-
-// middleware
-app.use((req, _, next) => {
-  console.log(req.path, req.method); 
-  next(); 
-}); 
 
 
 // Start server
