@@ -37,7 +37,7 @@ export async function createBooking(hotelID: string, user: string, from_date: st
   let hotelPrice = 0;  // Default value for price
 
   // Api call that get hotelData
-  const response = await axios.get(`http://localhost:7700/api/hotels/hotelDetails`, {
+  const response = await axios.get(`http://localhost:7703/api/hotels/hotelDetails`, {
     params: { hotelId : hotelID }
   });
 
@@ -84,7 +84,7 @@ export async function getBookingForUser(username: string) {
   let hotelPrice = 0;  // Default value for price
 
   // Api call that get hotelData
-  const response = await axios.get(`http://localhost:7700/api/hotels/hotelDetails`, {
+  const response = await axios.get(`http://localhost:7703/api/hotels/hotelDetails`, {
     params: { hotelId : booking.hotel }
   });
 
