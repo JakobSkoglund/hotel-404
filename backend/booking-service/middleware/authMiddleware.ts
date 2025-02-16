@@ -1,5 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET as string;
 
@@ -7,6 +10,8 @@ const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET as string;
 export const authenticateJWT = (req: Request, res: Response, next: NextFunction) => {
         
     const token = req.cookies.token;
+    console.log(token);
+    console.log(accessTokenSecret);
 
     if (!token) {
         return res.sendStatus(401); // Unauthorized: No token found
@@ -22,7 +27,7 @@ export const authenticateJWT = (req: Request, res: Response, next: NextFunction)
         next();
         
     } catch (error) {
-        console.log("Invalid token");
-        return res.status(403); // Forbidden: Invalid token
+        console.log("Hotel Invalid token");
+        return res.status(403).json({ error: "Invalid token" });
     }
 };

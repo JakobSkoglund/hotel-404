@@ -1,4 +1,4 @@
-import { Hotel } from "../../../src/Model/HotelModel"; 
+import { Hotel } from "../models/HotelModel"; 
 import { Request, Response } from "express";
 
 // Fetch hotels, optionally filtered by city, and return only those available between the given dates
@@ -35,9 +35,12 @@ export const getHotels = async (req: Request, res: Response) => {
 
   export const getAllHotels = async (_req: Request, res: Response) => {
     try {
+
+      console.log("Hello getAllHotels");
       const hotels = await Hotel.find();
       res.status(200).json(hotels);
-    } catch (error) {
+    } catch (error:any) {
+      console.log(error.message);
       res.status(500).json({ message: "Error fetching hotels", error });
     }
   };
