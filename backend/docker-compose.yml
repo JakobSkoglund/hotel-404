@@ -1,0 +1,61 @@
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    networks:
+      - microservices-network
+    volumes:
+      - mongo-data:/data/db
+
+  api-gateway:
+    build: .
+    ports:
+      - "7700:7700"
+    depends_on:
+      - user-service
+      - booking-service
+      - hotel-service
+    networks:
+      - microservices-network
+
+  user-service:
+    build: ./user-service/src
+    ports:
+      - "7701:7701"
+    environment:
+      - DB_URI=mongodb://mongo:27017/hotel-404
+    depends_on:
+      - mongo
+    networks:
+      - microservices-network
+
+  booking-service:
+    build: ./booking-service
+    ports:
+      - "7702:7702"
+    environment:
+      - DB_URI=mongodb://mongo:27017/hotel-404
+    depends_on:
+      - mongo
+    networks:
+      - microservices-network
+
+  hotel-service:
+    build: ./hotel-service/src
+    ports:
+      - "7703:7703"
+    environment:
+      - DB_URI=mongodb://mongo:27017/hotel-404
+    depends_on:
+      - mongo
+    networks:
+      - microservices-network
+
+networks:
+  microservices-network:
+
+volumes:
+  mongo-data:
