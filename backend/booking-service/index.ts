@@ -6,10 +6,11 @@ import session from "express-session";
 import cookieParser from "cookie-parser"; 
 import dotenv from "dotenv";
 
+// Load .env variables
 dotenv.config();
 const BOOKING_SERVICE_PORT = process.env.BOOKING_SERVICE_PORT as string;
 
-
+// Session structure
 declare module 'express-session' {
   export interface SessionData {
     isLoggedIn: boolean, 
@@ -17,6 +18,7 @@ declare module 'express-session' {
   }
 }
 
+// express app
 const app = express(); 
 
 
@@ -24,6 +26,7 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser()); 
 
+// Session data
 app.set("trust proxy", 1); 
 app.use(session({
   secret: 'super-secret-key',

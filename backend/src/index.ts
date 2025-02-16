@@ -1,19 +1,15 @@
 // src/index.js
 // för att köra: PS C:\Users\David\Desktop\Skola\WA\hotel-404\backend\src> npx tsx index.ts
 import express from "express"; 
-import mongoose from "mongoose";
-import hotelRouter from "../hotel-service/src/routes/hotelRoutes"; 
-import userRouter from "../user-service/src/routes/userRoutes"; 
-import bookingRouter from "../booking-service/routes/bookingRouter";
 import cors from 'cors';
 import session from "express-session";
-import cookieParser from "cookie-parser";
 import { createProxyMiddleware } from "http-proxy-middleware";
 import dotenv from "dotenv";
-import axios from "axios";
 
+// Load .env variables
 dotenv.config();
 
+// Session structure
 declare module 'express-session' {
   export interface SessionData {
     isLoggedIn: boolean, 
@@ -21,7 +17,7 @@ declare module 'express-session' {
   }
 }
 
-
+// express app
 const app = express(); 
 
 // Set up CORS (ensure front-end can access the API Gateway)
@@ -47,14 +43,14 @@ app.use(session({
   }
 }));
 
-// Load the .env variables
+// Load the .env variables into variables
 const mongoURI: string = process.env.DB_URI as string;
 const API_GATEWAY_PORT = process.env.API_GATEWAY_PORT as string;
 const USER_SERVICE_PORT = process.env.USER_SERVICE_PORT as string;
 const BOOKING_SERVICE_PORT = process.env.BOOKING_SERVICE_PORT as string;
 const HOTEL_SERVICE_PORT = process.env.HOTEL_SERVICE_PORT as string;
 
-// Print out the loaded variables
+// Print out the loaded variables for troubleshooting
 console.log(`mongoURI = ${mongoURI}`);
 console.log(`API_GATEWAY_PORT = ${API_GATEWAY_PORT}`);
 console.log(`USER_SERVICE_PORT = ${USER_SERVICE_PORT}`);
@@ -78,7 +74,7 @@ const services = {
   pathRewrite: (path, req) => {
     // Adjust the path if necessary
     const rewrittenPath = "/api/user" + path;
-    console.log(`${path} -> ${rewrittenPath}`);  // Log path transformation
+    /* console.log(`${path} -> ${rewrittenPath}`); */  // Log path transformation
     return rewrittenPath;
   },
 }));
@@ -101,7 +97,7 @@ app.use('/api/booking', createProxyMiddleware({
   changeOrigin: true,
   pathRewrite: (path, req) => {
     const rewrittenPath = "/api/booking" + path
-    console.log(`${path} -> ${rewrittenPath}`);  // Log path transformation
+    /* console.log(`${path} -> ${rewrittenPath}`); */  // Log path transformation
     return rewrittenPath;
   },
 }));
@@ -115,13 +111,13 @@ app.use('/api/hotels', createProxyMiddleware({
   changeOrigin: true,
   pathRewrite: (path, req) => {
     const rewrittenPath = "/api/hotels" + path
-    console.log(`${path} -> ${rewrittenPath}`);  // Log path transformation
+    /* console.log(`${path} -> ${rewrittenPath}`); */  // Log path transformation
     return rewrittenPath;
   },
 }));
 
 
-
+// Middleware
 app.use((req, _, next) => {
   console.log(req.path, req.method); 
   next(); 

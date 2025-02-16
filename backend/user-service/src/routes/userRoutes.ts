@@ -5,6 +5,8 @@ import { authenticateJWT } from "../middleware/authMiddleware";
 
 const router = Router(); 
 
+// Test API just to see if we have connection to server
+// API-Call:   POST http://localhost:7701/api/user/test
 router.post('/test', (req, res) => {
   console.log('Request received in user-service:', req.body);
   
