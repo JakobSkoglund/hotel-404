@@ -21,12 +21,6 @@ declare module 'express-session' {
 // express app
 const app = express(); 
 
-// cors
-app.use(cors({
-  origin: "http://localhost:7700", 
-  credentials: true
-})); 
-
 // cookie parser
 // Parse incoming JSON request.
 app.use(express.json());
@@ -45,15 +39,14 @@ app.use(session({
   }
 }));
 
+//Connect to Database 
+connectHotelDB(); 
+
 // middleware
 app.use((req, res, next) => {
   console.log(`Request received at Hotel Service: ${req.method} ${req.path}`);
   next();
 }); 
-
-
-//Connect to Database 
-connectHotelDB(); 
 
 // routes
 app.use("/api/hotels", hotelRouter);

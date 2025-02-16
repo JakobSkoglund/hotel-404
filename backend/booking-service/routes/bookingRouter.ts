@@ -5,9 +5,11 @@ import express from 'express';
 
 const bookingRouter = express.Router();
 
-bookingRouter.post("/test", async function(req, res) {
-    console.log("Booking-service test");
-    res.status(200).send("Booking-service Server is running!");  // Send a response back to confirm the connection
+bookingRouter.post('/test', (req, res) => {
+  console.log('Request received in user-service:', req.body);
+  
+  // Process the request and send a proper response
+  res.status(200).json({ message: 'Test successful' });
 });
 
 
