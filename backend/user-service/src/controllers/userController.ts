@@ -37,27 +37,22 @@ export const login = async (req: Request, res: Response) => {
 export const signup = async (req: Request, res: Response) => {
     const {username, password, name, lastname, age} = req.body;
     const isAdmin = false;
-    console.log(req.body);
+/*     console.log(req.body);
+ */
     try {
         // try to create a new User
         const createUser = await newUser(name, lastname, username, age, password, isAdmin);
         
         // Generate JWT token
         const accessToken = generateAccessToken({ username });
-        console.log("1")
         
         // Set token as HTTP-only cookie
         res.cookie("token", accessToken, { httpOnly: true, secure: process.env.NODE_ENV === "production" });
-        console.log("2")
         
         // Store session info
         req.session.isLoggedIn = true;
-        console.log("3")
         req.session.username = username;
-        console.log("4")
-        
-        console.log(req.session.isLoggedIn, req.session.username);
-        
+                
         // Send sucess code response
         return res.status(201).json({message: "User Successfully created!"});
     }
@@ -91,9 +86,6 @@ export const deleteUser = async (req: Request, res: Response) => {
         if (response.status != 200) {
             throw Error;
         } 
-        else {
-            console.log("!!!!!!!!!!!!!!!!!!! IT WORKED !!!!!!!!!!!!!!!!!!!!!!!")
-        }
 
         await User.deleteOne({username: username});
 

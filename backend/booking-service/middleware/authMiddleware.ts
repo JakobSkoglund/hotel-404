@@ -10,9 +10,6 @@ const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET as string;
 export const authenticateJWT = (req: Request, res: Response, next: NextFunction) => {
         
     const token = req.cookies.token;
-    console.log(token);
-    console.log(accessTokenSecret);
-
     if (!token) {
         return res.sendStatus(401); // Unauthorized: No token found
     }

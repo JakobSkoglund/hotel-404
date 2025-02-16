@@ -5,6 +5,8 @@ import express from 'express';
 
 const bookingRouter = express.Router();
 
+// Test API just to see if we have connection to server
+// API-Call:   POST http://localhost:7702/api/booking/test
 bookingRouter.post('/test', (req, res) => {
   console.log('Request received in user-service:', req.body);
   

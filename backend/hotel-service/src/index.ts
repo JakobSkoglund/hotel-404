@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import connectHotelDB from "./config/db";
 import hotelRouter from "./routes/hotelRoutes";
 
+// Load .env variables
 dotenv.config();
 const HOTEL_SERVICE_PORT = process.env.HOTEL_SERVICE_PORT as string;
 

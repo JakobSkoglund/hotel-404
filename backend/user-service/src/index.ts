@@ -6,6 +6,7 @@ import userRouter from "./routes/userRoutes.js";
 import connectDB from "./config/db.js"
 import dotenv from "dotenv";
 
+// Load .env variables
 dotenv.config();
 const USER_SERVICE_PORT = process.env.USER_SERVICE_PORT as string;
 
@@ -41,6 +42,12 @@ app.use(session({
 
 // Connect to db
 connectDB();
+
+// middleware
+app.use((req, res, next) => {
+  console.log(`Request received at User Service: ${req.method} ${req.path}`);
+  next(); 
+});
 
 // routes
 app.use("/api/user", userRouter);

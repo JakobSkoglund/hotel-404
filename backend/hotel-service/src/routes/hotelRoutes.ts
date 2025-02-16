@@ -4,6 +4,8 @@ import { authenticateJWT, authorizeRole } from "../middleware/authMiddleware";
 
 const hotelRouter = Router();  // Use Express Router
 
+// Test API just to see if we have connection to server
+// API-Call:   POST http://localhost:7703/api/hotels/test
 hotelRouter.post("/test", async function(req, res) {
     console.log("Hotel-service test");
     res.status(200).send("Hotel-service Server is running!");  // Send a response back to confirm the connection
