@@ -19,13 +19,9 @@ declare module 'express-session' {
 
 const app = express(); 
 
-app.use(cors({
-  origin: "http://localhost:7700", 
-  credentials: true
-})); 
+
 // Parse incoming JSON request.
 app.use(express.json());
-
 app.use(cookieParser()); 
 
 app.set("trust proxy", 1); 
@@ -41,14 +37,14 @@ app.use(session({
 }));
 
 
+// Connect to database
+connectDB()
+
 // middleware
 app.use((req, res, next) => {
   console.log(`Request received at Booking Service: ${req.method} ${req.path}`);
-  next();
+  next(); 
 }); 
-
-// Connect to database
-connectDB()
 
 // routes that booking uses
 app.use("/api/booking", bookingRouter);

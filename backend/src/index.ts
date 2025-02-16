@@ -83,16 +83,7 @@ const services = {
   },
 }));
 
-/* app.use('/api/user', createProxyMiddleware({ target: 'http://localhost:7701', changeOrigin: true }));
- */
 
-
-
-app.use((req, _, next) => {
-  console.log(req.path, req.method); 
-/*   next(); 
- */
- });  
 
 
 app.options('/api/user/*', (req, res) => {
@@ -110,9 +101,13 @@ app.use('/api/booking', createProxyMiddleware({
   changeOrigin: true,
   pathRewrite: (path, req) => {
     const rewrittenPath = "/api/booking" + path
+    console.log(`${path} -> ${rewrittenPath}`);  // Log path transformation
     return rewrittenPath;
   },
 }));
+
+
+
 
 // Proxy to Hotel Service
 app.use('/api/hotels', createProxyMiddleware({
@@ -120,9 +115,18 @@ app.use('/api/hotels', createProxyMiddleware({
   changeOrigin: true,
   pathRewrite: (path, req) => {
     const rewrittenPath = "/api/hotels" + path
+    console.log(`${path} -> ${rewrittenPath}`);  // Log path transformation
     return rewrittenPath;
   },
 }));
+
+
+
+app.use((req, _, next) => {
+  console.log(req.path, req.method); 
+  next(); 
+ 
+ });  
 
 
 
