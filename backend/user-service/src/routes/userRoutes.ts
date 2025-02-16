@@ -5,13 +5,17 @@ import { authenticateJWT } from "../middleware/authMiddleware";
 
 const router = Router(); 
 
-router.post("/test", async function(req, res) {
-    console.log("User-service test");
-    res.status(200).send("User-service Server is running!");  // Send a response back to confirm the connection
+router.post('/test', (req, res) => {
+  console.log('Request received in user-service:', req.body);
+  
+  // Process the request and send a proper response
+  res.status(200).json({ message: 'Test successful' });
 });
+
 
 // login
 router.post("/login", login);
+
 
 // signup
 router.post("/signup", signup);

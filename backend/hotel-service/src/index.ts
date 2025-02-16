@@ -23,7 +23,7 @@ const app = express();
 
 // cors
 app.use(cors({
-  origin: "http://localhost:3000", 
+  origin: "http://localhost:7700", 
   credentials: true
 })); 
 
@@ -45,19 +45,18 @@ app.use(session({
   }
 }));
 
+// middleware
+app.use((req, res, next) => {
+  console.log(`Request received at Hotel Service: ${req.method} ${req.path}`);
+  next();
+}); 
+
+
 //Connect to Database 
 connectHotelDB(); 
 
 // routes
 app.use("/api/hotels", hotelRouter);
-
-
-
-// middleware
-app.use((req, _, next) => {
-  console.log(req.path, req.method); 
-  next(); 
-}); 
 
 
 // Start server
