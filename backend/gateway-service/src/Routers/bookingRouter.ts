@@ -1,5 +1,5 @@
-import { deleteBooking, createBooking, getBookingForUser } from "../../booking-service/controllers/bookingController";
-import { authenticateJWT } from "../../user-service/src/middleware/authMiddleware";
+import { deleteBooking, createBooking, getBookingForUser } from "../../../booking-service/controllers/bookingController";
+import { authenticateJWT } from "../../../user-service/src/middleware/authMiddleware";
 import express from 'express';
 
 const bookingRouter = express.Router();

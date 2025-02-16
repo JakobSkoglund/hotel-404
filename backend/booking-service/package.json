@@ -1,11 +1,11 @@
 {
   "name": "booking-service",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./src/index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.ts"
+    "start": "nodemon src/index.ts"
   },
   "keywords": [],
   "author": "",

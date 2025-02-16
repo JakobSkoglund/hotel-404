@@ -1,6 +1,6 @@
-import { Booking } from "../../booking-service/models/Booking";
+import { Booking } from "../../../booking-service/models/Booking";
 //import { Booking } from "../Model/Booking"; 
-import { Hotel } from "../../hotel-service/src/models/HotelModel"; 
+import { Hotel } from "../../../hotel-service/src/models/HotelModel"; 
 
 // Fetch hotels, optionally filtered by city, and return only those available between the given dates
 export async function getHotels(city: string | null, fromDate: string,  toDate: string){
