@@ -12,21 +12,43 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-
+      # COMMENT: Ensure that myregistry.azurecr.io is replaced with your actual Azure Container Registry URL.
       - name: Log in to Azure Container Registry (ACR)
         run: echo "${{ secrets.ACR_PASSWORD }}" | docker login myregistry.azurecr.io -u "${{ secrets.ACR_USERNAME }}" --password-stdin
-
-      - name: Build and Tag Docker Image
+    
+      - name: (hotel-service) Build and Tag Docker Image 1
         run: |
-          cd my-microservice  # Change directory to your microservice
-          docker build -t myregistry.azurecr.io/my-microservice:${{ github.sha }} .
-          docker tag myregistry.azurecr.io/my-microservice:${{ github.sha }} myregistry.azurecr.io/my-microservice:latest
+          cd backend/hotel-service  
+          docker build -t myregistry.azurecr.io/hotel-service:${{ github.sha }} .
+          docker tag myregistry.azurecr.io/hotel-service:${{ github.sha }} myregistry.azurecr.io/hotel-service:latest
 
-      - name: Push Docker Image to Azure Container Registry
+      - name: (user-service) Build and Tag Docker Image 2
         run: |
-          docker push myregistry.azurecr.io/my-microservice:${{ github.sha }}
-          docker push myregistry.azurecr.io/my-microservice:latest
+          cd backend/user-service  
+          docker build -t myregistry.azurecr.io/user-service:${{ github.sha }} .
+          docker tag myregistry.azurecr.io/user-service:${{ github.sha }} myregistry.azurecr.io/user-service:latest
+          
+      - name: (booking-service) Build and Tag Docker Image 3
+        run: |
+          cd backend/booking-service  
+          docker build -t myregistry.azurecr.io/booking-service:${{ github.sha }} .
+          docker tag myregistry.azurecr.io/booking-service:${{ github.sha }} myregistry.azurecr.io/booking-service:latest
 
+      - name: (hotel-service) Push Docker Image to Azure Container Registry
+        run: |
+          docker push myregistry.azurecr.io/hotel-service:${{ github.sha }}
+          docker push myregistry.azurecr.io/hotel-service:latest
+          
+      - name: (user-service) Push Docker Image to Azure Container Registry
+        run: |
+          docker push myregistry.azurecr.io/user-service:${{ github.sha }}
+          docker push myregistry.azurecr.io/user-service:latest
+
+      - name: (booking-service) Push Docker Image to Azure Container Registry
+        run: |
+          docker push myregistry.azurecr.io/booking-service:${{ github.sha }}
+          docker push myregistry.azurecr.io/booking-service:latest
+          
   deploy:
     needs: build-and-push
     runs-on: ubuntu-latest
@@ -42,9 +64,24 @@ jobs:
 
       - name: Get AKS Credentials
         run: az aks get-credentials --resource-group my-resource-group --name my-aks-cluster
+        # COMMENT: Change the resource group and AKS cluster name to match your Azure setup.
 
-      - name: Deploy to AKS
+      - name: (hotel-service) Deploy to AKS 
         run: |
-          kubectl set image deployment/my-microservice-deployment my-container=myregistry.azurecr.io/my-microservice:${{ github.sha }}
-          kubectl rollout status deployment/my-microservice-deployment
+          kubectl set image deployment/hotel-service-deployment my-container=myregistry.azurecr.io/hotel-service:${{ github.sha }}
+          # COMMENT: Make sure that hotel-service-deployment exists in your Kubernetes cluster and corresponds to the correct microservice.
+          kubectl rollout status deployment/hotel-service-deployment
+
+      - name: (user-service) Deploy to AKS
+        run: |
+          kubectl set image deployment/user-service-deployment my-container=myregistry.azurecr.io/user-service:${{ github.sha }}
+          # COMMENT: Ensure user-service-deployment exists in your Kubernetes cluster and corresponds to the correct microservice.
+          kubectl rollout status deployment/user-service-deployment
+       
+      - name: (booking-service) Deploy to AKS
+        run: |
+          kubectl set image deployment/booking-service-deployment my-container=myregistry.azurecr.io/booking-service:${{ github.sha }}
+          # COMMENT: Ensure booking-service-deployment exists in your Kubernetes cluster and corresponds to the correct microservice.
+          kubectl rollout status deployment/booking-service-deployment
+
 
