@@ -97,6 +97,9 @@ $RECYCLE.BIN/
 # End of https://www.toptal.com/developers/gitignore/api/windows,linux,macos,visualstudiocode
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# Ignore GitHub Actions workflows
+.github/workflows/
+
 # dependencies
 node_modules
 frontend/node_modules
@@ -123,4 +126,6 @@ frontend/node_modules
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+
 
