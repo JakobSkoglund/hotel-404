@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main  # Change this if needed
+      - logger1  # Change this if needed
 
 jobs:
   build-and-push:
