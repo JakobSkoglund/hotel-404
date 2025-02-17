@@ -24,7 +24,12 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "start:user": "cross-env NODE_ENV=development dotenv -e backend/user-service/.env -- nodemon --exec npx tsx backend/user-service/src/index.ts",
+    "start:hotel": "cross-env NODE_ENV=development dotenv -e backend/hotel-service/.env -- nodemon --exec npx tsx backend/hotel-service/src/index.ts",
+    "start:booking": "cross-env NODE_ENV=development dotenv -e backend/booking-service/.env -- nodemon --exec npx tsx backend/booking-service/src/index.ts",
+    "start:gateway": "cross-env NODE_ENV=development dotenv -e backend/gateway-service/.env -- nodemon --exec npx tsx backend/gateway-service/src/index.ts",
+    "start:backend": "concurrently \"npm run start:user\" \"npm run start:hotel\" \"npm run start:booking\" \"npm run start:gateway\""
   },
   "eslintConfig": {
     "extends": [
@@ -45,6 +50,8 @@
     ]
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
+    "dotenv-cli": "^8.0.0",
     "typescript": "^5.6.2"
   }
 }
