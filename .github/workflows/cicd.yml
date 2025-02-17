@@ -1,34 +1,50 @@
-name: CI/CD Pipeline
+name: CI/CD for My Microservice
 
 on:
   push:
     branches:
-      - main  # Trigger on main branch push
+      - main  # Adjust if using a different branch
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Log in to Azure Container Registry (ACR)
+        run: echo "${{ secrets.ACR_PASSWORD }}" | docker login myregistry.azurecr.io -u "${{ secrets.ACR_USERNAME }}" --password-stdin
+
+      - name: Build and Tag Docker Image
+        run: |
+          cd my-microservice  # Change directory to your microservice
+          docker build -t myregistry.azurecr.io/my-microservice:${{ github.sha }} .
+          docker tag myregistry.azurecr.io/my-microservice:${{ github.sha }} myregistry.azurecr.io/my-microservice:latest
+
+      - name: Push Docker Image to Azure Container Registry
+        run: |
+          docker push myregistry.azurecr.io/my-microservice:${{ github.sha }}
+          docker push myregistry.azurecr.io/my-microservice:latest
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up Kubernetes CLI
+        uses: azure/setup-kubectl@v3
+
       - name: Log in to Azure
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Log in to Azure Container Registry
-        run: |
-          az acr login --name ${{ secrets.AZURE_CONTAINER_REGISTRY }}
+      - name: Get AKS Credentials
+        run: az aks get-credentials --resource-group my-resource-group --name my-aks-cluster
 
-      - name: Build Docker Image
+      - name: Deploy to AKS
         run: |
-          docker build -t ${{ secrets.AZURE_CONTAINER_REGISTRY }}.azurecr.io/microservice:latest -f backend/Docker/Dockerfile .
-          docker push ${{ secrets.AZURE_CONTAINER_REGISTRY }}.azurecr.io/microservice:latest
+          kubectl set image deployment/my-microservice-deployment my-container=myregistry.azurecr.io/my-microservice:${{ github.sha }}
+          kubectl rollout status deployment/my-microservice-deployment
 
-      - name: Deploy to Azure Kubernetes Service
-        run: |
-          kubectl apply -f k8s/deployment.yaml
