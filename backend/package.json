@@ -1,0 +1,13 @@
+{
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.8",
+    "@types/cors": "^2.8.17",
+    "@types/express-session": "^1.18.1",
+    "tsx": "^4.19.2"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "express-session": "^1.18.1"
+  }
+}
