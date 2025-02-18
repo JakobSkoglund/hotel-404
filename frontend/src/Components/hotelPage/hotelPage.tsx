@@ -13,7 +13,6 @@ import "./hotelPage.css";
 
 const HotelPage = () => {
   const { hotelId } = useParams();
-  console.log(hotelId);
   const [hotel, setHotel] = useState<IHotelDetails>();
   const [validHotel, setValidHotel] = useState<Boolean>(true); 
   //Funktionen används för att hämta data som tillhör en specifik hotel mha hotelId som tillhör detta hotell
@@ -21,7 +20,6 @@ const HotelPage = () => {
     try{
       //Ifall hotelId är null eller tom kommer den att skicka en tom sträng tillbaka
       const hotel = await getHotelPage(hotelId? hotelId : "");
-      console.log(hotel); 
       setValidHotel(!(!hotel));
       setHotel(hotel); 
     } catch{
