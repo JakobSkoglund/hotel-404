@@ -7,7 +7,12 @@ on:
   push:
     branches:
       - master
+      
+permissions:
+  id-token: write   # This grants the workflow the permission to generate the ID token
+  contents: read  
 
+  
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -29,6 +34,7 @@ jobs:
         run: |
           docker push hotelacr12345.azurecr.io/hotel-service:${{ github.sha }}
           docker push hotelacr12345.azurecr.io/hotel-service:latest
+          
 
   deploy:
     needs: build-and-push
