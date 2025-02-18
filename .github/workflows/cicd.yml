@@ -4,6 +4,9 @@ on:
   pull_request:
     branches:
       - master  # Adjust if using a different branch
+  push:
+    branches:
+      - master
 
 jobs:
   build-and-push:
@@ -30,6 +33,8 @@ jobs:
   deploy:
     needs: build-and-push
     runs-on: ubuntu-latest
+    if: github.event_name == 'push'  # Prevent deployment on pull requests
+
 
     steps:
       - name: Set up Kubernetes CLI
@@ -41,6 +46,17 @@ jobs:
           kubectl config set-credentials github-deployer --token=${{ secrets.K8S_TOKEN }}
           kubectl config set-context aks-cluster --cluster=aks-cluster --user=github-deployer
           kubectl config use-context aks-cluster
+
+      - name: Debug Kubernetes Authentication
+        run: |
+          echo "Checking Kubernetes Cluster Info..."
+          kubectl cluster-info dump || echo "Failed to get cluster info"
+          
+          echo "Checking Service Accounts..."
+          kubectl get serviceaccounts || echo "Failed to get service accounts"
+          
+          echo "Checking Cluster Role Bindings..."
+          kubectl get clusterrolebinding || echo "Failed to get cluster role bindings"
        # COMMENT: Change the resource group and AKS cluster name to match your Azure setup.
        # Verify Kubernetes Authentication
       - name: Verify Kubernetes Authentication
@@ -50,7 +66,7 @@ jobs:
           kubectl get pods --all-namespaces
           
       - name: (hotel-service) Deploy to AKS 
+        if: github.event_name == 'push'
         run: |
           kubectl set image deployment/hotel-service-deployment my-container=hotelacr12345.azurecr.io/hotel-service:${{ github.sha }}
-          # COMMENT: Make sure that hotel-service-deployment exists in your Kubernetes cluster and corresponds to the correct microservice.
           kubectl rollout status deployment/hotel-service-deployment
