@@ -34,14 +34,19 @@ jobs:
         run: |
           docker push hotelacr12345.azurecr.io/hotel-service:${{ github.sha }}
           docker push hotelacr12345.azurecr.io/hotel-service:latest
-          
+  deploy:    
+    needs: build-and-push
+    runs-on: ubuntu-latest
 
-      - uses: tale/kubectl-action@v1
+    steps: 
+    
+      - name: config something
+        uses: tale/kubectl-action@v1
         with:
           base64-kube-config: ${{ secrets.KUBE_CONFIG }}
           kubectl-version: v1.24.2
       
       # Expands the manifest YAML file (i.e. replaces placeholders in the YAML file with environment variable values)
       # and deploys the microservice to the Azure Kubernetes Service (AKS) cluster.
-      - name: Deploy
+      - name: Deploy1
         run: envsubst < Kubernetes/deploy.yaml | kubectl apply -f -
