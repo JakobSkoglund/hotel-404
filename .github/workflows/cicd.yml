@@ -1,1 +1,56 @@
+name: CI/CD for My Microservice
 
+on:
+  push:
+    branches:
+      - main  # Adjust if using a different branch
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      # COMMENT: Ensure that myregistry.azurecr.io is replaced with your actual Azure Container Registry URL.
+      - name: Log in to Azure Container Registry (ACR)
+        run: echo "${{ secrets.ACR_PASSWORD }}" | docker login hotelacr12345.azurecr.io -u "${{ secrets.ACR_USERNAME }}" --password-stdin
+    
+      - name: (hotel-service) Build and Tag Docker Image 1
+        run: |
+          cd backend/hotel-service  
+          docker build -t hotelacr12345.azurecr.io/hotel-service:${{ github.sha }} .
+          docker tag hotelacr12345.azurecr.io/hotel-service:${{ github.sha }} hotelacr12345.azurecr.io/hotel-service:latest
+
+      - name: (hotel-service) Push Docker Image to Azure Container Registry
+        run: |
+          docker push hotelacr12345.azurecr.io/hotel-service:${{ github.sha }}
+          docker push hotelacr12345.azurecr.io/hotel-service:latest
+          
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up Kubernetes CLI
+        uses: azure/setup-kubectl@v3
+
+      - name: Authenticate with Kubernetes
+        run: |
+          kubectl config set-cluster aks-cluster --server=https://myaksdns-tudrzqiz.hcp.swedencentral.azmk8s.io --insecure-skip-tls-verify
+          kubectl config set-credentials github-deployer --token=${{ secrets.K8S_TOKEN }}
+          kubectl config set-context aks-cluster --cluster=aks-cluster --user=github-deployer
+          kubectl config use-context aks-cluster
+       # COMMENT: Change the resource group and AKS cluster name to match your Azure setup.
+       # Verify Kubernetes Authentication
+      - name: Verify Kubernetes Authentication
+        run: |
+          kubectl cluster-info
+          kubectl get nodes
+          kubectl get pods --all-namespaces
+          
+      - name: (hotel-service) Deploy to AKS 
+        run: |
+          kubectl set image deployment/hotel-service-deployment my-container=hotelacr12345.azurecr.io/hotel-service:${{ github.sha }}
+          # COMMENT: Make sure that hotel-service-deployment exists in your Kubernetes cluster and corresponds to the correct microservice.
+          kubectl rollout status deployment/hotel-service-deployment
