@@ -29,44 +29,30 @@ jobs:
         run: |
           docker push hotelacr12345.azurecr.io/hotel-service:${{ github.sha }}
           docker push hotelacr12345.azurecr.io/hotel-service:latest
-          
+
   deploy:
     needs: build-and-push
     runs-on: ubuntu-latest
-    # if: github.event_name == 'push'  # Prevent deployment on pull requests
-
 
     steps:
-      - name: Set up Kubernetes CLI
-        uses: azure/setup-kubectl@v3
-
-      - name: Authenticate with Kubernetes
+      - name: Log in to Azure using OIDC
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+  
+      - name: Get AKS Credentials
         run: |
-          kubectl config set-cluster aks-cluster --server=https://myaksdns-tudrzqiz.hcp.swedencentral.azmk8s.io --insecure-skip-tls-verify
-          kubectl config set-credentials github-deployer --token=${{ secrets.K8S_TOKEN }}
-          kubectl config set-context aks-cluster --cluster=aks-cluster --user=github-deployer
-          kubectl config use-context aks-cluster
-
-      - name: Debug Kubernetes Authentication
-        run: |
-          echo "Checking Kubernetes Cluster Info..."
-          kubectl cluster-info dump || echo "Failed to get cluster info"
-          
-          echo "Checking Service Accounts..."
-          kubectl get serviceaccounts || echo "Failed to get service accounts"
-          
-          echo "Checking Cluster Role Bindings..."
-          kubectl get clusterrolebinding || echo "Failed to get cluster role bindings"
-       # COMMENT: Change the resource group and AKS cluster name to match your Azure setup.
-       # Verify Kubernetes Authentication
+          az aks get-credentials --resource-group <your-resource-group> --name <your-aks-cluster>
+  
       - name: Verify Kubernetes Authentication
         run: |
           kubectl cluster-info
           kubectl get nodes
           kubectl get pods --all-namespaces
-          
-      - name: (hotel-service) Deploy to AKS 
-        if: github.event_name == 'push'
+  
+      - name: (hotel-service) Deploy to AKS
         run: |
           kubectl set image deployment/hotel-service-deployment my-container=hotelacr12345.azurecr.io/hotel-service:${{ github.sha }}
           kubectl rollout status deployment/hotel-service-deployment
