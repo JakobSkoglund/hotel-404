@@ -36,29 +36,12 @@ jobs:
           docker push hotelacr12345.azurecr.io/hotel-service:latest
           
 
-  deploy:
-    needs: build-and-push
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Log in to Azure using OIDC
-        uses: azure/login@v1
+      - uses: tale/kubectl-action@v1
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-  
-      - name: Get AKS Credentials
-        run: |
-          az aks get-credentials --resource-group hotelResourceGroup --name hotelAKSCluster
-  
-      - name: Verify Kubernetes Authentication
-        run: |
-          kubectl cluster-info
-          kubectl get nodes
-          kubectl get pods --all-namespaces
-  
-      - name: (hotel-service) Deploy to AKS
-        run: |
-          kubectl set image deployment/hotel-service-deployment my-container=hotelacr12345.azurecr.io/hotel-service:${{ github.sha }}
-          kubectl rollout status deployment/hotel-service-deployment
+          base64-kube-config: ${{ secrets.KUBE_CONFIG }}
+          kubectl-version: v1.24.2
+      
+      # Expands the manifest YAML file (i.e. replaces placeholders in the YAML file with environment variable values)
+      # and deploys the microservice to the Azure Kubernetes Service (AKS) cluster.
+      - name: Deploy
+        run: envsubst < ../kubernetes/deploy.yaml | kubectl apply -f -
