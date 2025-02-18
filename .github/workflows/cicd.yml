@@ -35,15 +35,20 @@ jobs:
       - name: Set up Kubernetes CLI
         uses: azure/setup-kubectl@v3
 
-      - name: Log in to Azure
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      - name: Get AKS Credentials
-        run: az aks get-credentials --resource-group my-resource-group --name my-aks-cluster
-        # COMMENT: Change the resource group and AKS cluster name to match your Azure setup.
-
+      - name: Authenticate with Kubernetes
+        run: |
+          kubectl config set-cluster aks-cluster --server=https://myaksdns-tudrzqiz.hcp.swedencentral.azmk8s.io --insecure-skip-tls-verify
+          kubectl config set-credentials github-deployer --token=${{ secrets.K8S_TOKEN }}
+          kubectl config set-context aks-cluster --cluster=aks-cluster --user=github-deployer
+          kubectl config use-context aks-cluster
+       # COMMENT: Change the resource group and AKS cluster name to match your Azure setup.
+       # Verify Kubernetes Authentication
+      - name: Verify Kubernetes Authentication
+        run: |
+          kubectl cluster-info
+          kubectl get nodes
+          kubectl get pods --all-namespaces
+          
       - name: (hotel-service) Deploy to AKS 
         run: |
           kubectl set image deployment/hotel-service-deployment my-container=hotelacr12345.azurecr.io/hotel-service:${{ github.sha }}
