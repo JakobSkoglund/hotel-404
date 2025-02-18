@@ -50,6 +50,10 @@ jobs:
 
       - name: List Kubernetes directory contents
         run: ls -l ./Kubernetes
+
+      - name: List current directory contents
+        run: ls -l
+        
       
       # Expands the manifest YAML file (i.e. replaces placeholders in the YAML file with environment variable values)
       # and deploys the microservice to the Azure Kubernetes Service (AKS) cluster.
