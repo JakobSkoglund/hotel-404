@@ -11,7 +11,7 @@ services:
       - mongo-data:/data/db
 
   api-gateway:
-    build: .
+    build: ./gateway-service
     ports:
       - "7700:7700"
     depends_on:
@@ -22,7 +22,7 @@ services:
       - microservices-network
 
   user-service:
-    build: ./user-service/src
+    build: ./user-service
     ports:
       - "7701:7701"
     environment:
@@ -44,7 +44,7 @@ services:
       - microservices-network
 
   hotel-service:
-    build: ./hotel-service/src
+    build: ./hotel-service
     ports:
       - "7703:7703"
     environment:
