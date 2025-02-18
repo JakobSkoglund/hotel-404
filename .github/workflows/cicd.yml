@@ -33,7 +33,7 @@ jobs:
   deploy:
     needs: build-and-push
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'  # Prevent deployment on pull requests
+    # if: github.event_name == 'push'  # Prevent deployment on pull requests
 
 
     steps:
