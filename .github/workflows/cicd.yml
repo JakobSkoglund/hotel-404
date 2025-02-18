@@ -47,12 +47,6 @@ jobs:
         with:
           base64-kube-config: ${{ secrets.KUBE_CONFIG }}
           kubectl-version: v1.24.2
-
-      - name: List Kubernetes directory contents
-        run: ls -l ./Kubernetes
-
-      - name: List current directory contents
-        run: ls -l
         
       
       # Expands the manifest YAML file (i.e. replaces placeholders in the YAML file with environment variable values)
