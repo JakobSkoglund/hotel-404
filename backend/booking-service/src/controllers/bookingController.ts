@@ -1,5 +1,5 @@
-import { Booking } from "../Model/Booking"; 
-import { Hotel } from "../Model/HotelModel";
+import { Booking } from "../models/Booking"; 
+import axios from "axios";
 
 
 // Function to delete a booking by its ID
@@ -22,12 +22,30 @@ export async function deleteBooking(bookingId: string) {
         throw error;
     }
 }
+
+
 // Function to create a new booking
 export async function createBooking(hotelID: string, user: string, from_date: string, to_date: string){ 
   let date1 = new Date(from_date); 
   let date2 = new Date(to_date); 
   let days = Math.round((date2.getTime()-date1.getTime()) /(1000*3600*24));
-  let hotel = await Hotel.findById(hotelID);
+
+
+
+
+  let hotelTitle = ""; // Declare variable outside
+  let hotelPrice = 0;  // Default value for price
+
+  // Api call that get hotelData
+  const response = await axios.get(`http://localhost:7703/api/hotels/hotelDetails`, {
+    params: { hotelId : hotelID }
+  });
+
+    const hotelData = response.data;
+
+    hotelTitle = hotelData.display.title;
+    hotelPrice = hotelData.display.price;
+
   const timeNow = Date.now(); 
   
   const checkInDate = date1.toISOString().split('T')[0]; 
@@ -39,10 +57,8 @@ export async function createBooking(hotelID: string, user: string, from_date: st
   } else if(Number(date1) < timeNow || Number(date2) < timeNow){
     throw new Error("invalid dates"); 
   }
-  if(!hotel){
-    throw new Error("couldn't find hotel");
-  }
-  const cost = hotel.display?.price;
+  
+  const cost = hotelPrice;
   if(!cost){
     throw new Error("Couldn't get hotel price"); 
   }
@@ -57,16 +73,34 @@ export async function createBooking(hotelID: string, user: string, from_date: st
 }
 // Function to retrieve bookings for a specific user
 export async function getBookingForUser(username: string) {
-  console.log(username); 
   const bookings = await Booking.find({user: username});
-  console.log(bookings);
   var formattedBookings = []
   for(let booking of bookings) {
-    console.log(booking); 
-    const hotel = await Hotel.findById(booking.hotel);
+
+
+  // Need to create API call in Hotel-service that returns values { hotelName: "name" || NULL, price: number }
+
+  let hotelTitle = ""; // Declare variable outside
+  let hotelPrice = 0;  // Default value for price
+
+  // Api call that get hotelData
+  const response = await axios.get(`http://localhost:7703/api/hotels/hotelDetails`, {
+    params: { hotelId : booking.hotel }
+  });
+
+    const hotelData = response.data;
+
+    hotelTitle = hotelData.display.title;
+    hotelPrice = hotelData.display.price;
+
+
+
+  //const hotel = await Hotel.findById(booking.hotel);
+
+
     const formattedBooking = {
       id: booking.id,
-      hotel: hotel?.display?.title, 
+      hotel: hotelTitle, 
       user: booking.user, 
       to_date: booking.to_date.split("T")[0], 
       from_date: booking.from_date.split("T")[0], 
