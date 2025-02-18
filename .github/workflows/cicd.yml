@@ -40,7 +40,8 @@ jobs:
 
     steps: 
     
-    
+      - uses: actions/checkout@v4
+      
       - name: config something
         uses: tale/kubectl-action@v1
         with:
