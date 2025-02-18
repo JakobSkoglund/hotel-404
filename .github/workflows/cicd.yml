@@ -1,7 +1,7 @@
 name: CI/CD for My Microservice
 
 on:
-  push:
+  pull_request:
     branches:
       - main  # Adjust if using a different branch
 
