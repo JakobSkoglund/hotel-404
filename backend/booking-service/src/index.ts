@@ -40,8 +40,6 @@ app.use(session({
 }));
 
 
-// Connect to database
-connectDB()
 
 // middleware
 app.use((req, res, next) => {
@@ -53,6 +51,13 @@ app.use((req, res, next) => {
 app.use("/api/booking", bookingRouter);
 
 // Start server
-app.listen(BOOKING_SERVICE_PORT, () => {
-  console.log(`Booking-Service is Listening on port ${BOOKING_SERVICE_PORT}`); 
-}); 
+if (process.env.NODE_ENV !== 'test') {
+
+  app.listen(BOOKING_SERVICE_PORT, () => {
+    console.log(`Booking-Service is Listening on port ${BOOKING_SERVICE_PORT}`); 
+    // Connect to database
+    connectDB()
+  }); 
+}
+
+export default app;
