@@ -59,9 +59,9 @@ console.log(`HOTEL_SERVICE_PORT = ${HOTEL_SERVICE_PORT}`);
 
 // Define the microservices and their base URLs
 const services = {
-  'user-service'    : `http://localhost:${USER_SERVICE_PORT}`,
-  'booking-service' : `http://localhost:${BOOKING_SERVICE_PORT}`,
-  'hotel-service'   : `http://localhost:${HOTEL_SERVICE_PORT}`
+  'user-service'    : `http://user-service:${USER_SERVICE_PORT}`,
+  'booking-service' : `http://booking-service:${BOOKING_SERVICE_PORT}`,
+  'hotel-service'   : `http://hotel-service:${HOTEL_SERVICE_PORT}`
 };
 
 
