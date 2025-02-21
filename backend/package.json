@@ -1,4 +1,22 @@
 {
+"name": "backend",
+  "private": true,
+  "workspaces": [
+    "user-service",
+    "hotel-service",
+    "booking-service",
+    "gateway-service"
+  ],
+  "scripts": {
+    "install:all": "npm install --workspaces",
+    "test": "npm run test --workspaces",
+    "start": "npm run start --workspaces",
+    "start:user": "cd user-service && npm start",
+    "start:hotel": "cd hotel-service && npm start",
+    "start:booking": "cd booking-service && npm start",
+    "start:gateway": "cd gateway-service && npm start"
+  },
+
   "devDependencies": {
     "@types/cookie-parser": "^1.4.8",
     "@types/cors": "^2.8.17",
