@@ -16,4 +16,4 @@ spec:
         - name: demo-container-hotel
           image: hotelacr12345.azurecr.io/hotel-service:latest
           ports:
-            - containerPort: 7073
+            - containerPort: 7703
