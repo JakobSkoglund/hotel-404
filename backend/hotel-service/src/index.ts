@@ -3,7 +3,7 @@ import cors from "cors";
 import session from "express-session";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
-import connectHotelDB from "./config/db";
+import { connectHotelDB } from "./config/db";
 import hotelRouter from "./routes/hotelRoutes";
 
 // Load .env variables
@@ -53,7 +53,12 @@ app.use((req, res, next) => {
 app.use("/api/hotels", hotelRouter);
 
 
-// Start server
-app.listen(HOTEL_SERVICE_PORT, () => {
-  console.log(`Hotel-Service Listening on port ${HOTEL_SERVICE_PORT}`); 
-}); 
+// Start server only if file runs direkt
+if (require.main === module) {
+  app.listen(HOTEL_SERVICE_PORT, () => {
+    console.log(`Hotel-Service Listening on port ${HOTEL_SERVICE_PORT}`); 
+  });
+}
+
+// Exportera app for testing
+export { app };
