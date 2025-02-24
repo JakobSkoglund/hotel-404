@@ -4,11 +4,9 @@ import dotenv from "dotenv";
 // Load environment variables
 dotenv.config(); 
 
-const DB_URI = process.env.DB_URI as string;
-
-const connectDB = async () => {
+const connectHotelDB = async () => {
   try {
-    await mongoose.connect(DB_URI);
+    await mongoose.connect(process.env.DB_URI as string);
     console.log("Hotel-service is connected to MongoDB Atlas");
   } catch (err) {
     console.error("MongoDB connection error:", err);
@@ -16,4 +14,4 @@ const connectDB = async () => {
   }
 };
 
-export default connectDB;
+export { connectHotelDB };
