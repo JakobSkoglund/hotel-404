@@ -2,8 +2,9 @@ import express from "express";
 import cors from "cors"; 
 import cookieParser from "cookie-parser"; 
 import session from "express-session"; 
-import userRouter from "./routes/userRoutes.js"; 
-import connectDB from "./config/db.js"
+//import userRouter from "./routes/userRoutes.js"; 
+import userRouter from "./routes/userRoutes"; // Without .js extension
+import connectDB from "./config/db"
 import dotenv from "dotenv";
 
 // Load .env variables
@@ -57,3 +58,5 @@ app.use("/api/user", userRouter);
 app.listen(USER_SERVICE_PORT, () => {
   console.log(`User-ServiceListening on port ${USER_SERVICE_PORT}`); 
 }); 
+
+export { app };
