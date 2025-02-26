@@ -17,3 +17,4 @@ spec:
           image: hotelacr12345.azurecr.io/hotel-service:latest
           ports:
             - containerPort: 7703
+
