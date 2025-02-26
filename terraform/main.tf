@@ -1,5 +1,6 @@
 provider "azurerm" {
   features {}
+  subscription_id = var.subscription_id
 }
 
 # Create a myResourceGroup
@@ -30,7 +31,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   
   default_node_pool {
     name       = "agentpool"
-    node_count = 2
+    node_count = 1
     vm_size    = "Standard_DS2_v2"
   }
 
