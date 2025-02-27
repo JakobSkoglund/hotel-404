@@ -1,6 +1,17 @@
+
 #!/bin/bash
 
-SUBSCRIPTION_ID="5ef9d2e6-c887-461a-a76c-b739a7ccf6bd"  
+# Load environment variables from .env file
+if [ -f .env ]; then
+    export $(grep -v '^#' .env | xargs)
+fi
+
+if [ -z "$SUBSCRIPTION_ID" ]; then
+    echo "Error: SUBSCRIPTION_ID is not set. Please add it to the .env file."
+    exit 1
+fi
+
+
 
 if [ "$1" == "start" ]; then
     echo " Starting AKS with 1 node..."
