@@ -125,6 +125,4 @@ yarn-error.log*
 
 # Terraform state files
 .terraform
-*.tfstate
-*.tfstate.*
 .terraform/

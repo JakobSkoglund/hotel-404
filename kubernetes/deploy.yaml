@@ -17,4 +17,25 @@ spec:
           image: hotelacr12345.azurecr.io/hotel-service:latest
           ports:
             - containerPort: 7703
+          startupProbe:
+            httpGet:
+              path: /health/startup
+              port: 7703
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 6
+          readinessProbe:
+            httpGet:
+              path: /health/readiness
+              port: 7703
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /health/liveness
+              port: 7703
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            failureThreshold: 3
 

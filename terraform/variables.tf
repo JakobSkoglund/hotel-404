@@ -18,10 +18,13 @@ variable "acr_name" {
   default     = "hotelacr12345"
 }
 
+
 variable "node_count" {
-  description = "Number of nodes in the AKS cluster"
-  default     = 1
+  description = "Number of nodes in the user node pool"
+  type        = number
+  default     = 1  
 }
+
 variable "subscription_id" {
   description = "Azure Subscription ID"
   type        = string
