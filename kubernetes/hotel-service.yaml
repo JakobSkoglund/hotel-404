@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hotel-service
+  namespace: default  # You can adjust this if your deployment is in a different namespace
+spec:
+  selector:
+    app: demo  # This matches the label in your deployment
+  ports:
+    - protocol: TCP
+      port: 7703  # This is the port exposed by the service
+      targetPort: 7703  # This is the port the container listens on
+  type: LoadBalancer  # Use LoadBalancer to expose to external traffic
