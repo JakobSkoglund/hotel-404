@@ -1,0 +1,82 @@
+[2025-03-04 10:12:20] INFO: 
+[2025-03-04 10:12:20] INFO: Attempting to login with username:
+[2025-03-04 10:12:20] INFO: Generates an access token
+[2025-03-04 10:12:20] INFO: Creates a cookie
+[2025-03-04 10:12:20] INFO: Sucessfull login:
+[2025-03-04 10:12:26] INFO: 
+[2025-03-04 10:12:26] INFO: Attempting to log out
+[2025-03-04 10:12:26] INFO: Attempting to destroy session
+[2025-03-04 10:12:26] INFO: Logout sucess
+[2025-03-04 10:13:08] INFO: 
+[2025-03-04 10:13:08] INFO: Attempting to signup a new user with:
+[2025-03-04 10:13:08] INFO: Username:
+[2025-03-04 10:13:08] INFO: Generates an access token
+[2025-03-04 10:13:08] INFO: Created a cookie
+[2025-03-04 10:13:08] INFO: Sucessfull signup: 
+[2025-03-04 10:13:12] INFO: 
+[2025-03-04 10:13:12] INFO: Attempting to log out
+[2025-03-04 10:13:12] INFO: Attempting to destroy session
+[2025-03-04 10:13:12] INFO: Logout sucess
+[2025-03-04 10:13:21] INFO: 
+[2025-03-04 10:13:21] INFO: Attempting to login with username:
+[2025-03-04 10:13:21] INFO: Generates an access token
+[2025-03-04 10:13:21] INFO: Creates a cookie
+[2025-03-04 10:13:21] INFO: Sucessfull login:
+[2025-03-04 10:14:10] INFO: 
+[2025-03-04 10:14:10] INFO: Attempting to log out
+[2025-03-04 10:14:10] INFO: Attempting to destroy session
+[2025-03-04 10:14:10] INFO: Logout sucess
+[2025-03-04 10:15:42] INFO: 
+[2025-03-04 10:15:42] INFO: Attempting to login with username:
+[2025-03-04 10:15:42] INFO: Generates an access token
+[2025-03-04 10:15:42] INFO: Creates a cookie
+[2025-03-04 10:15:42] INFO: Sucessfull login:
+[2025-03-04 10:19:34] INFO: 
+[2025-03-04 10:19:34] INFO: Attempting to log out
+[2025-03-04 10:19:34] INFO: Attempting to destroy session
+[2025-03-04 10:19:34] INFO: Logout sucess
+[2025-03-04 10:19:42] INFO: 
+[2025-03-04 10:19:42] INFO: Attempting to login with username:
+[2025-03-04 10:19:42] INFO: Generates an access token
+[2025-03-04 10:19:42] INFO: Creates a cookie
+[2025-03-04 10:19:42] INFO: Sucessfull login:
+[2025-03-04 10:20:35] INFO: 
+[2025-03-04 10:20:35] INFO: Attempting to log out
+[2025-03-04 10:20:35] INFO: Attempting to destroy session
+[2025-03-04 10:20:35] INFO: Logout sucess
+[2025-03-04 10:20:41] INFO: 
+[2025-03-04 10:20:41] INFO: Attempting to login with username: George123
+[2025-03-04 10:20:41] INFO: Generates an access token
+[2025-03-04 10:20:41] INFO: Creates a cookie
+[2025-03-04 10:20:41] INFO: Sucessfull login:
+[2025-03-04 10:34:07] INFO: 
+[2025-03-04 10:34:07] INFO: Attempting to log out
+[2025-03-04 10:34:07] INFO: Attempting to destroy session
+[2025-03-04 10:34:07] INFO: Logout successfull
+[2025-03-04 10:34:14] INFO: 
+[2025-03-04 10:34:14] INFO: Attempting to login with username: Jakob.s01
+[2025-03-04 10:34:14] INFO: Generates an access token
+[2025-03-04 10:34:14] INFO: Creates a Cookie
+[2025-03-04 10:34:14] INFO: Successfull login: Jakob.s01
+[2025-03-04 10:34:20] INFO: 
+[2025-03-04 10:34:20] INFO: Attempting to log out
+[2025-03-04 10:34:20] INFO: Attempting to destroy session
+[2025-03-04 10:34:20] INFO: Logout successfull
+[2025-03-04 10:38:04] INFO: 
+[2025-03-04 10:38:04] INFO: Attempting to login with username: George123
+[2025-03-04 10:38:04] INFO: Generates an access token
+[2025-03-04 10:38:04] INFO: Creates a Cookie
+[2025-03-04 10:38:04] INFO: Successfull login: George123
+[2025-03-04 10:38:09] INFO: 
+[2025-03-04 10:38:09] INFO: Attempting to logout user: undefined
+[2025-03-04 10:38:09] INFO: Attempting to destroy session
+[2025-03-04 10:38:09] INFO: Logout successfull
+[2025-03-04 10:41:20] INFO: 
+[2025-03-04 10:41:20] INFO: Attempting to login with username: George123
+[2025-03-04 10:41:20] INFO: Generates an access token
+[2025-03-04 10:41:20] INFO: Creates a Cookie
+[2025-03-04 10:41:20] INFO: Successfull login: George123
+[2025-03-04 10:41:25] INFO: 
+[2025-03-04 10:41:25] INFO: Attempting to logout user:undefined
+[2025-03-04 10:41:25] INFO: Attempting to destroy session
+[2025-03-04 10:41:25] INFO: Logout successfull
