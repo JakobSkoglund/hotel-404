@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */
+<<<<<<< HEAD
+=======
+    "types": ["jest"],
+>>>>>>> 729d5d3081c593a5efd77b68f391abb942d05361
 
     /* Projects */
     // "incremental": true,                              /* Save .tsbuildinfo files to allow for incremental compilation of projects. */

@@ -2,8 +2,14 @@ import express from "express";
 import cors from "cors"; 
 import cookieParser from "cookie-parser"; 
 import session from "express-session"; 
+<<<<<<< HEAD
 import userRouter from "./routes/userRoutes.js"; 
 import connectDB from "./config/db.js"
+=======
+//import userRouter from "./routes/userRoutes.js"; 
+import userRouter from "./routes/userRoutes"; // Without .js extension
+import connectDB from "./config/db"
+>>>>>>> 729d5d3081c593a5efd77b68f391abb942d05361
 import dotenv from "dotenv";
 
 // Load .env variables
@@ -57,3 +63,8 @@ app.use("/api/user", userRouter);
 app.listen(USER_SERVICE_PORT, () => {
   console.log(`User-ServiceListening on port ${USER_SERVICE_PORT}`); 
 }); 
+<<<<<<< HEAD
+=======
+
+export { app };
+>>>>>>> 729d5d3081c593a5efd77b68f391abb942d05361

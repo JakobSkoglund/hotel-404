@@ -5,7 +5,10 @@ import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import { connectHotelDB } from "./config/db";
 import hotelRouter from "./routes/hotelRoutes";
+<<<<<<< HEAD
 import healthRouter from "./routes/health";
+=======
+>>>>>>> 729d5d3081c593a5efd77b68f391abb942d05361
 
 // Load .env variables
 dotenv.config();
@@ -52,7 +55,10 @@ app.use((req, res, next) => {
 
 // routes
 app.use("/api/hotels", hotelRouter);
+<<<<<<< HEAD
 app.use('/health', healthRouter)
+=======
+>>>>>>> 729d5d3081c593a5efd77b68f391abb942d05361
 
 
 // Start server only if file runs direkt

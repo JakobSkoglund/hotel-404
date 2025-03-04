@@ -16,5 +16,13 @@ COPY . .
 # Expose the service port
 EXPOSE 7703
 
+<<<<<<< HEAD
 # Start the service
 CMD ["npm", "start"]
+=======
+# Build, compile TypeScript -> CommonJS
+RUN npm run build
+
+# Start the service
+CMD ["npm","run", "start"]
+>>>>>>> 729d5d3081c593a5efd77b68f391abb942d05361

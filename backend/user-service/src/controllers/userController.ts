@@ -108,7 +108,11 @@ export const logout = async (req: Request, res: Response) => {
                 return res.status(500).json({ message: "Logout failed" });
             }
             res.clearCookie("token"); // Clear JWT token
+<<<<<<< HEAD
             return res.status(200).json({message: "Logout sucess"});
+=======
+            return res.status(200).json({message: "Logout success"});
+>>>>>>> 729d5d3081c593a5efd77b68f391abb942d05361
         });
     } catch (error) {
         res.sendStatus(400);
