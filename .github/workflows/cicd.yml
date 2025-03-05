@@ -32,6 +32,8 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
     needs: testJob
+    if: github.event_name == 'push'  # Runs only on push to master
+
 
     steps:
       - name: Checkout Repository
