@@ -55,7 +55,7 @@ app.use("/api/hotels", hotelRouter);
 
 // Start server only if file runs direkt
 if (require.main === module) {
-  app.listen(HOTEL_SERVICE_PORT, () => {
+  app.listen(7703, '0.0.0.0', () => {
     console.log(`Hotel-Service Listening on port ${HOTEL_SERVICE_PORT}`); 
   });
 }
