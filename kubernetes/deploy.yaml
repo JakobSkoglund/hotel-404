@@ -24,11 +24,23 @@ spec:
             limits:
               memory: "512Mi"   # Max minne podden får använda
               cpu: "500m"       # Max CPU podden får använda (500 milliCPU = 0.5 vCPU)
+            httpGet:
+              path: /startup
+              port: 7703
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 6
+          readinessProbe:
+            httpGet:
+              path: /readiness
+              port: 7703
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 3
           livenessProbe:
             httpGet:
-              path: /health/liveness
+              path: /liveness
               port: 7703
             initialDelaySeconds: 5
             periodSeconds: 10
             failureThreshold: 3
-

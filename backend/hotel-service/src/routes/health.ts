@@ -6,9 +6,6 @@ let isReady = false;
 let isAlive = true;
 //let isStartup = false; 
 
-//setTimeout(() => isStartup = true, 5000);
-//setTimeout(() => isReady = true, 5000); // 10 000
-//setTimeout(() => isAlive = false, 5000); // 30 000
 
 healthRouter.get('/startup', (req: Request, res: Response) => {
     //if (isStartup) {
