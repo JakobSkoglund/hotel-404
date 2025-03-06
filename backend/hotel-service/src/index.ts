@@ -5,10 +5,12 @@ import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import { connectHotelDB } from "./config/db";
 import hotelRouter from "./routes/hotelRoutes";
+import healthRouter from "./routes/health";
 
 // Load .env variables
 dotenv.config();
-const HOTEL_SERVICE_PORT = process.env.HOTEL_SERVICE_PORT as string;
+const HOTEL_SERVICE_PORT = parseInt(process.env.HOTEL_SERVICE_PORT as string, 10);
+
 
 
 //session
@@ -51,11 +53,11 @@ app.use((req, res, next) => {
 
 // routes
 app.use("/api/hotels", hotelRouter);
-
+app.use('/', healthRouter);
 
 // Start server only if file runs direkt
 if (require.main === module) {
-  app.listen(HOTEL_SERVICE_PORT, () => {
+  app.listen(HOTEL_SERVICE_PORT, "0.0.0.0", () => {
     console.log(`Hotel-Service Listening on port ${HOTEL_SERVICE_PORT}`); 
   });
 }
