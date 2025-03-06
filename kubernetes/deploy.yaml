@@ -16,5 +16,33 @@ spec:
         - name: demo-container-hotel
           image: hotelacr12345.azurecr.io/hotel-service:latest
           ports:
-            - containerPort: 7703
+          - containerPort: 7703
+          resources:
+            requests:
+              memory: "256Mi"   # Minsta minne podden behöver för att starta
+              cpu: "250m"       # Minsta CPU podden behöver (250 milliCPU = 0.25 vCPU)
+            limits:
+              memory: "512Mi"   # Max minne podden får använda
+              cpu: "500m"       # Max CPU podden får använda (500 milliCPU = 0.5 vCPU)
+          startupProbe:
+            httpGet:
+              path: /health/startup
+              port: 7703
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 6
+          readinessProbe:
+            httpGet:
+              path: /health/readiness
+              port: 7703
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /health/liveness
+              port: 7703
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            failureThreshold: 3
 
