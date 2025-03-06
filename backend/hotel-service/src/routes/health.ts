@@ -35,6 +35,6 @@ healthRouter.get('/liveness', (req: Request, res: Response) => {
 });
 
 // Simulera att tjänsten blir redo efter 10 sekunder
-setTimeout(() => isReady = true, 10000);
-setTimeout(() => isAlive = false, 30000);
+setTimeout(() => isReady = true, 5000);
+//setTimeout(() => isAlive = false, 5000);
 export default healthRouter;
