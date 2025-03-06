@@ -9,8 +9,9 @@ import healthRouter from "./routes/health";
 
 // Load .env variables
 dotenv.config();
-console.log("HOTEL_SERVICE_PORT:", process.env.HOTEL_SERVICE_PORT);
-const HOTEL_SERVICE_PORT = parseInt(process.env.HOTEL_SERVICE_PORT as string, 10);
+//console.log("HOTEL_SERVICE_PORT:", process.env.HOTEL_SERVICE_PORT);
+//const HOTEL_SERVICE_PORT = parseInt(process.env.HOTEL_SERVICE_PORT as string, 10);
+const HOTEL_SERVICE_PORT = process.env.HOTEL_SERVICE_PORT as string;
 
 
 
