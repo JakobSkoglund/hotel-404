@@ -16,5 +16,32 @@ spec:
         - name: demo-container-hotel
           image: hotelacr12345.azurecr.io/hotel-service:latest
           ports:
-            - containerPort: 7703
-
+          - containerPort: 7703
+          resources:
+            requests:
+              memory: "256Mi"   
+              cpu: "250m"      
+            limits:
+              memory: "512Mi"   
+              cpu: "500m" 
+          startupProbe:      
+            httpGet:
+              path: /startup
+              port: 7703
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 6
+          readinessProbe:
+            httpGet:
+              path: /readiness
+              port: 7703
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /liveness
+              port: 7703
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            failureThreshold: 3
