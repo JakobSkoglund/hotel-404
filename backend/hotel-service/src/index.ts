@@ -9,6 +9,7 @@ import healthRouter from "./routes/health";
 
 // Load .env variables
 dotenv.config();
+console.log("HOTEL_SERVICE_PORT:", process.env.HOTEL_SERVICE_PORT);
 const HOTEL_SERVICE_PORT = parseInt(process.env.HOTEL_SERVICE_PORT as string, 10);
 
 
@@ -57,7 +58,7 @@ app.use('/', healthRouter);
 
 // Start server only if file runs direkt
 if (require.main === module) {
-  app.listen(HOTEL_SERVICE_PORT, "0.0.0.0", () => {
+  app.listen(7703, '0.0.0.0', () => {
     console.log(`Hotel-Service Listening on port ${HOTEL_SERVICE_PORT}`); 
   });
 }
