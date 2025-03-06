@@ -4,15 +4,12 @@ const healthRouter = Router();
 
 let isReady = false;
 let isAlive = true;
-//let isStartup = false; 
+
+
 
 
 healthRouter.get('/startup', (req: Request, res: Response) => {
-    //if (isStartup) {
         res.status(200).send('Started');
-   // } else {
-      //  res.status(500).send('Not Started'); 
-   // }
 });
 
 healthRouter.get('/readiness', (req: Request, res: Response) => {
@@ -31,7 +28,5 @@ healthRouter.get('/liveness', (req: Request, res: Response) => {
     }
 });
 
-// Simulera att tjänsten blir redo efter 10 sekunder
 setTimeout(() => isReady = true, 5000);
-//setTimeout(() => isAlive = false, 5000);
 export default healthRouter;
