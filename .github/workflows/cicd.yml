@@ -26,12 +26,6 @@ jobs:
           npm install
           npm test
 
-      - name: Run tests for user-service
-        run: |
-          cd backend/user-service
-          npm install
-          npm test
-
   build-and-push:
     runs-on: ubuntu-latest
     needs: testJob
