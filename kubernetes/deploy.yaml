@@ -18,12 +18,12 @@ spec:
           ports:
           - containerPort: 7703
           resources:
-            requests:
-              memory: "256Mi"   
-              cpu: "250m"      
-            limits:
-              memory: "512Mi"   
-              cpu: "500m" 
+            requests:   
+              cpu: "250m"
+              memory: "256Mi"
+            limits:   
+              cpu: "500m"
+              memory: "512Mi"
           startupProbe:      
             httpGet:
               path: /startup
