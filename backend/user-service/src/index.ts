@@ -55,8 +55,12 @@ app.use("/api/user", userRouter);
 
 
 // Start server
-app.listen(USER_SERVICE_PORT, () => {
-  console.log(`User-ServiceListening on port ${USER_SERVICE_PORT}`); 
-}); 
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(USER_SERVICE_PORT, () => { 
+  }); 
+}
+// app.listen(USER_SERVICE_PORT, () => {
+//   console.log(`User-ServiceListening on port ${USER_SERVICE_PORT}`); 
+// }); 
 
 export { app };

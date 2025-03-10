@@ -190,6 +190,7 @@ export async function AuthLogin(username: string, password:string)
     catch (error)
     {
         logger.info("Failed to find a user in the database"); 
+        throw error; 
     }
 
 }
@@ -234,6 +235,7 @@ export async function newUser(name:string, lastname:string, username:string, age
     catch(error){
         logger.error("Failed to create a user")
         logger.error("Username is already taken, or user is to young to make an account"); 
+        throw error; 
     }
 
 }
