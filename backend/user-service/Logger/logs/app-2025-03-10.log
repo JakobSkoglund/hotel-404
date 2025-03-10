@@ -7,3 +7,32 @@
 [2025-03-10 09:46:53] INFO: Attempting to logout user
 [2025-03-10 09:46:53] INFO: Attempting to destroy session
 [2025-03-10 09:46:53] INFO: Logout successfull
+[2025-03-10 12:45:51] INFO: 
+[2025-03-10 12:45:51] INFO: Attempting to signup with username: George123
+[2025-03-10 12:45:52] ERROR: Failed to create a user
+[2025-03-10 12:45:52] ERROR: Username is already taken, or user is to young to make an account
+[2025-03-10 12:45:52] INFO: Generates an access token
+[2025-03-10 12:45:52] INFO: Created a cookie
+[2025-03-10 12:45:52] INFO: Successfull signup: George123
+[2025-03-10 12:45:52] INFO: 
+[2025-03-10 12:45:52] INFO: Attempting to logout user
+[2025-03-10 12:45:52] INFO: Attempting to destroy session
+[2025-03-10 12:45:52] INFO: Logout successfull
+[2025-03-10 14:22:26] INFO: 
+[2025-03-10 14:22:26] INFO: Attempting to login with username: George123
+[2025-03-10 14:22:26] INFO: Generates an access token
+[2025-03-10 14:22:26] INFO: Creates a Cookie
+[2025-03-10 14:22:26] INFO: Successfull login: George123
+[2025-03-10 14:22:32] INFO: 
+[2025-03-10 14:22:32] INFO: Attempting to logout user
+[2025-03-10 14:22:32] INFO: Attempting to destroy session
+[2025-03-10 14:22:32] INFO: Logout successfull
+[2025-03-10 14:23:00] INFO: 
+[2025-03-10 14:23:00] INFO: Attempting to signup with username: snabela
+[2025-03-10 14:23:00] INFO: Generates an access token
+[2025-03-10 14:23:00] INFO: Created a cookie
+[2025-03-10 14:23:00] INFO: Successfull signup: snabela
+[2025-03-10 14:23:04] INFO: 
+[2025-03-10 14:23:04] INFO: Attempting to logout user
+[2025-03-10 14:23:04] INFO: Attempting to destroy session
+[2025-03-10 14:23:04] INFO: Logout successfull
