@@ -24,7 +24,8 @@ services:
     ports:
       - "7701:7701"
     environment:
-      - DB_URI=mongodb://mongo:27017/hotel-404
+      - DB_URI=mongodb+srv://emilfroding:asd123@scaledb.tql8n.mongodb.net/Hotel-404?retryWrites=true&w=majority&appName=ScaleDb
+
     depends_on:
       - mongo
     networks:
@@ -35,7 +36,7 @@ services:
     ports:
       - "7702:7702"
     environment:
-      - DB_URI=mongodb://mongo:27017/hotel-404
+      - DB_URI=mongodb+srv://emilfroding:asd123@scaledb.tql8n.mongodb.net/Hotel-404?retryWrites=true&w=majority&appName=ScaleDb
     depends_on:
       - mongo
     networks:
