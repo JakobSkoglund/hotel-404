@@ -54,7 +54,7 @@ export async function createBooking(hotelID: string, user: string, from_date: st
   //Also throw an error if either date is before the current time
   if(days < 0){
     throw new Error("invalid dates"); 
-  } else if(Number(date1) < timeNow || Number(date2) < timeNow){
+  } else if(Number(date1) < timeNow || Number(date2) < timeNow || Number(date2) < Number(date1)){
     throw new Error("invalid dates"); 
   }
   
