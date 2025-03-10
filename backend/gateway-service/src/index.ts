@@ -50,12 +50,6 @@ const USER_SERVICE_PORT = process.env.USER_SERVICE_PORT as string;
 const BOOKING_SERVICE_PORT = process.env.BOOKING_SERVICE_PORT as string;
 const HOTEL_SERVICE_PORT = process.env.HOTEL_SERVICE_PORT as string;
 
-// Print out the loaded variables for troubleshooting
-console.log(`mongoURI = ${mongoURI}`);
-console.log(`API_GATEWAY_PORT = ${API_GATEWAY_PORT}`);
-console.log(`USER_SERVICE_PORT = ${USER_SERVICE_PORT}`);
-console.log(`BOOKING_SERVICE_PORT = ${BOOKING_SERVICE_PORT}`);
-console.log(`HOTEL_SERVICE_PORT = ${HOTEL_SERVICE_PORT}`);
 
 // Define the microservices and their base URLs
 const services = {

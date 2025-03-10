@@ -1,0 +1,9 @@
+[2025-03-10 09:46:21] INFO: 
+[2025-03-10 09:46:21] INFO: Attempting to login with username: George123
+[2025-03-10 09:46:21] INFO: Generates an access token
+[2025-03-10 09:46:21] INFO: Creates a Cookie
+[2025-03-10 09:46:21] INFO: Successfull login: George123
+[2025-03-10 09:46:53] INFO: 
+[2025-03-10 09:46:53] INFO: Attempting to logout user
+[2025-03-10 09:46:53] INFO: Attempting to destroy session
+[2025-03-10 09:46:53] INFO: Logout successfull

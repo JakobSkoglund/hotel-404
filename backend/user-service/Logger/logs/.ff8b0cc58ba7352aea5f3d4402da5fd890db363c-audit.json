@@ -6,9 +6,9 @@
     "auditLog": "/Users/jakobskoglund/Skalbara_System/hotel-404/backend/user-service/Logger/logs/.ff8b0cc58ba7352aea5f3d4402da5fd890db363c-audit.json",
     "files": [
         {
-            "date": 1741079339971,
-            "name": "/Users/jakobskoglund/Skalbara_System/hotel-404/backend/user-service/Logger/logs/app-2025-03-04.log",
-            "hash": "9e77be9795e10b465e7a1c8aa0eb59412d728fa18053a97b64340d8328499e03"
+            "date": 1741596355656,
+            "name": "/Users/jakobskoglund/Skalbara_System/hotel-404/backend/user-service/Logger/logs/app-2025-03-10.log",
+            "hash": "984d1c6796803d233aa75c68f249b93fde82d20b5c3ba293c78e0a962944e5b9"
         }
     ],
     "hashType": "sha256"
