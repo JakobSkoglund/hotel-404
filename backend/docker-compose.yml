@@ -1,4 +1,3 @@
-
 services:
   mongo:
     image: mongo:latest
@@ -17,7 +16,6 @@ services:
     depends_on:
       - user-service
       - booking-service
-      - hotel-service
     networks:
       - microservices-network
 
@@ -36,17 +34,6 @@ services:
     build: ./booking-service
     ports:
       - "7702:7702"
-    environment:
-      - DB_URI=mongodb://mongo:27017/hotel-404
-    depends_on:
-      - mongo
-    networks:
-      - microservices-network
-
-  hotel-service:
-    build: ./hotel-service
-    ports:
-      - "7703:7703"
     environment:
       - DB_URI=mongodb://mongo:27017/hotel-404
     depends_on:
