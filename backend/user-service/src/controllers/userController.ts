@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { User } from "../models/User";
 import { generateAccessToken } from "../services/tokenService";
 import axios from "axios";
+import { logger } from "../../Logger/logger";
 
 
 // Login for a user
@@ -9,14 +10,19 @@ export const login = async (req: Request, res: Response) => {
     const {username, password} = req.body; 
      
     try {
+        
         // call function that checks if user&password is in database
+        logger.info(""); 
+        logger.info(`Attempting to login with username: ${username}`);
         const validUser = await AuthLogin(username, password);    
 
         // Generate JWT token
+        logger.info("Generates an access token"); 
         const accessToken = generateAccessToken({ username });
 
-
+        
          // Set token as HTTP-only cookie
+        logger.info("Creates a Cookie"); 
         res.cookie("token", accessToken, { httpOnly: true, secure: process.env.NODE_ENV === "production" });
 
         // Store session info
@@ -25,9 +31,11 @@ export const login = async (req: Request, res: Response) => {
 
         
         // Send sucesscode response
+        logger.info(`Successfull login: ${username}`); 
         return res.status(201).json({message: "Login successful"});
     }
     catch (error) {
+        logger.error("Failed to login: ", error); 
         res.status(400).send(error)
     }
     
@@ -41,12 +49,16 @@ export const signup = async (req: Request, res: Response) => {
  */
     try {
         // try to create a new User
+        logger.info("");
+        logger.info(`Attempting to signup with username: ${username}`);
         const createUser = await newUser(name, lastname, username, age, password, isAdmin);
         
         // Generate JWT token
+        logger.info("Generates an access token"); 
         const accessToken = generateAccessToken({ username });
         
         // Set token as HTTP-only cookie
+        logger.info("Created a cookie"); 
         res.cookie("token", accessToken, { httpOnly: true, secure: process.env.NODE_ENV === "production" });
         
         // Store session info
@@ -54,10 +66,12 @@ export const signup = async (req: Request, res: Response) => {
         req.session.username = username;
                 
         // Send sucess code response
+        logger.info(`Successfull signup: ${username}`); 
         return res.status(201).json({message: "User Successfully created!"});
     }
 
     catch (error) {
+        logger.error(`Failed to singup: ${error}`); 
         return res.status(400).json({ message: "Could not create an account" });
     }
 }
@@ -68,33 +82,41 @@ export const deleteUser = async (req: Request, res: Response) => {
     {
         // Extract username from request body
         const { username } = req.body;
-        
+        logger.info(""); 
+        logger.info(`Attempting to delete user with username: ${username}`); 
         // if UserId is not sent/recieved
         if (!username) {
+            logger.error("User name is required"); 
             return res.status(400).json({ error: "User name is required" });
         }
 
         // Find the user, delete the users bookings and then delete the user
+        logger.info("Fetching the user to be deleted"); 
         const user  = await User.findOne({username: username});
 
         if (!user) {
+            logger.error("User not found"); 
             return res.status(404).json({ error: "User not found" });
         }
 
         // API-call to bookking-service, try to delete all the users bookings
+        logger.info("Deleting all the bookings of the user"); 
         const response = await axios.delete(`http://localhost:7700/api/booking/deleteBookings/${username}`);
         if (response.status != 200) {
+            logger.error(`Failed to delete all the bookings: ${response.status}`); 
             throw Error;
         } 
 
         await User.deleteOne({username: username});
 
         // respond with sucessmessage
+        logger.info(`Successfully deleted the user: ${username}`); 
         return res.status(200).json({ message: "User deleted successfully" });
 
     }
     catch (error)
     {
+        logger.error(`Internal server error: ${error}`); 
         return res.status(500).json({ error: "Internal server error" });
     }
 }
@@ -102,15 +124,21 @@ export const deleteUser = async (req: Request, res: Response) => {
 // Function that handles logout
 export const logout = async (req: Request, res: Response) => {
     try {
+        logger.info(""); 
+        logger.info(`Attempting to logout user`);
+        logger.info("Attempting to destroy session"); 
         req.session.destroy((err) => {
             if (err) {
-                console.error(err);
+                logger.error(err); 
+                logger.error("Logout failed, failed to destroy session"); 
                 return res.status(500).json({ message: "Logout failed" });
             }
+            logger.info("Logout successfull"); 
             res.clearCookie("token"); // Clear JWT token
             return res.status(200).json({message: "Logout success"});
         });
     } catch (error) {
+        logger.error("Failed to logout")
         res.sendStatus(400);
     }
 };
@@ -161,14 +189,7 @@ export async function AuthLogin(username: string, password:string)
     // If error then throw error
     catch (error)
     {
-        if(error instanceof Error) {
-            console.error('Nånting', error.message)
-        }
-        else 
-        {
-            console.error('annat', error)
-        }
-        throw error;
+        logger.info("Failed to find a user in the database"); 
     }
 
 }
@@ -188,7 +209,7 @@ const checkAge = (age: number) => age >= 18;
 
 //Function för att hantera en ny användare
 export async function newUser(name:string, lastname:string, username:string, age: number, password: string, isAdmin: boolean) {
-    
+    try{
         const firstCheck = await usernameCheck(username);
         const secondCheck = checkAge(age);
 
@@ -200,7 +221,6 @@ export async function newUser(name:string, lastname:string, username:string, age
         {
             throw new Error('You are too young to make an account');
         }
-
         User.create({
             name: name,
             lastname: lastname,
@@ -210,8 +230,10 @@ export async function newUser(name:string, lastname:string, username:string, age
             age: age
 
         })
-
-        console.log("User Successfully created!");
-    
+    }
+    catch(error){
+        logger.error("Failed to create a user")
+        logger.error("Username is already taken, or user is to young to make an account"); 
+    }
 
 }
