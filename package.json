@@ -29,7 +29,9 @@
     "start:hotel": "cross-env NODE_ENV=development dotenv -e backend/hotel-service/.env -- nodemon --exec npx tsx backend/hotel-service/src/index.ts",
     "start:booking": "cross-env NODE_ENV=development dotenv -e backend/booking-service/.env -- nodemon --exec npx tsx backend/booking-service/src/index.ts",
     "start:gateway": "cross-env NODE_ENV=development dotenv -e backend/gateway-service/.env -- nodemon --exec npx tsx backend/gateway-service/src/index.ts",
-    "start:backend": "concurrently \"npm run start:user\" \"npm run start:hotel\" \"npm run start:booking\" \"npm run start:gateway\""
+    "start:backend": "concurrently \"npm run start:user\" \"npm run start:hotel\" \"npm run start:booking\" \"npm run start:gateway\"",
+    "start:backend:partial": "concurrently \"npm run start:user\" \"npm run start:booking\" \"npm run start:gateway\""
+
   },
   "eslintConfig": {
     "extends": [

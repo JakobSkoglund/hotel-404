@@ -55,7 +55,7 @@ const HOTEL_SERVICE_PORT = process.env.HOTEL_SERVICE_PORT as string;
 const services = {
   'user-service'    : `http://localhost:${USER_SERVICE_PORT}`,
   'booking-service' : `http://localhost:${BOOKING_SERVICE_PORT}`,
-  'hotel-service'   : `http://localhost:${HOTEL_SERVICE_PORT}`
+  'hotel-service'   : `http://9.223.157.203:${HOTEL_SERVICE_PORT}`
 };
 
 
@@ -76,7 +76,7 @@ const services = {
 
 
 
-app.options('/api/user/*', (req, res) => {
+app.options('*', (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');

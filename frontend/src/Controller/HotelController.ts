@@ -3,6 +3,7 @@ import axios from "axios";
 
 
 
+
 export async function getHotelInfo(){
   const hotels = await axios.get("http://localhost:7700/api/hotels/all");
   const formattedHotels = hotels.data.map((hotel: any) => {

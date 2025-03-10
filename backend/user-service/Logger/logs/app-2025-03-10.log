@@ -7,3 +7,58 @@
 [2025-03-10 09:46:53] INFO: Attempting to logout user
 [2025-03-10 09:46:53] INFO: Attempting to destroy session
 [2025-03-10 09:46:53] INFO: Logout successfull
+[2025-03-10 11:04:34] INFO: 
+[2025-03-10 11:04:34] INFO: Attempting to login with username: beew
+[2025-03-10 11:04:34] INFO: Generates an access token
+[2025-03-10 11:04:34] INFO: Creates a Cookie
+[2025-03-10 11:04:34] INFO: Successfull login: beew
+[2025-03-10 11:07:46] INFO: 
+[2025-03-10 11:07:46] INFO: Attempting to logout user
+[2025-03-10 11:07:46] INFO: Attempting to destroy session
+[2025-03-10 11:07:46] INFO: Logout successfull
+[2025-03-10 11:07:48] INFO: 
+[2025-03-10 11:07:48] INFO: Attempting to login with username: beew
+[2025-03-10 11:07:48] INFO: Generates an access token
+[2025-03-10 11:07:48] INFO: Creates a Cookie
+[2025-03-10 11:07:48] INFO: Successfull login: beew
+[2025-03-10 11:09:02] INFO: 
+[2025-03-10 11:09:02] INFO: Attempting to logout user
+[2025-03-10 11:09:02] INFO: Attempting to destroy session
+[2025-03-10 11:09:02] INFO: Logout successfull
+[2025-03-10 11:09:03] INFO: 
+[2025-03-10 11:09:03] INFO: Attempting to login with username: beew
+[2025-03-10 11:09:03] INFO: Generates an access token
+[2025-03-10 11:09:03] INFO: Creates a Cookie
+[2025-03-10 11:09:03] INFO: Successfull login: beew
+[2025-03-10 11:11:20] INFO: 
+[2025-03-10 11:11:20] INFO: Attempting to logout user
+[2025-03-10 11:11:20] INFO: Attempting to destroy session
+[2025-03-10 11:11:20] INFO: Logout successfull
+[2025-03-10 11:11:23] INFO: 
+[2025-03-10 11:11:23] INFO: Attempting to login with username: beew
+[2025-03-10 11:11:23] INFO: Generates an access token
+[2025-03-10 11:11:23] INFO: Creates a Cookie
+[2025-03-10 11:11:23] INFO: Successfull login: beew
+[2025-03-10 11:27:25] INFO: 
+[2025-03-10 11:27:25] INFO: Attempting to logout user
+[2025-03-10 11:27:25] INFO: Attempting to destroy session
+[2025-03-10 11:27:25] INFO: Logout successfull
+[2025-03-10 11:27:26] INFO: 
+[2025-03-10 11:27:26] INFO: Attempting to login with username: beew
+[2025-03-10 11:27:26] INFO: Generates an access token
+[2025-03-10 11:27:26] INFO: Creates a Cookie
+[2025-03-10 11:27:26] INFO: Successfull login: beew
+[2025-03-10 14:57:40] INFO: 
+[2025-03-10 14:57:40] INFO: Attempting to login with username: beew
+[2025-03-10 14:57:40] INFO: Generates an access token
+[2025-03-10 14:57:40] INFO: Creates a Cookie
+[2025-03-10 14:57:40] INFO: Successfull login: beew
+[2025-03-10 15:09:43] INFO: 
+[2025-03-10 15:09:43] INFO: Attempting to logout user
+[2025-03-10 15:09:43] INFO: Attempting to destroy session
+[2025-03-10 15:09:43] INFO: Logout successfull
+[2025-03-10 15:09:45] INFO: 
+[2025-03-10 15:09:45] INFO: Attempting to login with username: beew
+[2025-03-10 15:09:45] INFO: Generates an access token
+[2025-03-10 15:09:45] INFO: Creates a Cookie
+[2025-03-10 15:09:45] INFO: Successfull login: beew

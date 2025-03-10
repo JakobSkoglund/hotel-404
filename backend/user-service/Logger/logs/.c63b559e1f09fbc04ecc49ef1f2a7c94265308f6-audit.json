@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 3
+    },
+    "auditLog": "C:\\Users\\Besan\\Desktop\\Hotel\\hotel-404\\backend\\user-service\\Logger\\logs\\.c63b559e1f09fbc04ecc49ef1f2a7c94265308f6-audit.json",
+    "files": [
+        {
+            "date": 1741600931505,
+            "name": "C:\\Users\\Besan\\Desktop\\Hotel\\hotel-404\\backend\\user-service\\Logger\\logs\\app-2025-03-10.log",
+            "hash": "3e18e0a9634aeebd3be19c8de12717191cfe3b0d225bf26982d9061702b03d4d"
+        }
+    ],
+    "hashType": "sha256"
+}
