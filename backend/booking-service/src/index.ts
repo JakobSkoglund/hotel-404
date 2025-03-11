@@ -56,3 +56,6 @@ app.use("/api/booking", bookingRouter);
 app.listen(BOOKING_SERVICE_PORT, () => {
   console.log(`Booking-Service is Listening on port ${BOOKING_SERVICE_PORT}`); 
 }); 
+
+
+export {app};

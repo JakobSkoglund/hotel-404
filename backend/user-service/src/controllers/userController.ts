@@ -82,9 +82,9 @@ export const deleteUser = async (req: Request, res: Response) => {
     {
         // Extract username from request body
         const { username } = req.body;
+        // if UserId is not sent/recieved
         logger.info(""); 
         logger.info(`Attempting to delete user with username: ${username}`); 
-        // if UserId is not sent/recieved
         if (!username) {
             logger.error("User name is required"); 
             return res.status(400).json({ error: "User name is required" });
@@ -101,7 +101,7 @@ export const deleteUser = async (req: Request, res: Response) => {
 
         // API-call to bookking-service, try to delete all the users bookings
         logger.info("Deleting all the bookings of the user"); 
-        const response = await axios.delete(`http://localhost:7700/api/booking/deleteBookings/${username}`);
+        const response = await axios.delete(`http://api-gateway:7700/api/booking/deleteBookings/${username}`);
         if (response.status != 200) {
             logger.error(`Failed to delete all the bookings: ${response.status}`); 
             throw Error;
