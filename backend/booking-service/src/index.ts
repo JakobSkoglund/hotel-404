@@ -53,10 +53,9 @@ app.use((req, res, next) => {
 app.use("/api/booking", bookingRouter);
 
 // Start server
-if (process.env.NODE_ENV !== 'test') {
-  app.listen(BOOKING_SERVICE_PORT, () => {
-    console.log(`Booking-Service is Listening on port ${BOOKING_SERVICE_PORT}`); 
-  }); 
-}
+app.listen(BOOKING_SERVICE_PORT, () => {
+  console.log(`Booking-Service is Listening on port ${BOOKING_SERVICE_PORT}`); 
+}); 
+
 
 export {app};
