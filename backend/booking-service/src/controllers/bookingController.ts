@@ -37,7 +37,9 @@ export async function createBooking(hotelID: string, user: string, from_date: st
   let hotelPrice = 0;  // Default value for price
 
   // Api call that get hotelData
-  const response = await axios.get(`http://9.223.157.203:7703/api/hotels/hotelDetails`, {
+
+
+  const response = await axios.get(`http://api-gateway:7700/api/hotels/hotelDetails`, {
     params: { hotelId : hotelID }
   });
 
@@ -54,7 +56,7 @@ export async function createBooking(hotelID: string, user: string, from_date: st
   //Also throw an error if either date is before the current time
   if(days < 0){
     throw new Error("invalid dates"); 
-  } else if(Number(date1) < timeNow || Number(date2) < timeNow){
+  } else if(Number(date1) < timeNow || Number(date2) < timeNow || Number(date2) < Number(date1)){
     throw new Error("invalid dates"); 
   }
   
@@ -84,7 +86,8 @@ export async function getBookingForUser(username: string) {
   let hotelPrice = 0;  // Default value for price
 
   // Api call that get hotelData
-  const response = await axios.get(`http://9.223.157.203:7703/api/hotels/hotelDetails`, {
+
+  const response = await axios.get(`http://api-gateway:7700/api/hotels/hotelDetails`, {
     params: { hotelId : booking.hotel }
   });
 
